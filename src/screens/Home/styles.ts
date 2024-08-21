@@ -3,9 +3,10 @@ import { Colors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flex: 1,
-        justifyContent: "center",
+        // display: "flex",
+        // flex: 1,
+        // justifyContent: "center",
+        width: "100%",
         backgroundColor: Colors.background.primary,
     },
     input: {
