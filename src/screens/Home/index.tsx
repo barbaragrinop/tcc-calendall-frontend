@@ -5,12 +5,22 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	FlatList,
+	Alert,
 } from "react-native";
 import { styles } from "./styles";
 
 export default function Home() {
 	function handleUserClick() {
-		console.log("Clicou no botão");
+		return Alert.alert("Clicou no botão", "Você clicou?", [
+			{
+				text: "Não",
+				onPress: () => console.log("Clicou em não"),
+			},
+			{
+				text: "Sim",
+				onPress: () => console.log("Clicou em sim"),
+			}
+		])
 	}
 
 	// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
