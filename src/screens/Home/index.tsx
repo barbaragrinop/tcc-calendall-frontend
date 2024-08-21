@@ -13,7 +13,8 @@ export default function Home() {
 		console.log("Clicou no botão");
 	}
 
-	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+	// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+	const arr: number[] = [];
 
 	return (
 		<View style={styles.container}>
@@ -35,6 +36,8 @@ export default function Home() {
 						key={item}
 					/>
 				)}
+				showsVerticalScrollIndicator={false} // hide scroll bar
+				ListEmptyComponent={<Text>Não há itens</Text>}
 			/>
 			{/* <ScrollView>
 				{arr.map((item) => (
