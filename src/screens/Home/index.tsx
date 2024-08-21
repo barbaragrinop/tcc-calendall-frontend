@@ -50,7 +50,16 @@ export default function Home() {
 					/>
 				))}
 			</ScrollView> */}
-
+			{/* difference between flatlist and scrollview
+				FlatList:
+				- Better performance for long lists
+				- Only renders the items that are visible on the screen
+				ScrollView:
+				- Renders all the items at once
+				- Bad performance for long lists
+				- Use only for small lists
+				- Use only for a small number of items
+			*/}
 			<TouchableOpacity onPress={handleUserClick}>
 				<Text>Clique aqui</Text>
 			</TouchableOpacity>
