@@ -1,11 +1,14 @@
-import { StatusBar } from "react-native";
+import { StatusBar, SafeAreaView } from "react-native";
 import Home from "./src/screens/Home";
 
 export default function App() {
 	return (
-		<>
-			<StatusBar barStyle={"light-content"}  />
+		<SafeAreaView>
+			<StatusBar barStyle={"dark-content"}
+				translucent={true}
+				backgroundColor={"transparent"}
+			/>
 			<Home />
-		</>
+		</SafeAreaView>
 	);
 }

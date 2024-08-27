@@ -1,21 +1,22 @@
-import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
+import styled from "styled-components/native";
 
-export const styles = StyleSheet.create({
-    container: {
-        // display: "flex",
-        // flex: 1,
-        // justifyContent: "center",
-        width: "100%",
-        backgroundColor: Colors.background.primary,
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        color: "",
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 10, 
-        backgroundColor: "white",
-    }
-})
+const Container = styled.View`
+    width: 100%;
+    background-color: ${Colors.background.primary};
+`
+
+const Input = styled.TextInput`
+    height: 40px;
+    margin: 12px;
+    color: "";
+    border-width: 1px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+`
+
+export const style = {
+   Container, 
+   Input
+}
