@@ -31,6 +31,7 @@ export const Background = styled.View`
     bottom: 0;
     top: 12%;
     border-top-left-radius: 100px;
+
 `;
 
 export const TextContainer = styled.View`
@@ -81,5 +82,52 @@ export const Title = styled.Text`
 `
 
 export const Form = styled.View`
-
+    padding: 20px;
 `
+
+export const EsqueceuSenha = styled.Text`
+    color: white;
+    font-size: 15px;
+    font-weight: 300;
+    text-align: right;
+    margin-right: 20px;
+`
+
+export const Button = styled.TouchableOpacity`
+    background-color: ${COLORS.BLUE_TERTIARY};
+    padding: 10px;
+    margin: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
+    align-items: center;
+`
+
+export const ButtonText = styled.Text`
+    color: white;
+    font-size: 17px;
+    font-weight: 200;
+`
+
+export const CadastroContainer = styled.View`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+`
+
+export const TextCadastro = styled.Text`    
+    color: white;
+    font-size: 15px;
+    font-weight: 200;
+    text-align: center;
+`
+
+export const CadastreSeLink = styled.Text`
+    font-size: 30px;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    color: white;
+` 
