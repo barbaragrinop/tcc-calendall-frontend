@@ -2,8 +2,22 @@ import * as S from "./styles";
 import { LogoText } from "../../components/Logo/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export default function Home() {
+interface RootParamList {
+    Login: undefined;
+    RecoverPassword: undefined;
+    RegisterUser: undefined;
+}
+
+type Props = {
+    navigation: NativeStackNavigationProp<RootParamList, "Login">;
+}
+
+export function Login({ navigation }: Props) {
+    // const navigation = useNavigation();
+
     return (
         <S.Container>
             <S.Background>
@@ -31,12 +45,14 @@ export default function Home() {
                 </S.Form>
                 <S.CadastroContainer>
                     <S.TextCadastro>ainda não é cadastrado?</S.TextCadastro>
-                    <S.CadastreSeLink>
+                    <S.CadastreSeLink
+                        onPress={() => navigation.navigate("RegisterUser")}
+                    >
                         cadastre-se
-                        <FontAwesomeIcon icon={faArrowRight} style={{
-							color: "#fff"
-
-						}}/>
+                        <FontAwesomeIcon
+                            icon={faArrowRight}
+                            style={{ color: "#fff" }}
+                        />
                     </S.CadastreSeLink>
                 </S.CadastroContainer>
             </S.Background>
