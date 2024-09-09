@@ -38,7 +38,10 @@ export function Login({ navigation }: Props) {
                     <S.Title>Entre com a sua conta</S.Title>
                     <S.Input placeholder="Digite seu email" />
                     <S.Input placeholder="Digite sua senha" />
-                    <S.EsqueceuSenha>Esqueceu sua senha?</S.EsqueceuSenha>
+                    <S.EsqueceuSenha
+                        onPress={() => navigation.navigate("RecoverPassword")}>
+                        Esqueceu sua senha?
+                    </S.EsqueceuSenha>
                     <S.Button>
                         <S.ButtonText>entrar</S.ButtonText>
                     </S.Button>

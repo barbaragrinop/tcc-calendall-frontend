@@ -10,9 +10,27 @@ export function AppRoutes() {
     return (
         <NavigationContainer>
             <Navigator>
-                <Screen name="Login" component={Login} />
-                <Screen name="RecoverPassword" component={RecoverPassword} />
-                <Screen name="RegisterUser" component={RegisterUser} />
+                <Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Screen
+                    name="RecoverPassword"
+                    component={RecoverPassword}
+                    options={{
+                        title: "Recuperar senha"
+                    }}
+                />
+                <Screen
+                    name="RegisterUser"
+                    component={RegisterUser}
+                    options={{
+                        title: "Cadastrar usuário"
+                    }}
+                />
             </Navigator>
         </NavigationContainer>
     );
