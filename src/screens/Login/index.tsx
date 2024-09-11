@@ -5,7 +5,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-interface RootParamList {
+type RootParamList = {
     Login: undefined;
     RecoverPassword: undefined;
     RegisterUser: undefined;
@@ -14,6 +14,7 @@ interface RootParamList {
 type Props = {
     navigation: NativeStackNavigationProp<RootParamList, "Login">;
 }
+
 
 export function Login({ navigation }: Props) {
     // const navigation = useNavigation();
