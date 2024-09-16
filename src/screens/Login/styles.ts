@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { COLORS } from "../../constants/Colors";
-import { Input } from "../../components/Input";
+import { Input } from "../../components";
 
 export const Container = styled.SafeAreaView`
     width: 100%;
@@ -75,6 +75,7 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
     padding: 20px;
+    gap: 10px;
 `;
 
 export const EsqueceuSenha = styled.Text`

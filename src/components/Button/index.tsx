@@ -6,7 +6,7 @@ type Props = TouchableOpacityProps & {
     color: "dark" | "light";
 };
 
-export function Button({ color, title, ...props }: Props) {
+export default function Button({ color, title, ...props }: Props) {
     return (
         <S.Button $type={color} {...props}>
             <S.Text $type={color}>{title}</S.Text>

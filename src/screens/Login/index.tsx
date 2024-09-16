@@ -1,10 +1,9 @@
 import * as S from "./styles";
-import { LogoText } from "../../components/Logo/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Input } from "../../components/Input";
+import { Input, LogoText } from "../../components";
 
 type RootParamList = {
     Login: undefined;
@@ -36,8 +35,8 @@ export function Login({ navigation }: Props) {
                 <S.HR />
                 <S.Form>
                     <S.Title>Entre com a sua conta</S.Title>
-                    <S.InputComponent label="e-mail" placeholder="Digite seu email" />
-                    <S.InputComponent label="senha" placeholder="**********" />
+                    <Input label="e-mail" placeholder="Digite seu email" />
+                    <Input label="senha" placeholder="**********" />
                     <S.EsqueceuSenha
                         onPress={() => navigation.navigate("RecoverPassword")}>
                         Esqueceu sua senha?

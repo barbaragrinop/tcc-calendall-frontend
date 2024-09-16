@@ -1,11 +1,7 @@
 import * as S from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { Input } from "../../components/Input";
-import { Header } from "../../components/Header";
 import { Text } from "react-native";
-import { RequiredSymbol } from "../../components/RequiredSymbol";
-import { Button } from "../../components/Button";
-
+import { Button, Header, Input, RequiredSymbol } from "../../components";
 export function RegisterUser() {
     const navigation = useNavigation();
 

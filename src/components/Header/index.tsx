@@ -8,7 +8,7 @@ type Props = {
     title: string
 }
 
-export function Header({ title, backIcon = true }: Props) {
+export default function Header({ title, backIcon = true }: Props) {
     return (
         <S.Header>
             {backIcon && (
