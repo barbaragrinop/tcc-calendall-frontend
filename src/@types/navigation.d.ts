@@ -6,7 +6,9 @@ export declare global {
             RegisterUser: undefined;
             TermsOfUse: undefined;
             PrivacyPolicy: undefined;
-            CodeConfirmation: undefined;
+            CodeConfirmation: {
+                email: string;
+            };
             ChangePassword: undefined;
         }
     }

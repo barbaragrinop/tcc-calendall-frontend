@@ -1,28 +1,42 @@
 import React from "react";
 import * as S from "./style";
 
-import { Button, Header, Input } from "../../../components";
-import { useNavigation } from "@react-navigation/native";
+import { Text } from "react-native";
+import { Button, Header, Input, RequiredSymbol } from "../../../components";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+type RouteParams = {
+    email: string;
+};
 
 export function ChangePassword() {
     const navigation = useNavigation();
 
     return (
         <S.Container>
-            <Header title="Recuperar Senha" />
+            <Header title="Recuperação de Senha" />
             <S.Form>
-                <S.FormTitle>
-                    Digite o seu e-mail para enviarmos o código de recuperação.
-                </S.FormTitle>
+                <S.FormTitle>Digite sua nova senha</S.FormTitle>
                 <S.FieldForms>
-                    <Input label="e-mail" required />
+                    <Input
+                        label="senha"
+                        required
+                    />
+                    <Input
+                        label="confirmação de senha"
+                        required
+                    />
                     <S.ButtonSpace>
+                        <Button
+                            title="alterar"
+                            color="dark"
+                            onPress={() => navigation.navigate("Login")}
+                        />
                         <Button
                             title="cancelar"
                             color="light"
-                            onPress={() => navigation.goBack()}
+                            onPress={() => navigation.navigate("Login")}
                         />
-                        <Button title="cadastrar" color="dark" />
                     </S.ButtonSpace>
                 </S.FieldForms>
             </S.Form>

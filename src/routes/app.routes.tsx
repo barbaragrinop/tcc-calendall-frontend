@@ -49,8 +49,20 @@ export function AppRoutes() {
                         headerShown: false,
                     }}
                 />
-                <Screen name="CodeConfirmation" component={CodeConfirmation} />
-                <Screen name="ChangePassword" component={ChangePassword} />
+                <Screen
+                    name="CodeConfirmation"
+                    component={CodeConfirmation}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Screen
+                    name="ChangePassword"
+                    component={ChangePassword}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
             </Navigator>
         </NavigationContainer>
     );

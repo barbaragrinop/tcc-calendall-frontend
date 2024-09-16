@@ -5,15 +5,21 @@ import RequiredSymbol from "../RequiredSymbol";
 type Props = TextInputProps & {
     required?: boolean;
     label: string;
+    isDisabled?: boolean;
 };
 
-export default function Input({ label, required = false, ...props }: Props) {
+export default function Input({
+    label,
+    required = false,
+    isDisabled = false,
+    ...props
+}: Props) {
     return (
         <S.Container>
             <S.Label>
                 {required && <RequiredSymbol />} {label}
             </S.Label>
-            <S.TextInput {...props} />
+            <S.TextInput isDisabled={isDisabled} {...props} />
         </S.Container>
     );
 }

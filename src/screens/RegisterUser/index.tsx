@@ -51,7 +51,11 @@ export function RegisterUser() {
                         color="light"
                         onPress={() => navigation.goBack()}
                     />
-                    <Button title="cadastrar" color="dark" />
+                    <Button
+                        title="cadastrar"
+                        color="dark"
+                        onPress={() => navigation.navigate("Login")}
+                    />
                 </S.ButtonSpace>
             </S.Form>
         </S.Container>

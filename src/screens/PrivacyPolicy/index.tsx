@@ -1,11 +1,11 @@
 import * as S from "./style";
 
-import { Header } from "../../components/Header";
+import { Header } from "../../components";
 
 export function PrivacyPolicy() {
     return (
         <S.Container>
-            <Header title="Política de Pricidade" />
+            <Header title="Política de Privacidade" />
             <S.Policy>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Molestiae maxime eos voluptatem reiciendis ipsam modi,

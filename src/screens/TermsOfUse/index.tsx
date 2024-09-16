@@ -1,6 +1,6 @@
 import * as S from "./style";
 
-import { Header } from "../../components/Header";
+import { Header } from "../../components";
 
 export function TermsOfUse() {
     return (
