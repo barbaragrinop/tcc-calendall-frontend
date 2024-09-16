@@ -4,8 +4,10 @@ export declare global {
             Login: undefined;
             RecoverPassword: undefined;
             RegisterUser: undefined;
-            TermsOfUse: undefined
-            PrivacyPolicy: undefined
+            TermsOfUse: undefined;
+            PrivacyPolicy: undefined;
+            CodeConfirmation: undefined;
+            ChangePassword: undefined;
         }
     }
 }

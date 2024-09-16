@@ -1,11 +1,10 @@
 import React from "react";
 import * as S from "./style";
 
-import { Text } from "react-native";
-import { Button, Header, Input, RequiredSymbol } from "../../components";
+import { Button, Header, Input } from "../../../components";
 import { useNavigation } from "@react-navigation/native";
 
-export function RecoverPassword() {
+export function ChangePassword() {
     const navigation = useNavigation();
 
     return (
