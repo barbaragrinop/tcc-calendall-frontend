@@ -4,6 +4,7 @@ import { Input } from "../../components/Input";
 import { Header } from "../../components/Header";
 import { Text } from "react-native";
 import { RequiredSymbol } from "../../components/RequiredSymbol";
+import { Button } from "../../components/Button";
 
 export function RegisterUser() {
     const navigation = useNavigation();
@@ -48,12 +49,14 @@ export function RegisterUser() {
                         Políticas de Privacidade
                     </Text>
                 </S.RequiredText>
-                <S.Button>
-                    <S.ButtonText>entrar</S.ButtonText>
-                </S.Button>
-                <S.Button>
-                    <S.ButtonText>entrar</S.ButtonText>
-                </S.Button>
+                <S.ButtonSpace>
+                    <Button
+                        title="cancelar"
+                        color="light"
+                        onPress={() => navigation.goBack()}
+                    />
+                    <Button title="cadastrar" color="dark" />
+                </S.ButtonSpace>
             </S.Form>
         </S.Container>
     );

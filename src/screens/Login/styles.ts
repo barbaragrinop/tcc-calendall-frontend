@@ -8,8 +8,7 @@ export const Container = styled.SafeAreaView`
     height: 100%;
     position: relative;
     padding-top: 100px;
-`
-
+`;
 
 export const LogoContainer = styled.View`
     align-items: center;
@@ -25,7 +24,6 @@ export const Background = styled.View`
     top: 12%;
     border-top-left-radius: 100px;
     margin-top: 60px;
-    
 `;
 
 export const TextContainer = styled.View`
@@ -88,8 +86,7 @@ export const EsqueceuSenha = styled.Text`
 
 export const InputComponent = styled(Input)`
     margin-bottom: 20px;
-
-`
+`;
 
 export const Button = styled.TouchableOpacity`
     background-color: ${COLORS.BLUE_TERTIARY};

@@ -55,5 +55,10 @@ export const RequiredText = styled.Text`
     margin-bottom: 10px;
     text-align: center;
     font-weight: 500;
+`;
 
-`
+export const ButtonSpace = styled.View`
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+`;

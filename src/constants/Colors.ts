@@ -1,15 +1,17 @@
 export const COLORS =  {
     BLUE_PRIMARY: "#6497B2", 
     BLUE_SECONDARY: "#015B97",
+    BLUE_LIGHT: "#B2CDE0",
     BLUE_TERTIARY: "#001F4B",
-    RED: "#F33131"
+    BLUE_DARK1: "#04396D",
+    RED: "#F33131", 
+    WHITE: "#FFFFFF"
     // GREY_1: "#F7F7F7",
     // GREY_2: #4D4C4C,
     // PURPLE_1: "#2C2C44",
     // PURPLE_2: "#2C2C44",
     // PURPLE_3: "#2C2C44",
     // background: #015B97;
-    // background: #04396D;
     // BLUE_1: "#2C2C44",
     // BLUE_2: "#2C2C44",
     // BLUE_3: "#2C2C44",
