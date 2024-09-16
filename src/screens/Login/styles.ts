@@ -1,22 +1,15 @@
 import styled from "styled-components/native";
 import { COLORS } from "../../constants/Colors";
+import { Input } from "../../components/Input";
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     width: 100%;
-    background-color: ${COLORS.BLUE_PRIMARY}; /* Cor azul claro */
+    background-color: ${COLORS.BLUE_PRIMARY};
     height: 100%;
     position: relative;
-`;
+    padding-top: 100px;
+`
 
-export const Input = styled.TextInput`
-    height: 40px;
-    margin: 12px;
-    color: black;
-    border-width: 1px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: white;
-`;
 
 export const LogoContainer = styled.View`
     align-items: center;
@@ -31,7 +24,8 @@ export const Background = styled.View`
     bottom: 0;
     top: 12%;
     border-top-left-radius: 100px;
-
+    margin-top: 60px;
+    
 `;
 
 export const TextContainer = styled.View`
@@ -44,7 +38,7 @@ export const TextContainer = styled.View`
     padding: 20px;
 `;
 
-export const ImageLogo = styled.Image``
+export const ImageLogo = styled.Image``;
 
 export const TextTop = styled.Text`
     margin-bottom: -20px;
@@ -63,34 +57,38 @@ export const Header = styled.View`
     top: -9%;
     display: flex;
     justify-content: center;
-`
+`;
 
 export const HR = styled.View`
     border-bottom-color: #fff;
     width: 60%;
     border-bottom-width: 1px;
     margin: 0 auto;
-    margin-top: -30px ;
-    margin-bottom: 20px;
-`
+    margin-top: -30px;
+`;
 export const Title = styled.Text`
     color: white;
     font-size: 20px;
     font-weight: bold;
-    margin: 10px;
+    margin-bottom: 50px;
+    text-align: center;
     font-family: "Acme";
-`
+`;
 
 export const Form = styled.View`
     padding: 20px;
-`
+`;
 
 export const EsqueceuSenha = styled.Text`
     color: white;
     font-size: 15px;
     font-weight: 300;
     text-align: right;
-    margin-right: 20px;
+`;
+
+export const InputComponent = styled(Input)`
+    margin-bottom: 20px;
+
 `
 
 export const Button = styled.TouchableOpacity`
@@ -100,13 +98,13 @@ export const Button = styled.TouchableOpacity`
     margin-top: 30px;
     border-radius: 10px;
     align-items: center;
-`
+`;
 
 export const ButtonText = styled.Text`
     color: white;
     font-size: 17px;
     font-weight: 200;
-`
+`;
 
 export const CadastroContainer = styled.View`
     display: flex;
@@ -114,20 +112,20 @@ export const CadastroContainer = styled.View`
     align-items: center;
     margin-top: 20px;
     padding: 20px;
-`
+`;
 
-export const TextCadastro = styled.Text`    
+export const TextCadastro = styled.Text`
     color: white;
     font-size: 15px;
     font-weight: 200;
     text-align: center;
-`
+`;
 
 export const CadastreSeLink = styled.Text`
     font-size: 30px;
     font-weight: 200;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     color: white;
-` 
+`;

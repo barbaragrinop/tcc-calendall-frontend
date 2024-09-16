@@ -1,49 +1,60 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import * as S from "./styles"
+import * as S from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { Input } from "../../components/Input";
+import { Header } from "../../components/Header";
+import { Text } from "react-native";
+import { RequiredSymbol } from "../../components/RequiredSymbol";
 
 export function RegisterUser() {
+    const navigation = useNavigation();
+
     return (
         <S.Container>
-            <S.Background>
-                <S.Header>
-                    <S.ImageLogo
-                        source={require("../../assets/images/logo-calendall.png")}
-                        style={{ width: 150, height: 150 }}
-                    />
-                    <S.TextContainer>
-                        <S.TextTop>
-                            <LogoText size={40} />
-                        </S.TextTop>
-                        <S.TextBottom>gerenciador acadêmico</S.TextBottom>
-                    </S.TextContainer>
-                </S.Header>
-                <S.HR />
-                <S.Form>
-                    <S.Title>Entre com a sua conta</S.Title>
-                    <S.Input placeholder="Digite seu email" />
-                    <S.Input placeholder="Digite sua senha" />
-                    <S.EsqueceuSenha
-                        onPress={() => navigation.navigate("RecoverPassword")}>
-                        Esqueceu sua senha?
-                    </S.EsqueceuSenha>
-                    <S.Button>
-                        <S.ButtonText>entrar</S.ButtonText>
-                    </S.Button>
-                </S.Form>
-                <S.CadastroContainer>
-                    <S.TextCadastro>ainda não é cadastrado?</S.TextCadastro>
-                    <S.CadastreSeLink
-                        onPress={() => navigation.navigate("RegisterUser")}
+            <Header title="Cadastro de Usuário" />
+            <S.Form>
+                <S.FormTitle>
+                    Caso deseje se cadastrar, insira seus dados nos campos
+                    abaixo:
+                </S.FormTitle>
+                <S.FieldForms>
+                    <Input label="nome" required />
+                    <Input label="e-mail" required />
+                    <Input label="data de nascimento" required />
+                    <Input label="senha" required />
+                    <Input label="confirmação de senha" required />
+                </S.FieldForms>
+                <S.RequiredText>
+                    <RequiredSymbol />
+                    Ao clicar no botão
+                    <Text style={{ fontWeight: "bold" }}> cadastrar </Text>
+                    você concorda com os{" "}
+                    <Text
+                        onPress={() => navigation.navigate("TermsOfUse")}
+                        style={{
+                            fontWeight: "bold",
+                            textDecorationLine: "underline",
+                        }}
                     >
-                        cadastre-se
-                        <FontAwesomeIcon
-                            icon={faArrowRight}
-                            style={{ color: "#fff" }}
-                        />
-                    </S.CadastreSeLink>
-                </S.CadastroContainer>
-            </S.Background>
+                        Termos de Uso
+                    </Text>
+                    {" e "}
+                    <Text
+                        onPress={() => navigation.navigate("PrivacyPolicy")}
+                        style={{
+                            fontWeight: "bold",
+                            textDecorationLine: "underline",
+                        }}
+                    >
+                        Políticas de Privacidade
+                    </Text>
+                </S.RequiredText>
+                <S.Button>
+                    <S.ButtonText>entrar</S.ButtonText>
+                </S.Button>
+                <S.Button>
+                    <S.ButtonText>entrar</S.ButtonText>
+                </S.Button>
+            </S.Form>
         </S.Container>
     );
 }
-

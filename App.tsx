@@ -28,16 +28,15 @@ export default function App() {
     return (
         <SafeAreaViewStyled>
             <StatusBar
-                barStyle={"dark-content"}
-                translucent={true}
+
                 backgroundColor={"transparent"}
             />
-            {fontsLoaded ? <Routes /> : <Text>oi</Text>}
+            {fontsLoaded ? <Routes /> : <Text>carregando...</Text>}
         </SafeAreaViewStyled>
     );
 }
 
-const SafeAreaViewStyled = styled.SafeAreaView`
-    flex: 1;
+const SafeAreaViewStyled = styled.View`
+    height: 100%;
     background-color: ${COLORS.BLUE_PRIMARY};
 `;

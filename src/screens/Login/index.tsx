@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Input } from "../../components/Input";
 
 type RootParamList = {
     Login: undefined;
@@ -17,8 +18,6 @@ type Props = {
 
 
 export function Login({ navigation }: Props) {
-    // const navigation = useNavigation();
-
     return (
         <S.Container>
             <S.Background>
@@ -37,8 +36,8 @@ export function Login({ navigation }: Props) {
                 <S.HR />
                 <S.Form>
                     <S.Title>Entre com a sua conta</S.Title>
-                    <S.Input placeholder="Digite seu email" />
-                    <S.Input placeholder="Digite sua senha" />
+                    <S.InputComponent label="e-mail" placeholder="Digite seu email" />
+                    <S.InputComponent label="senha" placeholder="**********" />
                     <S.EsqueceuSenha
                         onPress={() => navigation.navigate("RecoverPassword")}>
                         Esqueceu sua senha?
