@@ -5,7 +5,7 @@ import { Header } from "../../components";
 export function PrivacyPolicy() {
     return (
         <S.Container>
-            <Header title="Política de Privacidade" />
+            <Header title="Políticas de Privacidade" />
             <S.Policy>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Molestiae maxime eos voluptatem reiciendis ipsam modi,
