@@ -7,6 +7,7 @@ import { TermsOfUse } from "../screens/TermsOfUse";
 import { PrivacyPolicy } from "../screens/PrivacyPolicy";
 import { CodeConfirmation } from "../screens/RecoverPassword/CodeConfirmation";
 import { ChangePassword } from "../screens/RecoverPassword/ChangePassword";
+import { Home } from "../screens/Home";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -59,6 +60,13 @@ export function AppRoutes() {
                 <Screen
                     name="ChangePassword"
                     component={ChangePassword}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Screen
+                    name="Home"
+                    component={Home}
                     options={{
                         headerShown: false,
                     }}

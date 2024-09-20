@@ -10,6 +10,7 @@ export declare global {
                 email: string;
             };
             ChangePassword: undefined;
+            Home: undefined;
         }
     }
 }

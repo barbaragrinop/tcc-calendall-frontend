@@ -1,7 +1,14 @@
-import { Text } from 'react-native'
+import { Text } from "react-native";
 
-export default function LogoText({size = 30}: {size?: number}) {
+type Props = {
+    size?: number;
+    color?: string;
+};
+
+export default function LogoText({ color = "#fff", size = 30 }: Props) {
     return (
-        <Text style={{ fontSize: size, fontFamily: "Acme" }}>CALENDALL</Text>
+        <Text style={{ fontSize: size, fontFamily: "Acme", color: color }}>
+            CALENDALL
+        </Text>
     );
-}  
+}

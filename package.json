@@ -17,6 +17,7 @@
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "@types/react-native-calendars": "^1.1264.7",
     "expo": "^51.0.32",
     "expo-font": "~12.0.10",
     "expo-splash-screen": "~0.27.5",

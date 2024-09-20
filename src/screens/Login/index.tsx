@@ -2,21 +2,11 @@ import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Input, LogoText } from "../../components";
 
-type RootParamList = {
-    Login: undefined;
-    RecoverPassword: undefined;
-    RegisterUser: undefined;
-}
+export function Login() {
+    const navigation = useNavigation()
 
-type Props = {
-    navigation: NativeStackNavigationProp<RootParamList, "Login">;
-}
-
-
-export function Login({ navigation }: Props) {
     return (
         <S.Container>
             <S.Background>
@@ -42,7 +32,7 @@ export function Login({ navigation }: Props) {
                         Esqueceu sua senha?
                     </S.EsqueceuSenha>
                     <S.Button>
-                        <S.ButtonText>entrar</S.ButtonText>
+                        <S.ButtonText onPress={() => navigation.navigate("Home")}>entrar</S.ButtonText>
                     </S.Button>
                 </S.Form>
                 <S.CadastroContainer>
