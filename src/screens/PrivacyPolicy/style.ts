@@ -6,11 +6,18 @@ export const Container = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
 `;
 
-export const Policy = styled.Text`
-    min-height: 100%;
+export const Policy = styled.ScrollView`
     background-color: ${COLORS.BLUE_SECONDARY};
+    color: white;
+    font-size: 15px;
+`;
+
+export const Paragraph = styled.Text`
     padding: 20px;
     color: white;
     font-size: 15px;
-    line-height: 20px
+    line-height: 20px;
 `;
+
+
+

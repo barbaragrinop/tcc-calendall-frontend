@@ -6,11 +6,13 @@ export const Container = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
 `;
 
-export const Term = styled.Text`
-    min-height: 100%;
+export const TermsSpace = styled.ScrollView`
     background-color: ${COLORS.BLUE_SECONDARY};
+`;
+
+export const Term = styled.Text`
     padding: 20px;
     color: white;
     font-size: 15px;
-    line-height: 20px
+    line-height: 20px;
 `;
