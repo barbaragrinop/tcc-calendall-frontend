@@ -3,17 +3,17 @@ import * as S from "./style";
 import profileNoPhoto from "@/assets/images/profile-nophoto.png";
 
 import { Text } from 'react-native'
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 import { LogoText, Tabs } from "@/components";
 import { COLORS } from "@/constants";
 import { useCalendar } from "@/hooks";
-import { format } from "date-fns"
-import { ptBR } from "date-fns/locale"
 
 export function Home() {
-    const { Calendar, todayDate } = useCalendar()
+    const { Calendar } = useCalendar()
+    
+    const today = format(new Date(), 'dd/MMM', { locale: ptBR });
 
-    const today = format(new Date(todayDate), 'dd/MMM', { locale: ptBR });
-    console.log('today', today)
 
     return (
         <S.Root>
