@@ -6,7 +6,11 @@ export const COLORS =  {
     BLUE_DARK1: "#04396D",
     RED: "#F33131", 
     WHITE: "#FFFFFF",
-    BLUE_3: "#377BA8"
+    BLUE_3: "#377BA8", 
+    YELLOW_PRIORITY_MEDIUM: "#EDD60A",
+    GREY_PRIORITY_LOW: "#4D4C4C", 
+    RED_PRIORITY_HIGH: "#D14444"
+
     // GREY_1: "#F7F7F7",
     // GREY_2: #4D4C4C,
     // PURPLE_1: "#2C2C44",
