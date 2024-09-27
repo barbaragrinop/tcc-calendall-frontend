@@ -1,7 +1,7 @@
 import * as S from "./style";
 
 import { Text } from "react-native";
-import { Header } from "../../components";
+import { Header } from "@/components";
 
 export function PrivacyPolicy() {
     return (

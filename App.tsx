@@ -1,7 +1,7 @@
 import { StatusBar, SafeAreaView, Platform, Text } from "react-native";
 import { Login } from "./src/screens/Login";
 import styled from "styled-components/native";
-import { COLORS } from "./src/constants/Colors";
+import { COLORS } from "./src/constants/_colors";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts, loadAsync } from "expo-font";
 import { useEffect } from "react";

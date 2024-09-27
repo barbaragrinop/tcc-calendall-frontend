@@ -1,6 +1,6 @@
 import * as S from "./style";
 
-import { Header } from "../../components";
+import { Header } from "@/components";
 import { Text } from "react-native";
 
 export function TermsOfUse() {

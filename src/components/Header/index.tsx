@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import * as S from './style'
 import { faArrowLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { COLORS } from '../../constants/Colors';
+import { COLORS } from '@/constants/_colors';
 
 type Props = {
     backIcon?: boolean

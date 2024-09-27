@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
-import { COLORS } from "../../constants/Colors";
-import { Input } from "../../components";
+import { COLORS } from "@/constants/_colors";
+import { Input } from "@/components";
 
 export const Container = styled.SafeAreaView`
     width: 100%;

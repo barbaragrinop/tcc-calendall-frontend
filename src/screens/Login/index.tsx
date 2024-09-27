@@ -2,7 +2,7 @@ import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Input, LogoText } from "../../components";
+import { Input, LogoText } from "@/components";
 
 export function Login() {
     const navigation = useNavigation()
@@ -12,7 +12,7 @@ export function Login() {
             <S.Background>
                 <S.Header>
                     <S.ImageLogo
-                        source={require("../../assets/images/logo-calendall.png")}
+                        source={require("@/assets/images/logo-calendall.png")}
                         style={{ width: 150, height: 150 }}
                     />
                     <S.TextContainer>

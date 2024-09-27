@@ -5,7 +5,8 @@ export const COLORS =  {
     BLUE_TERTIARY: "#001F4B",
     BLUE_DARK1: "#04396D",
     RED: "#F33131", 
-    WHITE: "#FFFFFF"
+    WHITE: "#FFFFFF",
+    BLUE_3: "#377BA8"
     // GREY_1: "#F7F7F7",
     // GREY_2: #4D4C4C,
     // PURPLE_1: "#2C2C44",

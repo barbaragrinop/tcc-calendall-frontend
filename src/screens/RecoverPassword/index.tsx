@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./style";
 
 import { Text } from "react-native";
-import { Button, Header, Input, RequiredSymbol } from "../../components";
+import { Button, Header, Input, RequiredSymbol } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 

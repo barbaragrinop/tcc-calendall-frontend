@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { COLORS } from "../../constants/Colors";
+import { COLORS } from "@/constants/_colors";
 
 export const Button = styled.TouchableOpacity<{ $type: "dark" | "light" }>`
     background-color: ${(props) =>

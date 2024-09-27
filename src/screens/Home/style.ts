@@ -1,14 +1,21 @@
 import styled from "styled-components/native";
 
-import { COLORS } from "../../constants/Colors";
+import { COLORS } from "@/constants/_colors";
 
 export const Container = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
-    flex: 1;
+
 `;
 
-export const LogoSpace = styled.View`
-    height: 60px;
+export const Root = styled.View`
+    flex: 1;
+    background-color: ${COLORS.BLUE_PRIMARY};
+    flex-direction: column;
+`;
+
+export const LogoSpace = styled.SafeAreaView`
+    /* height: 100px; */
+    /* b */
     width: 100%;
     flex-direction: row;
     align-items: center;
@@ -25,3 +32,12 @@ export const CalendallText = styled.View`
 export const Image = styled.Image`
     margin-right: 30px;
 `
+
+export const Shape = styled.SafeAreaView`
+    height: 100%;
+    background-color: ${COLORS.BLUE_SECONDARY};
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+`;

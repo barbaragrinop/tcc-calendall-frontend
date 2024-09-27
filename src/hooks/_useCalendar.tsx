@@ -1,15 +1,15 @@
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faMapMarked } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { LocaleConfig, Calendar as RNCalendar, CalendarProps as RNCalendarProps } from "react-native-calendars";
-import { ContextProp } from "react-native-calendars/src/types";
+import { ContextProp, DateData } from "react-native-calendars/src/types";
 
 LocaleConfig.locales.fr = {
     monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
     monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    dayNamesShort: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
 }
 
 LocaleConfig.defaultLocale = 'fr';
@@ -17,14 +17,18 @@ LocaleConfig.defaultLocale = 'fr';
 type CalendarProps = RNCalendarProps & ContextProp
 
 export default function useCalendar() {
-    const [currentMonth, setCurrentMonth] = useState('');
+    const [selectedDay, setSelectedDay] = useState<string>('');
+    const [todayDate, setToday] = useState<string>('')
 
     useEffect(() => {
-        const today = new Date();
+        const todayDate = new Date().toISOString().split('T')[0]
+        setToday(todayDate);
+        setSelectedDay(todayDate);
+    }, []);
 
-        const monthName = today.toLocaleString('default', { month: 'long' });
-        setCurrentMonth(monthName);
-    }, [])
+    const handleDayPress = (date: DateData) => {
+        setSelectedDay(date.dateString); 
+    };
 
     function customHeader(date: XDate | undefined) {
         if (!date) return;
@@ -51,10 +55,11 @@ export default function useCalendar() {
 
         return <FontAwesomeIcon icon={faChevronRight} style={styles.arrow} />
     }
-
     function Calendar(props?: CalendarProps & ContextProp) {
         return (
             <RNCalendar
+                key={selectedDay}
+                onDayPress={handleDayPress}
                 renderHeader={customHeader}
                 renderArrow={customArrows}
                 {...props}
@@ -65,11 +70,10 @@ export default function useCalendar() {
     return {
         Calendar,
         customArrows,
-        customHeader
+        customHeader, 
+        todayDate
     }
 }
-
-
 
 const styles = StyleSheet.create({
     headerContainer: {
