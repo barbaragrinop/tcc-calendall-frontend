@@ -4,6 +4,7 @@ import { COLORS } from "../../constants/Colors";
 
 export const Container = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
+    flex: 1;
 `;
 
 export const LogoSpace = styled.View`

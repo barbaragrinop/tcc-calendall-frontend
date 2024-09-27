@@ -31,8 +31,8 @@ export function Login() {
                         onPress={() => navigation.navigate("RecoverPassword")}>
                         Esqueceu sua senha?
                     </S.EsqueceuSenha>
-                    <S.Button>
-                        <S.ButtonText onPress={() => navigation.navigate("Home")}>entrar</S.ButtonText>
+                    <S.Button onPress={() => navigation.navigate("Home")}>
+                        <S.ButtonText>entrar</S.ButtonText>
                     </S.Button>
                 </S.Form>
                 <S.CadastroContainer>

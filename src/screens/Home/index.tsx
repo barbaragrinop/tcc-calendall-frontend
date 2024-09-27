@@ -1,12 +1,15 @@
+import * as S from "./style";
+
 import profileNoPhoto from "../../assets/images/profile-nophoto.png";
 
-import { Image, Text, View } from "react-native";
-import * as S from "./style";
-import { Header, LogoText } from "../../components";
-import { Calendar } from "react-native-calendars";
+import { LogoText } from "../../components";
 import { COLORS } from "../../constants/Colors";
+import { useCalendar } from "../../hooks";
+
 
 export function Home() {
+    const { Calendar } = useCalendar()
+
     return (
         <S.Container>
             <S.LogoSpace>
@@ -19,11 +22,14 @@ export function Home() {
                 />
             </S.LogoSpace>
             <Calendar
-            // theme={{
-            //     backgroundColor: "#ffffff",
-            //     calendarBackground: "#ffffff",
-            //     textSectionTitleColor: "#b6c1cd",
-            // }}
+                key={1}
+                style={{ backgroundColor: COLORS.BLUE_PRIMARY }}
+                markedDates={{
+                    '2024-09-16': { selected: true, marked: true, selectedColor: 'blue' },
+                    '2024-09-17': { marked: true },
+                    '2024-09-18': { marked: true, dotColor: 'red', activeOpacity: 0 },
+                    '2024-09-19': { disabled: true, disableTouchEvent: true }
+                }}
             />
         </S.Container>
     );
