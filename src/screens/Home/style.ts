@@ -2,20 +2,17 @@ import styled from "styled-components/native";
 
 import { COLORS } from "@/constants/_colors";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
     background-color: ${COLORS.BLUE_PRIMARY};
 
 `;
 
-export const Root = styled.View`
-    flex: 1;
+export const Root = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
     flex-direction: column;
 `;
 
 export const LogoSpace = styled.SafeAreaView`
-    /* height: 100px; */
-    /* b */
     width: 100%;
     flex-direction: row;
     align-items: center;

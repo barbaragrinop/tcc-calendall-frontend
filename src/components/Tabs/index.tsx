@@ -1,4 +1,3 @@
-import { View, Text, StyleSheet } from "react-native";
 import * as S from './style'
 import { useMemo, useState } from "react";
 
@@ -44,7 +43,9 @@ export default function Tabs({ items }: Props) {
                     )
                 })}
             </S.AllTitles>
-            {currentContent}
+            <S.SpaceContent>
+                {currentContent}
+            </S.SpaceContent>
 
         </>
     )

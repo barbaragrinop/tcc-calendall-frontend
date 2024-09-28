@@ -24,3 +24,11 @@ export const Title = styled.Text<{ $isSelected?: boolean; }>`
     text-align: center; 
     line-height: 50px;  
 `;
+
+export const SpaceContent = styled.View`
+    margin-top: 40px;
+    width: 100%;
+
+
+
+`
