@@ -1,11 +1,12 @@
 import * as S from './style'
-import { useState } from 'react'
-import { EllipsisIcon } from '@/components'
+import { lazy, useState } from 'react'
+
 import { Priority } from '@/@types/priority'
 import { COLORS } from '@/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { Text, View } from 'react-native'
+import EllipsisIcon from '../EllipsisIcon'
 
 type Props = {
     priority: Priority
@@ -89,7 +90,7 @@ export default function Event(props: Props) {
                             <Text>{getLabelPriority()}</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <S.EventTopic> notificacao: </S.EventTopic>
+                            <S.EventTopic> notificação: </S.EventTopic>
                             <Text>{notificationType}</Text>
                         </View>
                     </View>
