@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, LogoText } from "@/components";
 
 export function LoginScreen() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     return (
         <S.Container>
@@ -28,7 +28,8 @@ export function LoginScreen() {
                     <Input label="e-mail" placeholder="Digite seu email" />
                     <Input label="senha" placeholder="**********" />
                     <S.EsqueceuSenha
-                        onPress={() => navigation.navigate("recover-password")}>
+                        onPress={() => navigation.navigate("recover-password")}
+                    >
                         Esqueceu sua senha?
                     </S.EsqueceuSenha>
                     <S.Button onPress={() => navigation.navigate("home")}>
