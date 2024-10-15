@@ -32,7 +32,7 @@ export function LoginScreen() {
                     >
                         Esqueceu sua senha?
                     </S.EsqueceuSenha>
-                    <S.Button onPress={() => navigation.navigate("home")}>
+                    <S.Button onPress={() => navigation.navigate("(tabs)")}>
                         <S.ButtonText>entrar</S.ButtonText>
                     </S.Button>
                 </S.Form>

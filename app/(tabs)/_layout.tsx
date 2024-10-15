@@ -16,7 +16,9 @@ export default function TabLayout() {
     const colorScheme = useColorScheme();
 
     return (
-        <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs
+            screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
+        >
             <Tabs.Screen
                 name="two"
                 options={{
@@ -31,11 +33,19 @@ export default function TabLayout() {
                 options={{
                     title: "Home",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="hand-rock-o" color={color} />
+                        <TabBarIcon name="home" color={color} />
                     ),
                 }}
             />
-            <Tabs.Screen name="two" />
+            <Tabs.Screen
+                name="classrooms"
+                options={{
+                    title: "Home",
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="home" color={color} />
+                    ),
+                }}
+            />
         </Tabs>
     );
 }

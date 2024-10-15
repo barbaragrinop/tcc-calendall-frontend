@@ -10,7 +10,8 @@ export declare global {
                 email: string
             }
             "change-password": undefined
-            home: undefined
+            home: undefined, 
+            "(tabs)": undefined
         }
     }
 }
