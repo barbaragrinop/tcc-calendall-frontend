@@ -13,17 +13,22 @@ export const Container = styled.View`
 export const Date = styled.View<{ $priorityColor: string; }>`
     width: 20%;
     align-items: center;
+    flex-direction: column;
+    gap: 5px;
     height: 100%;
     justify-content: center;
     background-color:${props => props.$priorityColor};
     border-radius: 10px 0 0 10px;
-    height: 90px;
+    height: 90px;;
 `
 
 export const EventTime = styled.Text`
-    font-size: 20px;
+    font-size: 18px;
     color: ${COLORS.WHITE};
-   
+`
+
+export const EventDate = styled(EventTime)`
+    font-weight: 700;
 `
 
 export const EventTitle = styled.Text`

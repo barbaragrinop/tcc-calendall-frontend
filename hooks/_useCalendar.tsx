@@ -1,39 +1,80 @@
-import { faChevronLeft, faChevronRight, faMapMarked } from "@fortawesome/free-solid-svg-icons";
+import {
+    faChevronLeft,
+    faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { LocaleConfig, Calendar as RNCalendar, CalendarProps as RNCalendarProps } from "react-native-calendars";
+import {
+    LocaleConfig,
+    Calendar as RNCalendar,
+    CalendarProps as RNCalendarProps,
+} from "react-native-calendars";
 import { ContextProp, DateData } from "react-native-calendars/src/types";
 
 LocaleConfig.locales.fr = {
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesShort: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
-}
+    monthNames: [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+    ],
+    monthNamesShort: [
+        "Jan",
+        "Fev",
+        "Mar",
+        "Abr",
+        "Mai",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Set",
+        "Out",
+        "Nov",
+        "Dez",
+    ],
+    dayNames: [
+        "Domingo",
+        "Segunda",
+        "Terça",
+        "Quarta",
+        "Quinta",
+        "Sexta",
+        "Sábado",
+    ],
+    dayNamesShort: ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
+};
 
-LocaleConfig.defaultLocale = 'fr';
+LocaleConfig.defaultLocale = "fr";
 
-type CalendarProps = RNCalendarProps & ContextProp
+type CalendarProps = RNCalendarProps & ContextProp;
 
 export default function useCalendar() {
-    const [selectedDay, setSelectedDay] = useState<string>('');
-    const [todayDate, setToday] = useState<string>('')
+    const [selectedDay, setSelectedDay] = useState<string>("");
+    const [todayDate, setToday] = useState<string>("");
 
     useEffect(() => {
-        const todayDate = new Date().toISOString().split('T')[0]
+        const todayDate = new Date().toISOString().split("T")[0];
         setToday(todayDate);
         setSelectedDay(todayDate);
     }, []);
 
     const handleDayPress = (date: DateData) => {
-        setSelectedDay(date.dateString); 
+        setSelectedDay(date.dateString);
     };
 
     function customHeader(date: XDate | undefined) {
         if (!date) return;
 
-        const month = date.toString('MMMM');
+        const month = date.toString("MMMM");
         const year = date.getFullYear();
 
         return (
@@ -46,14 +87,14 @@ export default function useCalendar() {
         );
     }
 
-    function customArrows(direction: 'left' | 'right') {
-        if (direction === 'left') {
+    function customArrows(direction: "left" | "right") {
+        if (direction === "left") {
             return (
                 <FontAwesomeIcon icon={faChevronLeft} style={styles.arrow} />
-            )
+            );
         }
 
-        return <FontAwesomeIcon icon={faChevronRight} style={styles.arrow} />
+        return <FontAwesomeIcon icon={faChevronRight} style={styles.arrow} />;
     }
     function Calendar(props?: CalendarProps & ContextProp) {
         return (
@@ -70,32 +111,32 @@ export default function useCalendar() {
     return {
         Calendar,
         customArrows,
-        customHeader, 
-        todayDate
-    }
+        customHeader,
+        todayDate,
+    };
 }
 
 const styles = StyleSheet.create({
     headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         padding: 10,
     },
     monthYearContainer: {
-        alignItems: 'center',
+        alignItems: "center",
     },
     monthText: {
-        color: 'white',
+        color: "white",
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     yearText: {
-        color: 'white',
+        color: "white",
         fontSize: 15,
     },
     arrow: {
-        color: 'white',
+        color: "white",
         fontSize: 20,
         paddingHorizontal: 10,
     },

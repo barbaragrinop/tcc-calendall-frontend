@@ -5,7 +5,7 @@ import {
     ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, Tabs, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -17,7 +17,7 @@ export { Stack } from "expo-router";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-    const colorScheme = useColorScheme();
+    const segments = useSegments();
     const [loaded, error] = useFonts({
         Acme: require("../assets/fonts/Acme-Regular.ttf"),
     });
@@ -36,22 +36,15 @@ export default function RootLayout() {
         return null;
     }
 
-
     return (
-        <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+     
+        <Stack
+            screenOptions={{
+                headerShown: false,
+            }}
         >
-            <Stack
-                screenOptions={{
-                    headerShown: false,
-                    // animation: "ios",
-                    // animationDuration: 100,
-                }}
-            >
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-            </Stack>
-        </ThemeProvider>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+        </Stack>
     );
 }
-
