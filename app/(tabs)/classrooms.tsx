@@ -1,5 +1,5 @@
-import { Link } from "expo-router";
+import { ClassroomScreen } from "@/screens/Classroom";
 
-export default function ClassRooms(){
-    return <Link href="/" >Classrooms</Link>
+export default function ClassRooms() {
+    return <ClassroomScreen />;
 }

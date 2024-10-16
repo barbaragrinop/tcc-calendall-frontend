@@ -4,6 +4,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { Tabs } from "expo-router";
+import { IconClassroom } from "@/assets/images/classroom";
 
 function TabBarIcon(props: {
     name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -40,10 +41,15 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="classrooms"
                 options={{
-                    title: "Home",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="home" color={color} />
-                    ),
+                    title: "Salas",
+                    tabBarIcon: ({ size, focused, color }) => {
+                        return (
+                            <IconClassroom
+                                style={{ width: size, height: size }}
+                                color={color}
+                            />
+                        );
+                    },
                 }}
             />
         </Tabs>

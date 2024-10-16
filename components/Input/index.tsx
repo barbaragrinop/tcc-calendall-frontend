@@ -6,12 +6,14 @@ type Props = TextInputProps & {
     required?: boolean;
     label: string;
     isDisabled?: boolean;
+    Icon?: JSX.Element;
 };
 
 export default function Input({
     label,
     required = false,
     isDisabled = false,
+    Icon,
     ...props
 }: Props) {
     return (

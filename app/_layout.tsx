@@ -17,9 +17,11 @@ export { Stack } from "expo-router";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-    const segments = useSegments();
+
     const [loaded, error] = useFonts({
         Acme: require("../assets/fonts/Acme-Regular.ttf"),
+        IBMPlexSansCondensedRegular: require("../assets/fonts/IBMPlexSansCondensed-Regular.ttf"),
+        IBMPlexSansCondensedBold: require("../assets/fonts/IBMPlexSansCondensed-Bold.ttf"),
     });
 
     useEffect(() => {
