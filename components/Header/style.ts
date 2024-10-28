@@ -25,3 +25,21 @@ export const IconSpace = styled.View`
     padding: 3px;
     background-color: ${COLORS.BLUE_SECONDARY};
 `;
+export const LogoSpace = styled.SafeAreaView`
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+`;
+
+export const CalendallText = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-right: -40px;
+`;
+
+export const Image = styled.Image`
+    margin-right: 30px;
+`
