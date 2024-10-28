@@ -4,12 +4,12 @@ import { COLORS } from "@/constants/_colors";
 
 export const Container = styled.ScrollView`
     background-color: ${COLORS.BLUE_PRIMARY};
-
 `;
 
 export const Root = styled.SafeAreaView`
     background-color: ${COLORS.BLUE_PRIMARY};
     flex-direction: column;
+    flex: 1;
 `;
 
 export const LogoSpace = styled.SafeAreaView`
@@ -37,4 +37,5 @@ export const Shape = styled.SafeAreaView`
     border-top-right-radius: 30px;
     margin-top: 30px;
     overflow: hidden;
+    flex: 1;
 `;

@@ -1,8 +1,8 @@
 import * as S from "./style";
-import { Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { LogoText, Tabs, Event } from "@/components";
+import { LogoText, Tabs, Event, Header } from "@/components";
 import { COLORS } from "@/constants";
 import { useCalendar } from "@/hooks";
 import { Priority, Event as TEvent } from "@/types";
@@ -73,6 +73,34 @@ const nextEvents: TEvent[] = [
         title: "Seminario Redes",
         description: "çlkasdkjasdlkjlksajdlkasjd",
     },
+    {
+        notificationType: "a cada dia",
+        priority: Priority.ALTA,
+        time: "14h30",
+        title: "Seminario Redes",
+        description: "çlkasdkjasdlkjlksajdlkasjd",
+    },
+    {
+        notificationType: "a cada dia",
+        priority: Priority.ALTA,
+        time: "14h30",
+        title: "Seminario Redes",
+        description: "çlkasdkjasdlkjlksajdlkasjd",
+    },
+    {
+        notificationType: "a cada dia",
+        priority: Priority.ALTA,
+        time: "14h30",
+        title: "Seminario Redes",
+        description: "çlkasdkjasdlkjlksajdlkasjd",
+    },
+    {
+        notificationType: "a cada dia",
+        priority: Priority.ALTA,
+        time: "14h30",
+        title: "Seminario Redes",
+        description: "çlkasdkjasdlkjlksajdlkasjd",
+    },
 ];
 
 export function HomeScreen() {
@@ -82,20 +110,12 @@ export function HomeScreen() {
 
     return (
         <S.Root>
-            <S.LogoSpace>
-                <S.CalendallText>
-                    <LogoText color="#fff" size={33} />
-                </S.CalendallText>
-                <S.Image
-                    source={require("../../assets/images/profile-nophoto.png")}
-                    style={{ width: 30, height: 30 }}
-                />
-            </S.LogoSpace>
-            <S.Container>
+            <Header.ProfileInfo />
+            <S.Container horizontal={false}>
                 <Calendar
                     style={{
                         backgroundColor: COLORS.BLUE_PRIMARY,
-                        marginTop: 30,
+                        paddingTop: 30,
                     }}
                     markedDates={{
                         "2024-09-16": { marked: true },
@@ -129,24 +149,21 @@ export function HomeScreen() {
                                             display: "flex",
                                             justifyContent: "center",
                                             alignItems: "center",
+                                            padding: 10
                                         }}
                                     >
-                                        {todayEvents.map((event, index) => {
+                                        <FlatList data={todayEvents} renderItem={({ item: event, index }) => {
                                             return (
                                                 <Event
                                                     key={index}
-                                                    notificationType={
-                                                        event.notificationType
-                                                    }
+                                                    notificationType={event.notificationType}
                                                     priority={event.priority}
                                                     time={event.time}
                                                     title={event.title}
-                                                    description={
-                                                        event.description
-                                                    }
+                                                    description={event.description}
                                                 />
-                                            );
-                                        })}
+                                            )
+                                        }} />
                                     </View>
                                 ),
                             },
@@ -158,37 +175,43 @@ export function HomeScreen() {
                                             display: "flex",
                                             justifyContent: "center",
                                             alignItems: "center",
+                                            padding: 10
                                         }}
                                     >
-                                        {nextEvents.map((event, index) => {
-                                            const eventDate = new Date();
-                                            eventDate.setDate(
-                                                eventDate.getDate() +
+                                        <FlatList
+                                            data={nextEvents}
+                                            renderItem={({ item: event, index }) => {
+
+                                                const eventDate = new Date();
+                                                eventDate.setDate(
+                                                    eventDate.getDate() +
                                                     (index + 2)
-                                            );
+                                                );
 
-                                            const formatDate = format(
-                                                new Date(eventDate),
-                                                "dd/MMM",
-                                                { locale: ptBR }
-                                            );
+                                                const formatDate = format(
+                                                    new Date(eventDate),
+                                                    "dd/MMM",
+                                                    { locale: ptBR }
+                                                );
 
-                                            return (
-                                                <Event
-                                                    key={index}
-                                                    notificationType={
-                                                        event.notificationType
-                                                    }
-                                                    date={formatDate}
-                                                    priority={event.priority}
-                                                    time={event.time}
-                                                    title={event.title}
-                                                    description={
-                                                        event.description
-                                                    }
-                                                />
-                                            );
-                                        })}
+                                                return (
+                                                    <Event
+                                                        key={index}
+                                                        notificationType={
+                                                            event.notificationType
+                                                        }
+                                                        date={formatDate}
+                                                        priority={event.priority}
+                                                        time={event.time}
+                                                        title={event.title}
+                                                        description={
+                                                            event.description
+                                                        }
+                                                    />
+
+                                                )
+                                            }}
+                                        />
                                     </View>
                                 ),
                             },
