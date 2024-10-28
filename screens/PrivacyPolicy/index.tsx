@@ -5,7 +5,7 @@ import { Header } from "@/components";
 export function PrivacyPolicyScreen() {
     return (
         <S.Container>
-            <Header title="Políticas de Privacidade" />
+            <Header.BackButton title="Políticas de Privacidade" />
             <S.Policy>
                 <S.Paragraph>Política de Privacidade do Calendall</S.Paragraph>
 

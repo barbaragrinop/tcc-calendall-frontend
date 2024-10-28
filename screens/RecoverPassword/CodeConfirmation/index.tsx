@@ -17,7 +17,7 @@ export function CodeConfirmation() {
 
     return (
         <S.Container>
-            <Header title="Recuperação de Senha" />
+            <Header.BackButton title="Recuperação de Senha" />
 
             <S.Form>
                 <S.FormTitle>
@@ -38,7 +38,7 @@ export function CodeConfirmation() {
                             title="confirmar"
                             color="dark"
                             onPress={() =>
-                                navigation.navigate("ChangePassword")
+                                navigation.navigate("change-password")
                             }
                         />
                         <Button

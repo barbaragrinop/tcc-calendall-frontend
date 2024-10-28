@@ -1,12 +1,11 @@
 import * as S from "./style";
 
 import { Header } from "@/components";
-import { Text } from "react-native";
 
 export function TermsOfUseScreen() {
     return (
         <S.Container>
-            <Header title="Termos de Uso" />
+            <Header.BackButton title="Termos de Uso" />
             <S.TermsSpace>
                 <S.Term>Última atualização: 19/09/2024</S.Term>
                 <S.Term>

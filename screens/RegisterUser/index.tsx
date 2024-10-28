@@ -8,7 +8,7 @@ export function RegisterUserScreen() {
 
     return (
         <S.Container>
-            <Header title="Cadastro de Usuário" />
+            <Header.BackButton title="Cadastro de Usuário" />
             <S.Form>
                 <S.FormTitle>
                     Caso deseje se cadastrar, insira seus dados nos campos

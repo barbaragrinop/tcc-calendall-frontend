@@ -14,7 +14,7 @@ export function ChangePassword() {
 
     return (
         <S.Container>
-            <Header title="Recuperação de Senha" />
+            <Header.BackButton title="Recuperação de Senha" />
             <S.Form>
                 <S.FormTitle>Digite sua nova senha</S.FormTitle>
                 <S.FieldForms>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./style";
 
 import { Text } from "react-native";
-import { Button, Header, Input, RequiredSymbol } from "@/components";
+import { Button, Header, Input } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -12,7 +12,7 @@ export function RecoverPassword() {
 
     return (
         <S.Container>
-            <Header title="Recuperar Senha" />
+            <Header.BackButton title="Recuperar Senha" />
             <S.Form>
                 <S.FormTitle>
                     Digite o seu e-mail para enviarmos o código de recuperação.
@@ -28,7 +28,7 @@ export function RecoverPassword() {
                             title="prosseguir"
                             color="dark"
                             onPress={() =>
-                                navigation.navigate("CodeConfirmation", {
+                                navigation.navigate("code-confirmation", {
                                     email,
                                 })
                             }
