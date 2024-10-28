@@ -1,21 +1,40 @@
-import { TextInput, TextInputProps, Text, View } from "react-native";
+import { TextInputProps } from "react-native";
 import * as S from "./style";
-import RequiredSymbol from "../RequiredSymbol";
+import { ReactElement } from "react";
+import { RequiredSymbol } from "../RequiredSymbol";
 
 type Props = TextInputProps & {
     required?: boolean;
-    label: string;
+    label?: string;
     isDisabled?: boolean;
-    Icon?: JSX.Element;
+    icon?: ReactElement;
 };
 
-export default function Input({
+export function Input({
     label,
     required = false,
+    placeholder, 
     isDisabled = false,
-    Icon,
+    icon,
     ...props
 }: Props) {
+
+    if (icon) {
+        return (
+            <S.Container>
+                <S.Label>
+                    {required && <RequiredSymbol />} {label}
+                </S.Label>
+                <S.ContainerInput>
+                    <S.IconSpace>
+                        {icon}
+                    </S.IconSpace>
+                    <S.TextInput isDisabled={isDisabled} placeholder={placeholder} hasIcon={icon} {...props} />
+                </S.ContainerInput>
+            </S.Container>
+        );
+    }
+
     return (
         <S.Container>
             <S.Label>
