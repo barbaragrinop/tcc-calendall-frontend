@@ -1,19 +1,9 @@
-import Button from "./Button";
-import Header from "./Header";
-import Input from "./Input";
-import RequiredSymbol from "./RequiredSymbol";
-import LogoText from "./Logo/Text";
-import Tabs from "./Tabs";
-import Event from "./Event"
-import EllipsisIcon from "./EllipsisIcon";
-
-export {
-    Button,
-    Header,
-    Input,
-    RequiredSymbol,
-    LogoText,
-    Tabs,
-    Event,
-    EllipsisIcon
-};
+export { Button } from "./Button";
+export { Header } from "./Header";
+export { Input } from "./Input";
+export { RequiredSymbol } from "./RequiredSymbol";
+export { LogoText } from "./Logo/Text";
+export { Tabs } from "./Tabs";
+export { Event } from "./Event"
+export { EllipsisIcon } from "./EllipsisIcon";
+export { Classroom } from "./Classroom";

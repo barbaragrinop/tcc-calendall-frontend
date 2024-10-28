@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Path, Shape, SvgProps } from "react-native-svg"
 
-export default function EllipsisIcon(props: SvgProps) {
+export function EllipsisIcon(props: SvgProps) {
     return (
         (
             <Svg

@@ -5,7 +5,7 @@ type Props = {
     color?: string;
 };
 
-export default function LogoText({ color = "#fff", size = 30 }: Props) {
+export function LogoText({ color = "#fff", size = 30 }: Props) {
     return (
         <Text style={{ fontSize: size, fontFamily: "Acme", color: color }}>
             CALENDALL

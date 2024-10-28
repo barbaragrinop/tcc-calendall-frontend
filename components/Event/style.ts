@@ -3,7 +3,7 @@ import styled from "styled-components/native"
 import { COLORS } from "@/constants"
 
 export const Container = styled.View`
-    width: 95%;
+    width: 100%;
     height: auto;
     margin: 10px 0;
     background-color: ${COLORS.GREY_EVENTBACKGROUND};

@@ -1,3 +1,4 @@
+import React from 'react';
 import * as S from './style'
 import { useMemo, useState } from "react";
 
@@ -9,7 +10,7 @@ type Props = {
     todayDate?: string
 }
 
-export default function Tabs({ items }: Props) {
+export function Tabs({ items }: Props) {
 
     const titles = useMemo(() => {
         return items.map((item, index) => {

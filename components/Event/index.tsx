@@ -1,5 +1,4 @@
 import * as S from "./style";
-import EllipsisIcon from "../EllipsisIcon";
 
 import { useState } from "react";
 
@@ -8,8 +7,7 @@ import { COLORS } from "@/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Text, View } from "react-native";
-
-
+import { EllipsisIcon } from "../EllipsisIcon";
 
 type Props = {
     priority: Priority;
@@ -20,7 +18,7 @@ type Props = {
     notificationType: string;
 };
 
-export default function Event(props: Props) {
+export function Event(props: Props) {
     const { description, priority, time, title, notificationType, date } =
         props;
 

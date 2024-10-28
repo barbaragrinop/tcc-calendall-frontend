@@ -4,7 +4,8 @@ import styled from "styled-components/native";
 export const AllTitles = styled.View`
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: center; 
+    flex: 1;
 `;
 
 export const TitleContent = styled.View`
