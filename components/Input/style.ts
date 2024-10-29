@@ -16,7 +16,7 @@ export const Container = styled.View`
 export const TextInput = styled.TextInput<TextInputProps>`
     border-radius: 10px;
     background-color: #fff;
-    padding: ${({ hasIcon }) => (hasIcon ? "15px 40px" : "10px")};
+    padding: ${({ hasIcon }) => (hasIcon ? "15px 65px" : "10px")};
     background-color: ${({ isDisabled }) => (isDisabled ? "#898b8f" : "#fff")};
     color: ${({ isDisabled }) => (isDisabled ? "#39393b" : "#000")};
     font-size: 18px;

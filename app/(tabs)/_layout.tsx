@@ -39,7 +39,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="classrooms"
+                name="(classroom)/index"
                 options={{
                     title: "Salas",
                     tabBarIcon: ({ size, focused, color }) => {
@@ -52,6 +52,7 @@ export default function TabLayout() {
                     },
                 }}
             />
+
         </Tabs>
     );
 }

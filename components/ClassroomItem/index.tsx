@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { COLORS } from "@/constants";
 
 
-export function Classroom(props: TClassroom) {
+export function ClassroomItem(props: TClassroom) {
     const { title, isAdmin, membersQuantity, idClassroom, eventsQuantity } =
         props;
 

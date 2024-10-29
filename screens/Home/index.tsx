@@ -152,18 +152,21 @@ export function HomeScreen() {
                                             padding: 10
                                         }}
                                     >
-                                        <FlatList data={todayEvents} renderItem={({ item: event, index }) => {
-                                            return (
-                                                <Event
-                                                    key={index}
-                                                    notificationType={event.notificationType}
-                                                    priority={event.priority}
-                                                    time={event.time}
-                                                    title={event.title}
-                                                    description={event.description}
-                                                />
-                                            )
-                                        }} />
+                                        <FlatList
+                                            data={todayEvents}
+                                            keyExtractor={(_, index) => index.toString()}
+                                            renderItem={({ item: event, index }) => {
+                                                return (
+                                                    <Event
+                                                        key={index}
+                                                        notificationType={event.notificationType}
+                                                        priority={event.priority}
+                                                        time={event.time}
+                                                        title={event.title}
+                                                        description={event.description}
+                                                    />
+                                                )
+                                            }} />
                                     </View>
                                 ),
                             },
@@ -180,6 +183,7 @@ export function HomeScreen() {
                                     >
                                         <FlatList
                                             data={nextEvents}
+                                            keyExtractor={(_, index) => index.toString()}
                                             renderItem={({ item: event, index }) => {
 
                                                 const eventDate = new Date();

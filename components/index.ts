@@ -6,4 +6,4 @@ export { LogoText } from "./Logo/Text";
 export { Tabs } from "./Tabs";
 export { Event } from "./Event"
 export { EllipsisIcon } from "./EllipsisIcon";
-export { Classroom } from "./Classroom";
+export { ClassroomItem as Classroom } from "./ClassroomItem";

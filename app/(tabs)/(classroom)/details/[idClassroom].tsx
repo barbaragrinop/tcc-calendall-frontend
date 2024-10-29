@@ -1,5 +1,5 @@
 import { ClassroomDetailsScreen } from "@/screens/Classroom/Details";
 
-export default function ClasroomDetails() {
+export function ClassroomDetails(){
     return <ClassroomDetailsScreen />
 }

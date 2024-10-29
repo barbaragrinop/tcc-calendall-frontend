@@ -2,6 +2,7 @@ import { TextInputProps } from "react-native";
 import * as S from "./style";
 import { ReactElement } from "react";
 import { RequiredSymbol } from "../RequiredSymbol";
+import { COLORS } from "@/constants";
 
 type Props = TextInputProps & {
     required?: boolean;
@@ -13,7 +14,7 @@ type Props = TextInputProps & {
 export function Input({
     label,
     required = false,
-    placeholder, 
+    placeholder,
     isDisabled = false,
     icon,
     ...props
@@ -29,7 +30,7 @@ export function Input({
                     <S.IconSpace>
                         {icon}
                     </S.IconSpace>
-                    <S.TextInput isDisabled={isDisabled} placeholder={placeholder} hasIcon={icon} {...props} />
+                    <S.TextInput isDisabled={isDisabled} placeholder={placeholder} hasIcon={icon} {...props} placeholderTextColor={COLORS.GREY_LIGHT} />
                 </S.ContainerInput>
             </S.Container>
         );

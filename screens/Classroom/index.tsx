@@ -109,13 +109,7 @@ export function ClassroomScreen() {
                             <FlatList
                                 data={mockClassRooms}
                                 renderItem={({ item, index }) => (
-                                    <Link
-
-                                        href={{
-                                            pathname: '/classroom/[id]',
-                                            params: { id: item.idClassroom }
-                                        }}
-                                    >
+                                    <Link href={`(tabs)/(classroom)/details/${item.idClassroom}`}>
                                         <Classroom
                                             isAdmin={item.isAdmin}
                                             title={item.title}
