@@ -3,7 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
-import { Tabs } from "expo-router";
+import { Tabs, usePathname, useRouter } from "expo-router";
 import { IconClassroom } from "@/assets/images/classroom";
 
 function TabBarIcon(props: {
@@ -14,8 +14,10 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme();
+    const currentRouter = usePathname();
 
+    const isInClassroomDetails = currentRouter.startsWith("/classroom/details");
+    
     return (
         <Tabs
             screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
@@ -39,7 +41,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="(classroom)/index"
+                name="classroom/index"
                 options={{
                     title: "Salas",
                     tabBarIcon: ({ size, focused, color }) => {
@@ -50,6 +52,13 @@ export default function TabLayout() {
                             />
                         );
                     },
+                }}
+            />
+
+            <Tabs.Screen
+                name="classroom/details/[idClassroom]"
+                options={{
+                    href: null
                 }}
             />
 

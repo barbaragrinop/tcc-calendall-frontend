@@ -7,7 +7,7 @@ import { Classroom } from "@/components";
 import { FlatList, GestureResponderEvent, TouchableOpacity } from "react-native";
 import { Classroom as TClassroom, Priority } from "@/types";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, usePathname } from "expo-router";
 
 const mockClassRooms: TClassroom[] = [
     {
@@ -85,10 +85,6 @@ const mockClassRooms: TClassroom[] = [
 
 export function ClassroomScreen() {
 
-    function handleClick(event: GestureResponderEvent) {
-
-    }
-
     return (
         <S.Wrap>
             <Header.ProfileInfo />
@@ -109,7 +105,7 @@ export function ClassroomScreen() {
                             <FlatList
                                 data={mockClassRooms}
                                 renderItem={({ item, index }) => (
-                                    <Link href={`(tabs)/(classroom)/details/${item.idClassroom}`}>
+                                    <Link href={`/classroom/details/${item.idClassroom}`}>
                                         <Classroom
                                             isAdmin={item.isAdmin}
                                             title={item.title}

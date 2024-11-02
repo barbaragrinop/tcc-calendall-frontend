@@ -15,6 +15,7 @@ export default function RootLayout() {
         Acme: require("../assets/fonts/Acme-Regular.ttf"),
         IBMPlexSansCondensedRegular: require("../assets/fonts/IBMPlexSansCondensed-Regular.ttf"),
         IBMPlexSansCondensedBold: require("../assets/fonts/IBMPlexSansCondensed-Bold.ttf"),
+        IBMPlexSansCondensedLight300: require("../assets/fonts/IBMPlexSansCondensed-Light.ttf")
     });
 
     useEffect(() => {
