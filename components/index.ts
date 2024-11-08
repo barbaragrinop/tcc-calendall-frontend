@@ -7,3 +7,4 @@ export { Tabs } from "./Tabs";
 export { Event } from "./Event"
 export { EllipsisIcon } from "./EllipsisIcon";
 export { ClassroomItem as Classroom } from "./ClassroomItem";
+export { Breadcrumb } from "./Breadcrumb";

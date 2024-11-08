@@ -27,7 +27,8 @@ export const TitleCreate = styled.View`
     padding: 20px 20px 0 20px;
 `;
 
-export const Content = styled.View`
+export const Content = styled.ScrollView`
+    margin-top: 30px;
     padding: 0 10px;
     flex: 1; 
 `;
@@ -58,3 +59,40 @@ export const ClassroomList = styled.View`
     max-width: 100%;
 `;
 
+export const Members = styled.View`
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+`
+
+export const MembersTitle = styled.Text`
+    font-size: 20px;
+    color: ${COLORS.WHITE};
+    font-weight: bold;
+    font-family: 'IBMPlexSansCondensedLight300';
+
+`
+
+export const MembersList = styled.View`
+    flex-direction: row;
+    gap: 4px;
+    flex-wrap: wrap;
+`
+
+export const ImageWrap = styled.View`  
+    position: relative;
+`
+
+export const Image = styled.Image``
+
+export const Shape = styled.SafeAreaView`
+    height: 100%;
+    background-color: ${COLORS.BLUE_SECONDARY};
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+    flex: 1;
+`;

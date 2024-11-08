@@ -14,9 +14,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-    const currentRouter = usePathname();
-
-    const isInClassroomDetails = currentRouter.startsWith("/classroom/details");
+    // const currentRouter = usePathname();
     
     return (
         <Tabs

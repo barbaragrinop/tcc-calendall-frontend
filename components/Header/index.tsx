@@ -1,6 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import * as S from './style'
-import { faArrowLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '@/constants/_colors';
 import { LogoText } from '../Logo/Text';
 

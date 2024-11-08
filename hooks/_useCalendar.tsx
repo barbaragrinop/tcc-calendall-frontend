@@ -130,10 +130,12 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 20,
         fontWeight: "bold",
+        fontFamily: "IBMPlexSansCondensedBold",
     },
     yearText: {
         color: "white",
         fontSize: 15,
+        fontFamily: "IBMPlexSansCondensedLight300",
     },
     arrow: {
         color: "white",

@@ -1,3 +1,4 @@
-export { Event } from './Event'
+export type { Event } from './Event'
 export { Priority } from './priority'
-export { Classroom } from './Classrooms'
+export type { Classroom } from './Classrooms'
+export type { ClassroomMembers } from './ClassroomMembers'
