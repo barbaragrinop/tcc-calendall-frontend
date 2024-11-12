@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Input, LogoText } from "@/components";
+import { useHttpCommon } from "@/hooks";
 
 export function LoginScreen() {
     const navigation = useNavigation();
+    const { client } = useHttpCommon();
 
     return (
         <S.Container>

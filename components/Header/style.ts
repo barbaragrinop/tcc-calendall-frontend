@@ -31,6 +31,7 @@ export const LogoSpace = styled.SafeAreaView`
     align-items: center;
     justify-content: space-between;
     height: 110px;
+    position: relative;
 `;
 
 export const CalendallText = styled.View`
@@ -42,4 +43,11 @@ export const CalendallText = styled.View`
 
 export const Image = styled.Image`
     margin-right: 30px;
+`
+
+export const HeaderOptinonsSpace = styled.View`
+    position: absolute;
+    top: 60%;
+    z-index: 60;
+    right: 0;
 `

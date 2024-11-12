@@ -57,7 +57,7 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export default function useCalendar() {
+export function useCalendar() {
     const [selectedDay, setSelectedDay] = useState<string>("");
     const [todayDate, setToday] = useState<string>("");
 
