@@ -18,11 +18,11 @@ export function ChangePassword() {
             <S.Form>
                 <S.FormTitle>Digite sua nova senha</S.FormTitle>
                 <S.FieldForms>
-                    <Input
+                    <Input.Password
                         label="senha"
                         required
                     />
-                    <Input
+                    <Input.Password
                         label="confirmação de senha"
                         required
                     />

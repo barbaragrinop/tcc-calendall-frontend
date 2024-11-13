@@ -97,7 +97,7 @@ export function ClassroomScreen() {
                         </S.ButtonCreateClassroom>
                     </S.TitleCreate>
                     <S.Content>
-                        <Input
+                        <Input.Text
                             icon={<FontAwesomeIcon icon={faMagnifyingGlass} color="white" size={20} />}
                             placeholder="pesquise pelo nome da sala"
                         />

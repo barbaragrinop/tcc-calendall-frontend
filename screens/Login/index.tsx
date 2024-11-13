@@ -27,8 +27,8 @@ export function LoginScreen() {
                 <S.HR />
                 <S.Form>
                     <S.Title>Entre com a sua conta</S.Title>
-                    <Input label="e-mail" placeholder="Digite seu email" />
-                    <Input label="senha" placeholder="**********" />
+                    <Input.Email label="e-mail" placeholder="Digite seu email" />
+                    <Input.Password label="senha" placeholder="**********" />
                     <S.EsqueceuSenha
                         onPress={() => navigation.navigate("recover-password")}
                     >

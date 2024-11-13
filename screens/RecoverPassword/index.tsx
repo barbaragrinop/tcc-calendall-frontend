@@ -18,7 +18,7 @@ export function RecoverPassword() {
                     Digite o seu e-mail para enviarmos o código de recuperação.
                 </S.FormTitle>
                 <S.FieldForms>
-                    <Input
+                    <Input.Email
                         label="e-mail"
                         required
                         onChangeText={(newText) => setEmail(newText)}

@@ -24,7 +24,7 @@ export function CodeConfirmation() {
                     Digite o código que enviamos para seguinte e-mail:
                 </S.FormTitle>
                 <S.FieldForms>
-                    <Input
+                    <Input.Text
                         label=""
                         editable={false}
                         selectTextOnFocus={false}
@@ -32,7 +32,7 @@ export function CodeConfirmation() {
                         defaultValue={email}
                         isDisabled
                     />
-                    <Input label="Código enviado" required />
+                    <Input.Text label="Código enviado" required />
                     <S.ButtonSpace>
                         <Button
                             title="confirmar"
