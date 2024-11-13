@@ -1,11 +1,10 @@
 import * as S from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import { Button, Header, Input, RequiredSymbol } from "@/components";
 import { useHttpCommon, useYup } from "@/hooks";
 import { Controller, useForm } from "react-hook-form";
 import { ErrorMessage } from "@/components/FormErrorMessage";
-import DateTimePicker from '@react-native-community/datetimepicker'
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
@@ -41,10 +40,6 @@ export function RegisterUserScreen() {
         mode: "all"
     })
 
-    function toggleDatePicker() {
-        setShowDatePicker(!showDatePicker)
-    }
-
     async function onSubmit() {
         console.log('onSubmit')
         try {
@@ -75,9 +70,7 @@ export function RegisterUserScreen() {
             Alert.alert("Erro ao cadastrar usuário");
         }
     }
-
-    console.log("watch date", watch("birthDate"))
-
+    
     return (
         <S.Container>
             <Header.BackButton title="Cadastro de Usuário" />

@@ -4,6 +4,7 @@ import "react-native-reanimated";
 import { useFonts } from "expo-font";
 import { Slot, Stack, Tabs, useSegments } from "expo-router";
 import { useEffect } from "react";
+import { SessionProvider } from "@/contexts/auth-provider";
 
 export { Stack } from "expo-router";
 
@@ -33,6 +34,9 @@ export default function RootLayout() {
     }
 
     return (
-        <Slot />
+        <SessionProvider>
+            <Slot />
+        </SessionProvider>
+
     );
 }
