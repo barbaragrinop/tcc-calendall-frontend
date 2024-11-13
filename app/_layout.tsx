@@ -2,7 +2,7 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import { useFonts } from "expo-font";
-import { Stack, Tabs, useSegments } from "expo-router";
+import { Slot, Stack, Tabs, useSegments } from "expo-router";
 import { useEffect } from "react";
 
 export { Stack } from "expo-router";
@@ -33,14 +33,6 @@ export default function RootLayout() {
     }
 
     return (
-     
-        <Stack
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-        </Stack>
+        <Slot />
     );
 }

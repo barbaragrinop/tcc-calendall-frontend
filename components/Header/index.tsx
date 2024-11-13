@@ -5,7 +5,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '@/constants/_colors';
 import { LogoText } from '../Logo/Text';
 import { useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from 'expo-router';
 
 type Props = {
     backIcon?: boolean
@@ -14,33 +15,25 @@ type Props = {
 
 
 function HeaderBackButton({ title, backIcon = true }: Props) {
+    const navigation = useNavigation()
     return (
-        <S.Header>
-            {backIcon && (
-                <FontAwesomeIcon
-                    icon={faArrowLeft}
-                    size={23}
-                    color={COLORS.BLUE_TERTIARY}
-                />
-            )}
-            <S.HeaderTitle>{title}</S.HeaderTitle>
-        </S.Header>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <S.Header>
+                {backIcon && (
+                    <FontAwesomeIcon
+                        icon={faArrowLeft}
+                        size={23}
+                        color={COLORS.BLUE_TERTIARY}
+                    />
+                )}
+                <S.HeaderTitle>{title}</S.HeaderTitle>
+            </S.Header>
+        </TouchableOpacity>
     );
 }
 
 function HeaderProfileInfo() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
-    const headerOptionsItems: { title: string, onPress: () => void }[] = [
-        {
-            title: 'Perfil',
-            onPress: () => console.log('Perfil')
-        },
-        {
-            title: 'Sair',
-            onPress: () => console.log('Sair')
-        }
-    ]
 
 
     return (
@@ -48,28 +41,10 @@ function HeaderProfileInfo() {
             <S.CalendallText>
                 <LogoText color="#fff" size={33} />
             </S.CalendallText>
-            <TouchableOpacity
-                onPress={() => setIsDropdownOpen(true)}
-                onBlur={() => setIsDropdownOpen(false)}
-            >
-                <S.Image
-                    source={require("../../assets/images/profile-nophoto.png")}
-                    style={{ width: 30, height: 30 }}
-                />
-            </TouchableOpacity>
-            {isDropdownOpen && (
-                <S.HeaderOptinonsSpace>
-                    <FlatList
-                        data={headerOptionsItems}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={item.onPress}>
-                                <S.HeaderTitle>{item.title}</S.HeaderTitle>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </S.HeaderOptinonsSpace>
-            )}
-
+            <S.Image
+                source={require("../../assets/images/profile-nophoto.png")}
+                style={{ width: 30, height: 30 }}
+            />
         </S.LogoSpace>
     )
 }

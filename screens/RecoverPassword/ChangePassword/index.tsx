@@ -1,15 +1,10 @@
 import React from "react";
 import * as S from "./style";
 
-import { Text } from "react-native";
 import { Button, Header, Input } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 
-type RouteParams = {
-    email: string;
-};
-
-export function ChangePassword() {
+export function ChangePasswordScreen() {
     const navigation = useNavigation();
 
     return (

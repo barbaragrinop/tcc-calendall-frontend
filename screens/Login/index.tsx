@@ -30,7 +30,7 @@ export function LoginScreen() {
                     <Input.Email label="e-mail" placeholder="Digite seu email" />
                     <Input.Password label="senha" placeholder="**********" />
                     <S.EsqueceuSenha
-                        onPress={() => navigation.navigate("recover-password")}
+                        onPress={() => navigation.navigate("recover-password/index")}
                     >
                         Esqueceu sua senha?
                     </S.EsqueceuSenha>

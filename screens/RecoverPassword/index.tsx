@@ -6,7 +6,7 @@ import { Button, Header, Input } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export function RecoverPassword() {
+export function RecoverPasswordScreen() {
     const navigation = useNavigation();
     const [email, setEmail] = useState("");
 
@@ -28,9 +28,7 @@ export function RecoverPassword() {
                             title="prosseguir"
                             color="dark"
                             onPress={() =>
-                                navigation.navigate("code-confirmation", {
-                                    email,
-                                })
+                                navigation.navigate("recover-password/confirmation-code")
                             }
                         />
                         <Button

@@ -9,11 +9,11 @@ type RouteParams = {
     email: string;
 };
 
-export function CodeConfirmation() {
+export function CodeConfirmationScreen() {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { email } = route.params as RouteParams;
+    // const { email } = route.params as RouteParams;
 
     return (
         <S.Container>
@@ -28,8 +28,8 @@ export function CodeConfirmation() {
                         label=""
                         editable={false}
                         selectTextOnFocus={false}
-                        value={email}
-                        defaultValue={email}
+                        value={"email"}
+                        defaultValue={"email"}
                         isDisabled
                     />
                     <Input.Text label="Código enviado" required />
@@ -37,8 +37,8 @@ export function CodeConfirmation() {
                         <Button
                             title="confirmar"
                             color="dark"
-                            onPress={() =>
-                                navigation.navigate("change-password")
+                            onPress={() => 
+                                navigation.navigate("recover-password/change-password")
                             }
                         />
                         <Button

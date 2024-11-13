@@ -52,7 +52,7 @@ function InputText({
 }
 
 function InputPassword(props: Props) {
-    return <InputText {...props} secureTextEntry />;
+    return <InputText {...props} secureTextEntry  />;
 }
 
 function InputEmail(props: Props) {
@@ -66,6 +66,7 @@ function InputNumber(props: Props) {
 type InputDatePickerProps = Props & {
     getCurrentDate: (date: Date | undefined) => void
 }
+
 function InputDatePicker(props: InputDatePickerProps) {
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
     const [date, setDate] = useState<Date | undefined>(props.value ? new Date(props.value) : undefined)
