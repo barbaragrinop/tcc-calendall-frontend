@@ -141,7 +141,7 @@ export function RegisterUserScreen() {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     onChange={value => onChange(value)}         
-                                    value={value ? format(new Date(value), "dd MMMM yyyy", { locale: ptBR }) : ""}
+                                    value={value ? format(new Date(value), "dd/MM/yyyy", { locale: ptBR }) : ""}
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
                                 <ErrorMessage error={error?.message} />
