@@ -21,12 +21,12 @@ export function ChangePasswordScreen() {
                         required
                     />
                     <S.ButtonSpace>
-                        <Button
+                        <Button.Common
                             title="alterar"
                             color="dark"
                             onPress={() => router.navigate("/")}
                         />
-                        <Button
+                        <Button.Common
                             title="cancelar"
                             color="light"
                             onPress={() => router.navigate("/")}

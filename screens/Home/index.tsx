@@ -6,6 +6,8 @@ import { LogoText, Tabs, Event, Header } from "@/components";
 import { COLORS } from "@/constants";
 import { useCalendar } from "@/hooks";
 import { Priority, Event as TEvent } from "@/types";
+import { ModalAddPersonalEvent } from "./AddPersonalEvent";
+import { useSession } from "@/app/contexts";
 
 const todayEvents: TEvent[] = [
     {
@@ -105,12 +107,16 @@ const nextEvents: TEvent[] = [
 
 export function HomeScreen() {
     const { Calendar } = useCalendar();
+    const { session } = useSession()
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
+
 
     return (
         <S.Root>
             <Header.ProfileInfo />
+            <ModalAddPersonalEvent />
+
             <S.Container horizontal={false}>
                 <Calendar
                     style={{

@@ -27,3 +27,19 @@ export const Text = styled.Text<{ $type: "dark" | "light" }>`
     color: ${(props) =>
         props.$type === "dark" ? COLORS.WHITE : COLORS.BLUE_DARK1};
 `;
+
+
+export const ButtonWHITE = styled.TouchableOpacity`
+    background-color: ${COLORS.WHITE};
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+`;
+
+export const TitleWHITE = styled.Text`
+    font-size: 18px;
+    color: ${COLORS.GREY_PRIORITY_LOW};
+    font-weight: bold;
+    font-family: 'IBMPlexSansCondensedBold';
+`;

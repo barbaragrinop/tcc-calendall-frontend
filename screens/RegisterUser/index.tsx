@@ -211,12 +211,12 @@ export function RegisterUserScreen() {
                     </Link>
                 </S.RequiredText>
                 <S.ButtonSpace>
-                    <Button
+                    <Button.Common
                         onPress={() => router.navigate("/")}
                         title="cancelar"
                         color="light"
                     />
-                    <Button
+                    <Button.Common
                         title="cadastrar"
 
                         // disabled={!isValid || isSubmitting}

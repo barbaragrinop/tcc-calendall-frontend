@@ -18,13 +18,14 @@ export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
+            initialRouteName="index"
         >
             <Tabs.Screen
-                name="two"
+                name="settings"
                 options={{
-                    title: "Adicionar evento",
+                    title: "Config.",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="calendar-plus-o" color={color} />
+                        <TabBarIcon name="gear" color={color} />
                     ),
                 }}
             />
@@ -58,8 +59,6 @@ export default function TabLayout() {
                     href: null
                 }}
             />
-            
-
         </Tabs>
     );
 }

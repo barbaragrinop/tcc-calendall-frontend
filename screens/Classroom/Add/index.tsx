@@ -1,4 +1,4 @@
-import { Button, Header, Input, LogoText } from "@/components";
+import { Header, Input, LogoText } from "@/components";
 import * as S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core";
@@ -83,7 +83,7 @@ const mockClassRooms: TClassroom[] = [
     },
 ]
 
-export function ClassroomScreen() {
+export function AddClassroomScreen() {
 
     return (
         <S.Wrap>
@@ -91,8 +91,7 @@ export function ClassroomScreen() {
             <SafeAreaProvider>
                 <S.Container>
                     <S.TitleCreate>
-                        <S.TitleScreen>SALAS</S.TitleScreen>
-                        <Button.White title="criar sala" />
+                        <S.TitleScreen>Criação de evento para calendário pessoal</S.TitleScreen>
                     </S.TitleCreate>
                     <S.Content>
                         <Input.Text

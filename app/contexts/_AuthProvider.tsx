@@ -38,7 +38,10 @@ export default function SessionProvider(props: PropsWithChildren) {
 
     async function signIn(email: string, password: string) {
 
-        if (!email || !password || session) return
+
+        if(session) router.navigate("/(auth)/(tabs)"); // Se já estiver logado, redireciona para a tela principal
+
+        if (!email || !password ) return
 
         try {
             const { data: { token } } = await api<{ token: string }>({
@@ -46,6 +49,7 @@ export default function SessionProvider(props: PropsWithChildren) {
                 method: "POST",
                 data: { email, senha: password }
             });
+            console.log('token', token)
 
             const decodedToken: AuthResponse = jwtDecode(token);
 
@@ -56,6 +60,7 @@ export default function SessionProvider(props: PropsWithChildren) {
                 birthDate: decodedToken.dataNascimento,
                 email: decodedToken.email,
             }
+            console.log('userData', userData)
 
             setSession(userData);
 

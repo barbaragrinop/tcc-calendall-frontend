@@ -33,14 +33,14 @@ export function CodeConfirmationScreen() {
                     />
                     <Input.Text label="Código enviado" required />
                     <S.ButtonSpace>
-                        <Button
+                        <Button.Common
                             title="confirmar"
                             color="dark"
                             onPress={() => 
                                 router.navigate("/recover-password/change-password")
                             }
                         />
-                        <Button
+                        <Button.Common
                             title="cancelar"
                             color="light"
                             onPress={router.back}

@@ -29,9 +29,6 @@ export function useSecureStoreManagement() {
      * Irá salvar ou deletar um item no storage do dispositivo, dependendo do valor passado.
     */
     async function setStorageItemAsync(key: string, value: string | null) {
-        console.log('value', value)
-        console.log('key', key)
-        
         if (value === null) {
             await SecureStore.deleteItemAsync(key);
         } else {
@@ -57,9 +54,7 @@ export function useSecureStoreManagement() {
         const [state, setState] = useAsyncState<T>();
 
         useEffect(() => {
-
             SecureStore.getItemAsync(key).then((value) => {
-                console.log('value de fora', value)
                 if (value) {
                     console.log('value de dentro', value)
                     try {

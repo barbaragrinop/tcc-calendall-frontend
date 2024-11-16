@@ -18,12 +18,10 @@ export function LoginScreen() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    SecureStore.getItemAsync("session").then((value) => {
-        if (value) {
-            console.log("value", value);
-            console.log("JSON.parse(value)", JSON.parse(value));
-        }
-    })
+    useEffect(() => {
+        console.log('session', session)
+        if(session) router.replace("/(auth)/(tabs)");
+    }, [session])
     
     return (
         <S.Container>

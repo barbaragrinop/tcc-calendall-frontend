@@ -21,12 +21,12 @@ export function RecoverPasswordScreen() {
                         onChangeText={(newText) => setEmail(newText)}
                     />
                     <S.ButtonSpace>
-                        <Button
+                        <Button.Common
                             title="prosseguir"
                             color="dark"
                             onPress={() => router.navigate("/recover-password/confirmation-code")}
                         />
-                        <Button
+                        <Button.Common
                             title="cancelar"
                             color="light"
                             onPress={router.back}
