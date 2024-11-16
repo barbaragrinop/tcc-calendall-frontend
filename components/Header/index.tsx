@@ -5,8 +5,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '@/constants/_colors';
 import { LogoText } from '../Logo/Text';
 import { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from 'expo-router';
+import { TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, Pressable } from 'react-native';
+import { router } from 'expo-router';
+import { useSession } from '@/app/contexts';
+import { Dropdown } from '../Dropdown';
+import { DropdownOptions } from '@/types';
 
 type Props = {
     backIcon?: boolean
@@ -15,9 +18,8 @@ type Props = {
 
 
 function HeaderBackButton({ title, backIcon = true }: Props) {
-    const navigation = useNavigation()
     return (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={router.back}>
             <S.Header>
                 {backIcon && (
                     <FontAwesomeIcon
@@ -33,19 +35,46 @@ function HeaderBackButton({ title, backIcon = true }: Props) {
 }
 
 function HeaderProfileInfo() {
+    const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
 
+    const { signOut } = useSession();
 
+    const toggleOptions = () => setIsOptionsOpen((prev) => !prev);
+    const closeOptions = () => setIsOptionsOpen(false);
 
     return (
-        <S.LogoSpace>
-            <S.CalendallText>
-                <LogoText color="#fff" size={33} />
-            </S.CalendallText>
-            <S.Image
-                source={require("../../assets/images/profile-nophoto.png")}
-                style={{ width: 30, height: 30 }}
-            />
-        </S.LogoSpace>
+        <TouchableWithoutFeedback
+            onPress={() => {
+                Keyboard.dismiss();
+                closeOptions();
+            }}
+        >
+            <S.LogoSpace>
+                <S.CalendallText>
+                    <LogoText color="#fff" size={33} />
+                </S.CalendallText>
+                <Pressable onPress={toggleOptions}>
+                    <S.Image
+                        source={require("../../assets/images/profile-nophoto.png")}
+                        style={{ width: 30, height: 30 }}
+                    />
+                </Pressable>
+
+                {isOptionsOpen && (
+                    <Dropdown items={[
+                        {
+                            title: "Perfil",
+                            action: () => console.log("perfil building")
+                        },
+                        {
+                            title: "Sair",
+                            action: signOut
+                        }
+                    ]} />
+                )}
+
+            </S.LogoSpace>
+        </TouchableWithoutFeedback>
     )
 }
 

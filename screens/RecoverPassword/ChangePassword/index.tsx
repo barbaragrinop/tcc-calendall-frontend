@@ -2,10 +2,9 @@ import React from "react";
 import * as S from "./style";
 
 import { Button, Header, Input } from "@/components";
-import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 
 export function ChangePasswordScreen() {
-    const navigation = useNavigation();
 
     return (
         <S.Container>
@@ -25,12 +24,12 @@ export function ChangePasswordScreen() {
                         <Button
                             title="alterar"
                             color="dark"
-                            onPress={() => navigation.navigate("index")}
+                            onPress={() => router.navigate("/")}
                         />
                         <Button
                             title="cancelar"
                             color="light"
-                            onPress={() => navigation.navigate("index")}
+                            onPress={() => router.navigate("/")}
                         />
                     </S.ButtonSpace>
                 </S.FieldForms>

@@ -14,7 +14,6 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-    // const currentRouter = usePathname();
     
     return (
         <Tabs
@@ -42,7 +41,7 @@ export default function TabLayout() {
                 name="classroom/index"
                 options={{
                     title: "Salas",
-                    tabBarIcon: ({ size, focused, color }) => {
+                    tabBarIcon: ({ size, color }) => {
                         return (
                             <IconClassroom
                                 style={{ width: size, height: size }}
@@ -59,6 +58,7 @@ export default function TabLayout() {
                     href: null
                 }}
             />
+            
 
         </Tabs>
     );

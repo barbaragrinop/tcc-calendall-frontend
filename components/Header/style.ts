@@ -30,8 +30,9 @@ export const LogoSpace = styled.SafeAreaView`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 110px;
+    min-height: 110px;
     position: relative;
+    z-index: 50;
 `;
 
 export const CalendallText = styled.View`

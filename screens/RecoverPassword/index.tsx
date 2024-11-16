@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import * as S from "./style";
 
-import { Text } from "react-native";
 import { Button, Header, Input } from "@/components";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { router } from "expo-router";
 
 export function RecoverPasswordScreen() {
-    const navigation = useNavigation();
     const [email, setEmail] = useState("");
 
     return (
@@ -27,14 +24,12 @@ export function RecoverPasswordScreen() {
                         <Button
                             title="prosseguir"
                             color="dark"
-                            onPress={() =>
-                                navigation.navigate("recover-password/confirmation-code")
-                            }
+                            onPress={() => router.navigate("/recover-password/confirmation-code")}
                         />
                         <Button
                             title="cancelar"
                             color="light"
-                            onPress={() => navigation.goBack()}
+                            onPress={router.back}
                         />
                     </S.ButtonSpace>
                 </S.FieldForms>

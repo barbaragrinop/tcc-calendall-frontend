@@ -2,15 +2,21 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import { useFonts } from "expo-font";
-import { Slot, Stack, Tabs, useSegments } from "expo-router";
+import { router, Slot } from "expo-router";
 import { useEffect } from "react";
-import { SessionProvider } from "@/contexts/auth-provider";
+import SessionProvider, { useSession } from "./contexts";
 
 export { Stack } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
+export const unstable_settings = {
+    initialRouteName: "login",
+};
+
 export default function RootLayout() {
+
+    const { session } = useSession();
 
     const [loaded, error] = useFonts({
         Acme: require("../assets/fonts/Acme-Regular.ttf"),
@@ -29,14 +35,23 @@ export default function RootLayout() {
         }
     }, [loaded]);
 
+    useEffect(() => {
+        if (session) {
+            router.navigate("/(auth)/(tabs)");
+        }
+    }, [])
+
     if (!loaded) {
         return null;
     }
 
+    return <RootLayoutNav />;
+}
+
+function RootLayoutNav() {
     return (
         <SessionProvider>
             <Slot />
         </SessionProvider>
-
     );
 }

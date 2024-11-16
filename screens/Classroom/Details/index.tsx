@@ -232,6 +232,7 @@ export function ClassroomDetailsScreen() {
                                     <S.ImageWrap>
                                         <S.Image
                                             key={index}
+                                            // @ts-ignore
                                             source={image}
                                             style={{ width: 30, height: 30 }}
                                         />

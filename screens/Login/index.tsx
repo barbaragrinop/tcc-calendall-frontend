@@ -1,14 +1,30 @@
 import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { useNavigation } from "@react-navigation/native";
 import { Input, LogoText } from "@/components";
 import { useHttpCommon } from "@/hooks";
+// import { useSession } from "@/app/contexts";
+import { Link, Redirect, router } from "expo-router";
+import { useSession } from "@/app/contexts";
+import { TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 
 export function LoginScreen() {
-    const navigation = useNavigation();
-    const { client } = useHttpCommon();
 
+    const { client } = useHttpCommon();
+    const { signIn, session } = useSession();
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    SecureStore.getItemAsync("session").then((value) => {
+        if (value) {
+            console.log("value", value);
+            console.log("JSON.parse(value)", JSON.parse(value));
+        }
+    })
+    
     return (
         <S.Container>
             <S.Background>
@@ -27,28 +43,36 @@ export function LoginScreen() {
                 <S.HR />
                 <S.Form>
                     <S.Title>Entre com a sua conta</S.Title>
-                    <Input.Email label="e-mail" placeholder="Digite seu email" />
-                    <Input.Password label="senha" placeholder="**********" />
-                    <S.EsqueceuSenha
-                        onPress={() => navigation.navigate("recover-password/index")}
-                    >
-                        Esqueceu sua senha?
-                    </S.EsqueceuSenha>
-                    <S.Button onPress={() => navigation.navigate("(tabs)")}>
-                        <S.ButtonText>entrar</S.ButtonText>
-                    </S.Button>
+                    <Input.Email
+                        label="e-mail"
+                        value={email}
+                        placeholder="Digite seu email"
+                        onChangeText={(e) => setEmail(e)}
+                    />
+
+                    <Input.Password
+                        label="senha"
+                        value={password}
+                        placeholder="**********"
+                        onChangeText={(e) => setPassword(e)}
+                    />
+                    <TouchableOpacity onPress={() => signIn(email, password)}>
+                        <S.Button>
+                            <S.ButtonText>entrar</S.ButtonText>
+                        </S.Button>
+                    </TouchableOpacity>
                 </S.Form>
                 <S.CadastroContainer>
                     <S.TextCadastro>ainda não é cadastrado?</S.TextCadastro>
-                    <S.CadastreSeLink
-                        onPress={() => navigation.navigate("register-user")}
-                    >
-                        cadastre-se
-                        <FontAwesomeIcon
-                            icon={faArrowRight}
-                            style={{ color: "#fff" }}
-                        />
-                    </S.CadastreSeLink>
+                    <Link href="/register-user">
+                        <S.CadastreSeLink>
+                            cadastre-se
+                            <FontAwesomeIcon
+                                icon={faArrowRight}
+                                style={{ color: "#fff" }}
+                            />
+                        </S.CadastreSeLink>
+                    </Link>
                 </S.CadastroContainer>
             </S.Background>
         </S.Container>

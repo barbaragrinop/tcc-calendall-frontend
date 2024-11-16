@@ -87,11 +87,11 @@ export const EsqueceuSenha = styled.Text`
     text-align: right;
 `;
 
-export const InputComponent = styled(Input)`
+export const InputComponent = styled(Input.Password)`
     margin-bottom: 20px;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.View`
     background-color: ${COLORS.BLUE_TERTIARY};
     padding: 10px;
     margin: 10px;
@@ -116,7 +116,7 @@ export const CadastroContainer = styled.View`
 
 export const TextCadastro = styled.Text`
     color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 200;
     text-align: center;
 `;

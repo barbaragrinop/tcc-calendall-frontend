@@ -3,15 +3,14 @@ import * as S from "./style";
 
 import { Text } from "react-native";
 import { Button, Header, Input, RequiredSymbol } from "@/components";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { router } from "expo-router";
 
 type RouteParams = {
     email: string;
 };
 
 export function CodeConfirmationScreen() {
-    const navigation = useNavigation();
-    const route = useRoute();
+    // const route = useRoute();
 
     // const { email } = route.params as RouteParams;
 
@@ -38,13 +37,13 @@ export function CodeConfirmationScreen() {
                             title="confirmar"
                             color="dark"
                             onPress={() => 
-                                navigation.navigate("recover-password/change-password")
+                                router.navigate("/recover-password/change-password")
                             }
                         />
                         <Button
                             title="cancelar"
                             color="light"
-                            onPress={() => navigation.goBack()}
+                            onPress={router.back}
                         />
                     </S.ButtonSpace>
                 </S.FieldForms>

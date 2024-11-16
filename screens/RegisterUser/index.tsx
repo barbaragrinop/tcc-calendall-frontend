@@ -1,5 +1,4 @@
 import * as S from "./styles";
-import { useNavigation } from "@react-navigation/native";
 import { Alert, Text, View } from "react-native";
 import { Button, Header, Input, RequiredSymbol } from "@/components";
 import { useHttpCommon, useYup } from "@/hooks";
@@ -8,6 +7,7 @@ import { ErrorMessage } from "@/components/FormErrorMessage";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
+import { Link, router } from "expo-router";
 
 type FormValues = {
     name: string;
@@ -18,7 +18,6 @@ type FormValues = {
 }
 
 export function RegisterUserScreen() {
-    const navigation = useNavigation();
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
 
     const { api } = useHttpCommon()
@@ -55,7 +54,7 @@ export function RegisterUserScreen() {
                 }
             })
 
-            navigation.navigate("index")
+            router.navigate("/")
         } catch (ex) {
             console.error('ex', ex)
 
@@ -70,7 +69,7 @@ export function RegisterUserScreen() {
             Alert.alert("Erro ao cadastrar usuário");
         }
     }
-    
+
     return (
         <S.Container>
             <Header.BackButton title="Cadastro de Usuário" />
@@ -133,7 +132,7 @@ export function RegisterUserScreen() {
                                     editable={false}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
-                                    onChange={value => onChange(value)}         
+                                    onChange={value => onChange(value)}
                                     value={value ? format(new Date(value), "dd/MM/yyyy", { locale: ptBR }) : ""}
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
@@ -189,31 +188,33 @@ export function RegisterUserScreen() {
                     Ao clicar no botão
                     <Text style={{ fontWeight: "bold" }}> cadastrar </Text>
                     você concorda com os{" "}
-                    <Text
-                        onPress={() => navigation.navigate("terms-of-use")}
-                        style={{
-                            fontWeight: "bold",
-                            textDecorationLine: "underline",
-                        }}
-                    >
-                        Termos de Uso
-                    </Text>
+                    <Link href="/terms-of-use">
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                textDecorationLine: "underline",
+                            }}
+                        >
+                            Termos de Uso
+                        </Text>
+                    </Link>
                     {" e "}
-                    <Text
-                        onPress={() => navigation.navigate("privacy-policy")}
-                        style={{
-                            fontWeight: "bold",
-                            textDecorationLine: "underline",
-                        }}
-                    >
-                        Políticas de Privacidade
-                    </Text>
+                    <Link href="/privacy-policy">
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                textDecorationLine: "underline",
+                            }}
+                        >
+                            Políticas de Privacidade
+                        </Text>
+                    </Link>
                 </S.RequiredText>
                 <S.ButtonSpace>
                     <Button
+                        onPress={() => router.navigate("/")}
                         title="cancelar"
                         color="light"
-                        onPress={() => navigation.goBack()}
                     />
                     <Button
                         title="cadastrar"
