@@ -15,6 +15,7 @@ import { COLORS } from "@/constants";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import { ErrorMessage } from '@/components/FormErrorMessage';
+import { usePersonalCalendarService } from '../hooks/usePersonalCalendarService';
 
 type FormValues = {
     title: string;
@@ -28,6 +29,8 @@ type FormValues = {
 export function AddPersonalEvent() {
     const [isCollapsed, setIsCollapsed] = useState(true)
     const { api } = useHttpCommon()
+    const { mutate } = usePersonalCalendarService()
+
     const { resolver } = useYup<FormValues>((yup) => {
         return yup.object().shape({
             title: yup.string().required(),
@@ -65,6 +68,7 @@ export function AddPersonalEvent() {
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()
             setIsCollapsed(true)
+            mutate()
         } catch (error: any) {
             Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!')
             console.log('error', error.response)

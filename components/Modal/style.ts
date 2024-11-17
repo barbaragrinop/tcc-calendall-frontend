@@ -77,6 +77,4 @@ export const Title = styled.Text`
 export const ScrollViewContainer = styled.ScrollView`
     max-height: 500px;
     width: 100%;
-    margin-bottom:20px;
-    padding-top: 20px;
 `

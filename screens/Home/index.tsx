@@ -1,107 +1,34 @@
 import * as S from "./style";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { LogoText, Tabs, Event, Header } from "@/components";
+import { Tabs, Event, Header } from "@/components";
 import { COLORS } from "@/constants";
 import { useCalendar } from "@/hooks";
-import { EventResponse, Priority, Event as TEvent } from "@/types";
+import { EventResponse } from "@/types";
 import { AddPersonalEvent } from "./AddPersonalEvent";
-import { useSession } from "@/app/contexts";
 import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 
 
-const nextEvents: TEvent[] = [
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada semana",
-        priority: Priority.BAIXA,
-        time: "14h30",
-        title: "Apresentação do Joseffe",
-        description:
-            "Falar com a Bruna e com a Nathalia pra conseguir montar apresentação e também ajudar no backend do tcc. levar o doc pra secretaria",
-    },
-    {
-        notificationType: "a cada 2 horas",
-        priority: Priority.MEDIA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-];
-
 export function HomeScreen() {
-    const { data, mutate, isLoading } = usePersonalCalendarService<EventResponse[]>();
-    const { Calendar, markedDates, todayEvents, nextEvents } = useCalendar(data);
+    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>();
+    const { todayEvents, nextEvents, Calendar } = useCalendar(data);
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
     return (
         <S.Root>
             <Header.ProfileInfo />
-
+            {!data && (
+                <ActivityIndicator size="large" color={COLORS.BLUE_DARK1} />
+            )}
             <S.Container horizontal={false}>
-                <AddPersonalEvent />
-
                 {isLoading ? (
                     <ActivityIndicator size="large" color={COLORS.BLUE_PRIMARY} />
                 ) : (
                     <>
-                        <Calendar
-                            style={{
-                                backgroundColor: COLORS.BLUE_PRIMARY,
-                                paddingTop: 30,
-                            }}
-                            markedDates={markedDates}
-                            theme={{
-                                textSectionTitleColor: "white",
-                                textDayHeaderFontWeight: "600",
-                                calendarBackground: COLORS.BLUE_PRIMARY,
-                                dayTextColor: "white",
-                            }}
-                        />
-
+                        <AddPersonalEvent />
+                        <Calendar />
                         <S.Shape>
                             <Tabs
                                 items={[
@@ -150,25 +77,13 @@ export function HomeScreen() {
                                                     keyExtractor={(_, index) => index.toString()}
                                                     renderItem={({ item: event, index }) => {
 
-                                                        const eventDate = new Date();
-                                                        eventDate.setDate(
-                                                            eventDate.getDate() +
-                                                            (index + 2)
-                                                        );
-
-                                                        const formatDate = format(
-                                                            new Date(eventDate),
-                                                            "dd/MMM",
-                                                            { locale: ptBR }
-                                                        );
-
                                                         return (
                                                             <Event
                                                                 key={index}
                                                                 notificationType={
                                                                     event.notificationType
                                                                 }
-                                                                date={formatDate}
+                                                                date={event.date}
                                                                 priority={event.priority}
                                                                 time={event.time}
                                                                 title={event.title}
@@ -192,3 +107,16 @@ export function HomeScreen() {
         </S.Root>
     );
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+    },
+});

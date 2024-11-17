@@ -1,7 +1,6 @@
 
 import { PropsWithChildren } from "react";
-import { Modal as RnModal, ScrollView, TouchableWithoutFeedback, View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Modal as RnModal, View, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as S from './style';
 
@@ -34,7 +33,7 @@ export function Modal({ visible, closeModal, children, title }: Props) {
                             <S.Title> {title} </S.Title>
                         </S.HeaderSpace>
                         <S.ScrollViewContainer>
-                            <View style={{ paddingHorizontal: 20 }}>
+                            <View>
                                 {children}
                             </View>
                         </S.ScrollViewContainer>

@@ -1,15 +1,14 @@
-import { Pressable, TextInputProps, View, Platform } from "react-native";
 import * as S from "./style";
-import React, { ReactElement, useState } from "react";
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
+
+import { Pressable, TextInputProps, View, Platform } from "react-native";
+import { ReactElement, useState } from "react";
 import { RequiredSymbol } from "../RequiredSymbol";
 import { COLORS } from "@/constants";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { DropdownProps } from "react-native-element-dropdown/lib/typescript/components/Dropdown/model";
-import { Dropdown } from "react-native-element-dropdown";
 
 type Props = TextInputProps & {
     required?: boolean;

@@ -1,25 +1,22 @@
 import * as S from "./styles";
+
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Input, LogoText } from "@/components";
 import { useHttpCommon } from "@/hooks";
-// import { useSession } from "@/app/contexts";
-import { Link, Redirect, router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useSession } from "@/app/contexts";
 import { TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-import * as SecureStore from "expo-secure-store";
 
 export function LoginScreen() {
 
-    const { client } = useHttpCommon();
     const { signIn, session } = useSession();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
     useEffect(() => {
-    
         if(session) router.replace("/(auth)/(tabs)");
     }, [session])
     
