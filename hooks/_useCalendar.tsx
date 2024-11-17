@@ -1,4 +1,4 @@
-import { EventResponse, Priority } from "@/types";
+import { EventResponse, Priority, Event } from "@/types";
 import {
     faChevronLeft,
     faChevronRight,
@@ -95,6 +95,38 @@ export function useCalendar(data?: EventResponse[]) {
         }, {} as Record<string, { marked: boolean; dotColor: string }>);
     }, [data]);
 
+    const formatEvent = (item: EventResponse): Event => {
+        const { evento, tipoNotificacao, tipoPrioridade } = item;
+        return {
+            notificationType: tipoNotificacao,
+            priority: tipoPrioridade as unknown as Priority,
+            time: "14h30", // Substituir pelo horário correto, se disponível
+            date: evento.dt_evento,
+            title: evento.titulo,
+            description: evento.descricao,
+        };
+    };
+
+    const today = new Date().toISOString().split("T")[0];
+
+    const todayEvents = useMemo<Event[]>(() => {
+        if (!data) return [];
+
+        return data.filter((item) => item.evento.dt_evento === today)
+            .map(formatEvent);
+    }, [data, todayDate])
+
+    const nextEvents = useMemo<Event[]>(() => {
+        if (!data) return [];
+
+        return data.filter((item) => item.evento.dt_evento > today)
+            .map((item) => {
+                const formattedEvent = formatEvent(item);
+                delete formattedEvent.date; // Remover a propriedade `date` de nextEvents
+                return formattedEvent;
+            });
+    }, [data, todayDate])
+
     function customHeader(date: XDate | undefined) {
         if (!date) return;
 
@@ -138,6 +170,10 @@ export function useCalendar(data?: EventResponse[]) {
         customHeader,
         todayDate,
         markedDates,
+        today, 
+        todayEvents,
+        nextEvents, 
+        priorityColors
     };
 }
 

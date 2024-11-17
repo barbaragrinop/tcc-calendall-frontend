@@ -10,41 +10,6 @@ import { AddPersonalEvent } from "./AddPersonalEvent";
 import { useSession } from "@/app/contexts";
 import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 
-const todayEvents: TEvent[] = [
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        date: (new Date().getDate() + 1).toString(),
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada semana",
-        priority: Priority.BAIXA,
-        time: "14h30",
-        date: "23/10",
-        title: "Apresentação do Joseffe",
-        description:
-            "Falar com a Bruna e com a Nathalia pra conseguir montar apresentação e também ajudar no backend do tcc. levar o doc pra secretaria",
-    },
-    {
-        notificationType: "a cada 2 horas",
-        priority: Priority.MEDIA,
-        time: "14h30",
-        date: "24/10",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-    {
-        notificationType: "a cada dia",
-        priority: Priority.ALTA,
-        time: "14h30",
-        date: "25/10",
-        title: "Seminario Redes",
-        description: "çlkasdkjasdlkjlksajdlkasjd",
-    },
-];
 
 const nextEvents: TEvent[] = [
     {
@@ -108,7 +73,7 @@ const nextEvents: TEvent[] = [
 
 export function HomeScreen() {
     const { data } = usePersonalCalendarService<EventResponse[]>();
-    const { Calendar, markedDates } = useCalendar(data);
+    const { Calendar, markedDates, todayEvents, nextEvents } = useCalendar(data);
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
@@ -117,7 +82,7 @@ export function HomeScreen() {
             <Header.ProfileInfo />
 
             <S.Container horizontal={false}>
-                <AddPersonalEvent  />
+                <AddPersonalEvent />
                 <Calendar
                     style={{
                         backgroundColor: COLORS.BLUE_PRIMARY,
