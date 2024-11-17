@@ -19,7 +19,7 @@ export function LoginScreen() {
     const [password, setPassword] = useState<string>("");
 
     useEffect(() => {
-        console.log('session', session)
+    
         if(session) router.replace("/(auth)/(tabs)");
     }, [session])
     

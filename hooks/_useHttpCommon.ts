@@ -1,29 +1,46 @@
+import { useSession } from "@/app/contexts"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import * as SecureStore from 'expo-secure-store'
+import { useEffect } from "react"
 
 const client = axios.create({
     baseURL: process.env.EXPO_PUBLIC_BASE_URL
 })
 
 export function useHttpCommon() {
+    const { session } = useSession()
 
-    client.interceptors.request.use(async (config) => {
-        const token = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_NATIVE_TOKEN_KEY!)
+    useEffect(() => {
+        if (!session) return
 
-        if (token && config.headers) {
-            config.headers.Authorization = `Bearer ${token}`
-        }
+        client.interceptors.request.use(async (config) => {
 
-        return config
-    })
+            if (session && session.token && config.headers) {
+                config.headers.Authorization = `Bearer ${session.token}`
+            } else {
+                delete config.headers.Authorization
+            }
+
+            return config
+            
+        })
+    }, [session])
+
+
 
     async function api<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return client(config)
     }
 
+    async function fetcher<T>(url: string, params?: AxiosRequestConfig['params']): Promise<T> {
+        const { data } = await client.get<T>(url, { params })
+        return data
+    }
+
     return {
         client,
-        api
+        api,
+        fetcher
     }
 
 }

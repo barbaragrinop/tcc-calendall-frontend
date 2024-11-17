@@ -5,9 +5,10 @@ import { ptBR } from "date-fns/locale";
 import { LogoText, Tabs, Event, Header } from "@/components";
 import { COLORS } from "@/constants";
 import { useCalendar } from "@/hooks";
-import { Priority, Event as TEvent } from "@/types";
-import { ModalAddPersonalEvent } from "./AddPersonalEvent";
+import { EventResponse, Priority, Event as TEvent } from "@/types";
+import { AddPersonalEvent } from "./AddPersonalEvent";
 import { useSession } from "@/app/contexts";
+import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 
 const todayEvents: TEvent[] = [
     {
@@ -106,36 +107,23 @@ const nextEvents: TEvent[] = [
 ];
 
 export function HomeScreen() {
-    const { Calendar } = useCalendar();
-    const { session } = useSession()
+    const { data } = usePersonalCalendarService<EventResponse[]>();
+    const { Calendar, markedDates } = useCalendar(data);
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
-
 
     return (
         <S.Root>
             <Header.ProfileInfo />
-            <ModalAddPersonalEvent />
 
             <S.Container horizontal={false}>
+                <AddPersonalEvent  />
                 <Calendar
                     style={{
                         backgroundColor: COLORS.BLUE_PRIMARY,
                         paddingTop: 30,
                     }}
-                    markedDates={{
-                        "2024-09-16": { marked: true },
-                        "2024-09-17": { marked: true },
-                        "2024-09-18": {
-                            marked: true,
-                            dotColor: "red",
-                            activeOpacity: 0,
-                        },
-                        "2024-09-19": {
-                            disabled: true,
-                            disableTouchEvent: true,
-                        },
-                    }}
+                    markedDates={markedDates}
                     theme={{
                         textSectionTitleColor: "white",
                         textDayHeaderFontWeight: "600",

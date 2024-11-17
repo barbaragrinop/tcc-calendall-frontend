@@ -10,6 +10,7 @@ type AuthResponse = {
     nome: string;
     dataNascimento: string;
     email: string;
+    id: number
 }
 
 const AuthContext = createContext<{
@@ -32,16 +33,14 @@ export function useSession() {
 
 export default function SessionProvider(props: PropsWithChildren) {
 
-    const { api } = useHttpCommon();
+    const { api, client } = useHttpCommon();
     const { useStorageState } = useSecureStoreManagement();
     const [[isLoading, session], setSession] = useStorageState<User | null>("session");
 
     async function signIn(email: string, password: string) {
+        if (session) router.navigate("/(auth)/(tabs)"); // Se já estiver logado, redireciona para a tela principal
 
-
-        if(session) router.navigate("/(auth)/(tabs)"); // Se já estiver logado, redireciona para a tela principal
-
-        if (!email || !password ) return
+        if (!email || !password) return
 
         try {
             const { data: { token } } = await api<{ token: string }>({
@@ -49,7 +48,6 @@ export default function SessionProvider(props: PropsWithChildren) {
                 method: "POST",
                 data: { email, senha: password }
             });
-            console.log('token', token)
 
             const decodedToken: AuthResponse = jwtDecode(token);
 
@@ -59,8 +57,9 @@ export default function SessionProvider(props: PropsWithChildren) {
                 nome: decodedToken.nome,
                 birthDate: decodedToken.dataNascimento,
                 email: decodedToken.email,
+                token,
+                id: decodedToken.id,
             }
-            console.log('userData', userData)
 
             setSession(userData);
 
@@ -76,9 +75,8 @@ export default function SessionProvider(props: PropsWithChildren) {
     async function signOut() {
 
         try {
-            // console.log('signOut entrou aqui dentro');
-            setSession(null); // Limpa a sessão
-            router.replace("/"); // Redireciona para a tela de login
+            setSession(null); 
+            router.replace("/"); 
         } catch (err) {
             console.error("Erro no logout:", err);
         }

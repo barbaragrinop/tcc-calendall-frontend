@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
 
 // Container do Modal
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   background-color: #00000099;
   flex: 1;
   align-items: center;
@@ -14,11 +14,12 @@ export const Container = styled.View`
 // Popup do Modal
 export const Popup = styled.View`
   width: 90%;
+  max-height: 90%;  /* max-height: 90%; // Limita a altura para evitar que o modal ultrapasse a tela. */
   border-radius: 20px;
   background-color: ${COLORS.WHITE};
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; 
 `;
 
 // Botão de fechar

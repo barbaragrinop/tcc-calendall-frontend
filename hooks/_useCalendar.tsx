@@ -1,9 +1,10 @@
+import { EventResponse, Priority } from "@/types";
 import {
     faChevronLeft,
     faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import {
     LocaleConfig,
@@ -57,7 +58,8 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export function useCalendar() {
+export function useCalendar(data?: EventResponse[]) {
+    console.log('data ajLAJK SDAÇLKSJ DÇLS JDALSKD JÇL', data)
     const [selectedDay, setSelectedDay] = useState<string>("");
     const [todayDate, setToday] = useState<string>("");
 
@@ -70,6 +72,28 @@ export function useCalendar() {
     const handleDayPress = (date: DateData) => {
         setSelectedDay(date.dateString);
     };
+
+    const priorityColors: Record<string, string> = {
+        BAIXA: "gray",
+        MEDIA: "yellow",
+        ALTA: "red",
+    };
+
+    const markedDates = useMemo(() => {
+        if (!data) return
+
+        return data.reduce((acc, item) => {
+            const { dt_evento } = item.evento;
+            const { tipoPrioridade } = item;
+
+            acc[dt_evento] = {
+                marked: true,
+                dotColor: priorityColors[tipoPrioridade] || "gray", // Default color if priority is not listed
+            };
+
+            return acc;
+        }, {} as Record<string, { marked: boolean; dotColor: string }>);
+    }, [data]);
 
     function customHeader(date: XDate | undefined) {
         if (!date) return;
@@ -113,6 +137,7 @@ export function useCalendar() {
         customArrows,
         customHeader,
         todayDate,
+        markedDates,
     };
 }
 

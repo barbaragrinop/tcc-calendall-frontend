@@ -20,8 +20,12 @@ export function Modal({ visible, closeModal, children, title }: Props) {
             visible={visible}
             onRequestClose={closeModal}
         >
-            <SafeAreaView style={{ flex: 1 }}>
-                <S.Container>
+            <View style={{ flex: 1, }}>
+                <S.Container style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
                     <S.Popup>
                         <S.CloseModalButton onPress={closeModal}>
                             <Ionicons name="close" size={24} color={"red"} />
@@ -30,15 +34,13 @@ export function Modal({ visible, closeModal, children, title }: Props) {
                             <S.Title> {title} </S.Title>
                         </S.HeaderSpace>
                         <S.ScrollViewContainer>
-                            <TouchableWithoutFeedback>
-                                <View style={{ paddingHorizontal: 20 }}>
-                                    {children}
-                                </View>
-                            </TouchableWithoutFeedback>
+                            <View style={{ paddingHorizontal: 20 }}>
+                                {children}
+                            </View>
                         </S.ScrollViewContainer>
                     </S.Popup>
                 </S.Container>
-            </SafeAreaView>
+            </View>
         </RnModal>
     );
 }

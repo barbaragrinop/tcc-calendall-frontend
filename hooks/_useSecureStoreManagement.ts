@@ -56,11 +56,11 @@ export function useSecureStoreManagement() {
         useEffect(() => {
             SecureStore.getItemAsync(key).then((value) => {
                 if (value) {
-                    console.log('value de dentro', value)
+                    
                     try {
                         setState(JSON.parse(value) as T); // Desserializa o objeto
                     } catch {
-                        console.log('catch')
+
                         setState(null); // Trata caso o valor salvo não seja um JSON válido
                     }
                 } else {

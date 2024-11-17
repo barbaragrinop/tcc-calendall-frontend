@@ -8,12 +8,15 @@ import { ptBR } from "date-fns/locale";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { DropdownProps } from "react-native-element-dropdown/lib/typescript/components/Dropdown/model";
+import { Dropdown } from "react-native-element-dropdown";
 
 type Props = TextInputProps & {
     required?: boolean;
     label?: string;
     isDisabled?: boolean;
     icon?: ReactElement;
+    type?: "white" | "gray";
 };
 
 function InputText({
@@ -22,20 +25,32 @@ function InputText({
     placeholder,
     isDisabled = false,
     icon,
+    type = "white",
     ...props
 }: Props) {
 
     if (icon) {
         return (
             <S.Container>
-                <S.Label>
-                    {required && <RequiredSymbol />} {label}
-                </S.Label>
+                {label && (
+                    <S.LabelSpace>
+                        {required && <RequiredSymbol />}
+                        <S.Label type={type}>
+                            {label}
+                        </S.Label>
+                    </S.LabelSpace>
+                )}
                 <S.ContainerInput>
                     <S.IconSpace>
                         {icon}
                     </S.IconSpace>
-                    <S.TextInput isDisabled={isDisabled} placeholder={placeholder} hasIcon={icon} {...props} placeholderTextColor={COLORS.GREY_LIGHT} />
+                    <S.TextInput
+                        isDisabled={isDisabled}
+                        placeholder={placeholder}
+                        hasIcon={icon} {...props}
+                        placeholderTextColor={COLORS.GREY_LIGHT}
+                        type={type}
+                    />
                 </S.ContainerInput>
             </S.Container>
         );
@@ -43,16 +58,27 @@ function InputText({
 
     return (
         <S.Container>
-            <S.Label>
-                {required && <RequiredSymbol />} {label}
-            </S.Label>
-            <S.TextInput isDisabled={isDisabled} {...props} />
+            {label && (
+                <S.LabelSpace>
+                    {required && <RequiredSymbol />}
+                    <S.Label type={type}>
+                        {label}
+                    </S.Label>
+                </S.LabelSpace>
+            )}
+            <S.TextInput
+                isDisabled={isDisabled}
+                placeholder={placeholder}
+                hasIcon={icon} {...props}
+                placeholderTextColor={COLORS.GREY_LIGHT}
+                type={type}
+            />
         </S.Container>
     );
 }
 
 function InputPassword(props: Props) {
-    return <InputText {...props} secureTextEntry  />;
+    return <InputText {...props} secureTextEntry />;
 }
 
 function InputEmail(props: Props) {
@@ -63,26 +89,38 @@ function InputNumber(props: Props) {
     return <InputText {...props} keyboardType="number-pad" />;
 }
 
+function InputTextArea(props: Props) {
+    return <InputText {...props} multiline numberOfLines={3} />;
+}
+
 type InputDatePickerProps = Props & {
     getCurrentDate: (date: Date | undefined) => void
+    mode: "date" | "time" | "datetime",
+    textColor: "dark" | "white",
 }
 
 function InputDatePicker(props: InputDatePickerProps) {
+    const { mode, textColor } = props
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
     const [date, setDate] = useState<Date | undefined>(props.value ? new Date(props.value) : undefined)
     const [chosenDate, setChosenDate] = useState<string>("")
 
     function onChange({ type }: DateTimePickerEvent, selectedDate: Date | undefined) {
-
         if (type === "set") {
             const currentDate = selectedDate
 
             if (!currentDate) return
 
-            const normalizedDate = new Date(selectedDate);
-            normalizedDate.setHours(0, 0, 0, 0);  
-            setDate(normalizedDate);
-            props.getCurrentDate(normalizedDate);
+            if (mode === "date") {
+                const normalizedDate = new Date(selectedDate);
+                normalizedDate.setHours(0, 0, 0, 0);
+                setDate(normalizedDate);
+                props.getCurrentDate(normalizedDate);
+            } else {
+                setDate(currentDate)
+                props.getCurrentDate(currentDate)
+            }
+
 
             if (Platform.OS === "android") {
                 toggleDatePicker()
@@ -96,7 +134,6 @@ function InputDatePicker(props: InputDatePickerProps) {
     }
 
     function toggleDatePicker() {
-        console.log('showDatePicker', showDatePicker)
         setShowDatePicker(!showDatePicker)
     }
 
@@ -106,23 +143,19 @@ function InputDatePicker(props: InputDatePickerProps) {
                 onPress={toggleDatePicker}
             >
                 <View style={{ position: 'relative' }}>
+                    
                     <InputText
                         value={chosenDate ?
-                            format(new Date(chosenDate), "dd MMMM yyyy", { locale: ptBR })
-                            : ""}
+                            format(new Date(chosenDate),
+                                "dd MMMM yyyy HH:mm", { locale: ptBR }) : ""
+                        }
                         onChangeText={setChosenDate}
+                        type={props.type}
+                        placeholder={props.placeholder}
                         editable={false}
                         onPressIn={toggleDatePicker}
+                        label={props.label}
                         {...props}
-                        style={{
-                            paddingRight: 30,
-                            paddingLeft: 10,
-                            fontSize: 16,
-                            height: 45,
-                            borderWidth: 1,
-                            borderColor: '#ccc',
-                            borderRadius: 5,
-                        }}
                     />
                     <FontAwesomeIcon
                         icon={faCalendar}
@@ -141,9 +174,10 @@ function InputDatePicker(props: InputDatePickerProps) {
             {
                 showDatePicker && (
                     <DateTimePicker
-                        mode="date"
+                        mode={mode}
                         display="spinner"
                         is24Hour={true}
+                        textColor={textColor === "dark" ? COLORS.GREY_DARK_TEXT : COLORS.WHITE}
                         locale="pt-BR"
                         value={date ? new Date(date) : new Date()}
                         onChange={onChange}
@@ -159,5 +193,6 @@ export const Input = {
     Password: InputPassword,
     Email: InputEmail,
     Number: InputNumber,
-    DatePicker: InputDatePicker
+    DatePicker: InputDatePicker,
+    TextArea: InputTextArea,
 }

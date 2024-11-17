@@ -40,7 +40,7 @@ export function RegisterUserScreen() {
     })
 
     async function onSubmit() {
-        console.log('onSubmit')
+    
         try {
             await api({
                 url: "/autenticacao/cadastro",
@@ -127,6 +127,8 @@ export function RegisterUserScreen() {
                         }, fieldState: { error } }) => (
                             <View>
                                 <Input.DatePicker
+                                    mode="date"
+                                    textColor="white"
                                     label="data de nascimento"
                                     required
                                     editable={false}
@@ -137,7 +139,6 @@ export function RegisterUserScreen() {
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
                                 <ErrorMessage error={error?.message} />
-
                             </View>
                         )}
                     />

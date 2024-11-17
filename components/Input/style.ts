@@ -5,6 +5,7 @@ import { COLORS } from "@/constants";
 type TextInputProps = {
     isDisabled: boolean;
     hasIcon?: ReactElement;
+    type: "white" | "gray";
 };
 
 export const Container = styled.View`
@@ -19,13 +20,20 @@ export const TextInput = styled.TextInput<TextInputProps>`
     padding: ${({ hasIcon }) => (hasIcon ? "15px 65px" : "10px")};
     background-color: ${({ isDisabled }) => (isDisabled ? "#898b8f" : "#fff")};
     color: ${({ isDisabled }) => (isDisabled ? "#39393b" : "#000")};
-    font-size: 18px;
+    font-size: 16px;
+    border: ${({ type }) => (type === "gray" ? `1px solid ${COLORS.GREY_PRIORITY_LOW}` : "none")};
 `;
 
-export const Label = styled.Text`
-    color: white;
+export const Label = styled.Text<{ type: "white" | "gray" }>`
     font-size: 15px;
+    color: ${({ type }) => (type === "gray" ? COLORS.GREY_PRIORITY_LOW : COLORS.WHITE)};
 `;
+
+export const LabelSpace = styled.View`
+    display: flex;
+    flex-direction: row;
+`
+
 
 export const ContainerInput = styled.View`
     position: relative;
