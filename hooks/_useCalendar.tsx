@@ -4,6 +4,7 @@ import {
     faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { isAfter, parseISO } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import {
@@ -119,8 +120,11 @@ export function useCalendar(data?: EventResponse[]) {
     const nextEvents = useMemo<Event[]>(() => {
         if (!data) return [];
 
-        return data.filter((item) => item.evento.dt_evento > today)
-            .map((item) => {
+        
+        
+        return data.filter((item) => isAfter(parseISO(item.evento.dt_evento), parseISO(today)))
+        .map((item) => {
+                console.log('parseISO(item.evento.dt_evento)', parseISO(item.evento.dt_evento))
                 const formattedEvent = formatEvent(item);
                 delete formattedEvent.date; // Remover a propriedade `date` de nextEvents
                 return formattedEvent;
@@ -170,9 +174,9 @@ export function useCalendar(data?: EventResponse[]) {
         customHeader,
         todayDate,
         markedDates,
-        today, 
+        today,
         todayEvents,
-        nextEvents, 
+        nextEvents,
         priorityColors
     };
 }

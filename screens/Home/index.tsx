@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { LogoText, Tabs, Event, Header } from "@/components";
@@ -72,7 +72,7 @@ const nextEvents: TEvent[] = [
 ];
 
 export function HomeScreen() {
-    const { data } = usePersonalCalendarService<EventResponse[]>();
+    const { data, mutate, isLoading } = usePersonalCalendarService<EventResponse[]>();
     const { Calendar, markedDates, todayEvents, nextEvents } = useCalendar(data);
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
@@ -83,104 +83,111 @@ export function HomeScreen() {
 
             <S.Container horizontal={false}>
                 <AddPersonalEvent />
-                <Calendar
-                    style={{
-                        backgroundColor: COLORS.BLUE_PRIMARY,
-                        paddingTop: 30,
-                    }}
-                    markedDates={markedDates}
-                    theme={{
-                        textSectionTitleColor: "white",
-                        textDayHeaderFontWeight: "600",
-                        calendarBackground: COLORS.BLUE_PRIMARY,
-                        dayTextColor: "white",
-                    }}
-                />
 
-                <S.Shape>
-                    <Tabs
-                        items={[
-                            {
-                                title: `Hoje - ${today}`,
-                                component: (
-                                    <View
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            padding: 10
-                                        }}
-                                    >
-                                        <FlatList
-                                            data={todayEvents}
-                                            keyExtractor={(_, index) => index.toString()}
-                                            renderItem={({ item: event, index }) => {
-                                                return (
-                                                    <Event
-                                                        key={index}
-                                                        notificationType={event.notificationType}
-                                                        priority={event.priority}
-                                                        time={event.time}
-                                                        title={event.title}
-                                                        description={event.description}
-                                                    />
-                                                )
-                                            }} />
-                                    </View>
-                                ),
-                            },
-                            {
-                                title: "Próximos eventos",
-                                component: (
-                                    <View
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            padding: 10
-                                        }}
-                                    >
-                                        <FlatList
-                                            data={nextEvents}
-                                            keyExtractor={(_, index) => index.toString()}
-                                            renderItem={({ item: event, index }) => {
+                {isLoading ? (
+                    <ActivityIndicator size="large" color={COLORS.BLUE_PRIMARY} />
+                ) : (
+                    <>
+                        <Calendar
+                            style={{
+                                backgroundColor: COLORS.BLUE_PRIMARY,
+                                paddingTop: 30,
+                            }}
+                            markedDates={markedDates}
+                            theme={{
+                                textSectionTitleColor: "white",
+                                textDayHeaderFontWeight: "600",
+                                calendarBackground: COLORS.BLUE_PRIMARY,
+                                dayTextColor: "white",
+                            }}
+                        />
 
-                                                const eventDate = new Date();
-                                                eventDate.setDate(
-                                                    eventDate.getDate() +
-                                                    (index + 2)
-                                                );
+                        <S.Shape>
+                            <Tabs
+                                items={[
+                                    {
+                                        title: `Hoje - ${today}`,
+                                        component: (
+                                            <View
+                                                style={{
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    padding: 10
+                                                }}
+                                            >
+                                                <FlatList
+                                                    data={todayEvents}
+                                                    keyExtractor={(_, index) => index.toString()}
+                                                    renderItem={({ item: event, index }) => {
+                                                        return (
+                                                            <Event
+                                                                key={index}
+                                                                notificationType={event.notificationType}
+                                                                priority={event.priority}
+                                                                time={event.time}
+                                                                title={event.title}
+                                                                description={event.description}
+                                                            />
+                                                        )
+                                                    }} />
+                                            </View>
+                                        ),
+                                    },
+                                    {
+                                        title: "Próximos eventos",
+                                        component: (
+                                            <View
+                                                style={{
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    padding: 10
+                                                }}
+                                            >
+                                                <FlatList
+                                                    data={nextEvents}
+                                                    keyExtractor={(_, index) => index.toString()}
+                                                    renderItem={({ item: event, index }) => {
 
-                                                const formatDate = format(
-                                                    new Date(eventDate),
-                                                    "dd/MMM",
-                                                    { locale: ptBR }
-                                                );
+                                                        const eventDate = new Date();
+                                                        eventDate.setDate(
+                                                            eventDate.getDate() +
+                                                            (index + 2)
+                                                        );
 
-                                                return (
-                                                    <Event
-                                                        key={index}
-                                                        notificationType={
-                                                            event.notificationType
-                                                        }
-                                                        date={formatDate}
-                                                        priority={event.priority}
-                                                        time={event.time}
-                                                        title={event.title}
-                                                        description={
-                                                            event.description
-                                                        }
-                                                    />
+                                                        const formatDate = format(
+                                                            new Date(eventDate),
+                                                            "dd/MMM",
+                                                            { locale: ptBR }
+                                                        );
 
-                                                )
-                                            }}
-                                        />
-                                    </View>
-                                ),
-                            },
-                        ]}
-                    />
-                </S.Shape>
+                                                        return (
+                                                            <Event
+                                                                key={index}
+                                                                notificationType={
+                                                                    event.notificationType
+                                                                }
+                                                                date={formatDate}
+                                                                priority={event.priority}
+                                                                time={event.time}
+                                                                title={event.title}
+                                                                description={
+                                                                    event.description
+                                                                }
+                                                            />
+
+                                                        )
+                                                    }}
+                                                />
+                                            </View>
+                                        ),
+                                    },
+                                ]}
+                            />
+                        </S.Shape>
+                    </>
+                )}
             </S.Container>
         </S.Root>
     );
