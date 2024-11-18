@@ -10,7 +10,7 @@ import { Text, View } from "react-native";
 import { EllipsisIcon } from "../EllipsisIcon";
 
 type Props = {
-    priority: Priority;
+    priority: "ALTA" | "MEDIA" | "BAIXA";
     time: string;
     date?: string;
     title: string;
@@ -25,20 +25,20 @@ export function Event(props: Props) {
     const [open, setIsOpen] = useState<boolean>(false);
 
     function getColorBasedOnPriority() {
-        if (priority === Priority.ALTA) {
+        if (priority === "ALTA") {
             return COLORS.RED_PRIORITY_HIGH;
         }
-        if (priority === Priority.MEDIA) {
+        if (priority === "MEDIA") {
             return COLORS.YELLOW_PRIORITY_MEDIUM;
         }
         return COLORS.GREY_PRIORITY_LOW;
     }
 
     function getLabelPriority() {
-        if (priority === Priority.ALTA) {
+        if (priority === "ALTA") {
             return "Alta";
         }
-        if (priority === Priority.MEDIA) {
+        if (priority === "MEDIA") {
             return "Media";
         }
 

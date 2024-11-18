@@ -7,7 +7,7 @@ import styled from "styled-components/native";
 export const Container = styled.SafeAreaView`
     width: 100%;
     background-color: ${COLORS.BLUE_PRIMARY};
-    height: 100%;
+    flex: 1;
     position: relative;
     padding-top: 100px;
 `;
@@ -19,7 +19,7 @@ export const LogoContainer = styled.View`
 
 export const Background = styled.View`
     background-color: ${COLORS.BLUE_SECONDARY};
-    height: 100%;
+    flex: 1;
     width: 100%;
     position: absolute;
     bottom: 0;

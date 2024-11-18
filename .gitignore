@@ -40,3 +40,11 @@ yarn-error.*
 
 expo-env.d.ts
 # @end expo-cli
+
+notification-b3f83-firebase-adminsdk-brjz0-e682b8b287.json
+
+#idea folder
+.idea/
+
+#andoid folder
+android

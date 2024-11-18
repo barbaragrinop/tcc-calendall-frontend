@@ -1,7 +1,7 @@
 import { Priority } from "./priority";
 
 export type Event = {
-    priority: Priority;
+    priority: "ALTA" | "MEDIA" | "BAIXA";
     time: string;
     date?: string;
     title: string;

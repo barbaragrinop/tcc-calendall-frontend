@@ -9,9 +9,13 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
+      "bundlerIdentifier": "dev.expo.calendallnotifications",
       "config": {
         "usesNonExemptEncryption": false
       }
+    },
+    "android": {
+      "package": "dev.expo.calendallnotifications"
     },
     "web": {
       "bundler": "metro",
@@ -26,6 +30,15 @@
     "experiments": {
       "typedRoutes": true
     },
-    "newArchEnabled": true
+    "newArchEnabled": true,
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9a8c8d3c-c4b8-438f-b357-4c731fed33cb"
+      }
+    },
+    "owner": "bhellen"
   }
 }

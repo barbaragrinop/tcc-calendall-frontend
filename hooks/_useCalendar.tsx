@@ -64,9 +64,10 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export function useCalendar(data?: EventResponse[]) {
+export function useCalendar(outsideData?: EventResponse[]) {
     const [todayDate, setToday] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
+    const [data, setData] = useState<EventResponse[]>([])
 
     useEffect(() => {
         const todayDate = new Date().toISOString()
@@ -80,6 +81,11 @@ export function useCalendar(data?: EventResponse[]) {
         });
     }, []);
 
+    useEffect(() => {
+        if (!outsideData) return;
+
+        setData(outsideData)
+    }, [outsideData])
 
     const priorityColors: Record<string, string> = {
         BAIXA: COLORS.GREY_PRIORITY_LOW,
@@ -92,13 +98,13 @@ export function useCalendar(data?: EventResponse[]) {
 
         const reducedDates = data?.reduce((acc, item) => {
             const { dt_evento } = item.evento;
-            console.log('dt_evento', dt_evento)
 
             const formattedEventDate = format(parseISO(dt_evento), "yyyy-MM-dd");
 
             acc[formattedEventDate] = {
                 marked: true,
             };
+
             return acc;
         }, {} as Record<string, { marked: boolean; selected?: boolean; selectedColor?: string; textStyle?: object }>);
 
@@ -116,13 +122,13 @@ export function useCalendar(data?: EventResponse[]) {
 
     const formatEvent = (item: EventResponse): Event => {
         if (!item) return {} as Event;
-        
+
         const { evento, tipoNotificacao, tipoPrioridade } = item;
         const parsedDate = parseISO(evento.dt_evento);
 
         return {
             notificationType: tipoNotificacao,
-            priority: tipoPrioridade as unknown as Priority,
+            priority: tipoPrioridade,
             time: format(parsedDate, "HH'h'mm", { locale: ptBR }),
             date: format(parsedDate, "dd/MMM", { locale: ptBR }),
             title: evento.titulo,
@@ -190,8 +196,8 @@ export function useCalendar(data?: EventResponse[]) {
             setSelectedDateLongPress(date.dateString)
 
             const events = data?.filter((item) => {
-                console.log('item', item)
                 if (!item.evento) return false
+
                 const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
                 const selectedDateFormatted = format(parseISO(date.dateString), "yyyy-MM-dd")
 

@@ -226,7 +226,7 @@ export function AddPersonalEvent() {
                                 <Dropdown
                                     data={[
                                         { label: "Baixa", value: "BAIXA" },
-                                        { label: "Média", value: "MÉDIA" },
+                                        { label: "Média", value: "MEDIA" },
                                         { label: "Alta", value: "ALTA" },
                                     ]}
                                     style={{
