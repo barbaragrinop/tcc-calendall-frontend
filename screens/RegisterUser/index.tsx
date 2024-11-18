@@ -40,18 +40,19 @@ export function RegisterUserScreen() {
     })
 
     async function onSubmit() {
-    
+        const data = {
+            nome: watch("name"),
+            email: watch("email"),
+            dataNascimento: watch("birthDate"),
+            senha: watch("password"),
+            confirmacaoSenha: watch("confirmPassword")
+        }
+        console.log('data', data)
         try {
             await api({
                 url: "/autenticacao/cadastro",
                 method: "POST",
-                data: {
-                    nome: watch("name"),
-                    email: watch("email"),
-                    dataNascimento: watch("birthDate"),
-                    senha: watch("password"),
-                    confirmacaoSenha: watch("confirmPassword")
-                }
+                data
             })
 
             router.navigate("/")
@@ -59,6 +60,7 @@ export function RegisterUserScreen() {
             console.error('ex', ex)
 
             if (ex instanceof Error) {
+                console.log('ex', ex)
                 console.error('Mensagem do erro:', ex.message);
                 console.error('Stack do erro:', ex.stack);
             } else {

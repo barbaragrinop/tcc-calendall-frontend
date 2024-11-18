@@ -1,5 +1,5 @@
 
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, PropsWithChildren, useCallback, useContext, useState } from "react";
 import { useHttpCommon } from "@/hooks";
 import { Alert } from "react-native";
 import { jwtDecode } from "jwt-decode";
@@ -26,7 +26,6 @@ const AuthContext = createContext<{
     isLoading: false,
 });
 
-// This hook can be used to access the user info.
 export function useSession() {
     const value = useContext(AuthContext);
     return value;
@@ -34,12 +33,15 @@ export function useSession() {
 
 export default function SessionProvider(props: PropsWithChildren) {
     const [session, setSession] = useState<User | null>(null);
-    const { api } = useHttpCommon(session?.token);
+    const { api, setToken } = useHttpCommon();
     const [isLoading, setIsLoading] = useState(true);
 
-    async function signIn(email: string, password: string) {
+    const signIn = useCallback(async (email: string, password: string) => {
 
         if (!email || !password) return
+
+
+        await AsyncStorage.removeItem("session");
 
         try {
             setIsLoading(true);
@@ -49,6 +51,8 @@ export default function SessionProvider(props: PropsWithChildren) {
                 data: { email, senha: password }
             });
 
+            setToken(token);
+            await AsyncStorage.setItem("session", token); 
             const decodedToken: AuthResponse = jwtDecode(token);
 
             if (!token) throw new Error("Algo deu errado! Tente novamente mais tarde.");
@@ -60,9 +64,7 @@ export default function SessionProvider(props: PropsWithChildren) {
                 token,
                 id: decodedToken.id,
             }
-
-            setSession(userData);
-            await AsyncStorage.setItem("session", JSON.stringify(userData));
+            setSession(userData);  
 
             router.dismissAll()
             router.navigate("/(auth)/(tabs)");
@@ -73,7 +75,8 @@ export default function SessionProvider(props: PropsWithChildren) {
             setIsLoading(false);
             Alert.alert("Algo deu errado! Tente novamente mais tarde.");
         }
-    }
+    }, [api, setSession, setIsLoading, router, AsyncStorage, jwtDecode])
+
 
     async function signOut() {
         try {

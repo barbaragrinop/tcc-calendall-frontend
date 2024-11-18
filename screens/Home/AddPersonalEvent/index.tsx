@@ -6,7 +6,7 @@ import { Alert, Pressable, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Priority } from "@/types";
 import { Button, CustomNotification, Input, RequiredSymbol } from "@/components";
-import { format } from "date-fns";
+import { format, parseISO, subHours } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -25,7 +25,6 @@ type FormValues = {
     priority: string;
 }
 
-// export function AddPersonalEvent(props?: FormValues) {
 export function AddPersonalEvent() {
     const [isCollapsed, setIsCollapsed] = useState(true)
     const { api } = useHttpCommon()
@@ -62,7 +61,7 @@ export function AddPersonalEvent() {
                     tipoNotificacao: watch("notificationType"),
                     titulo: watch("title"),
                     descricao: watch("description"),
-                    dt_evento: format(new Date(watch("datetime")), "yyyy-MM-dd")
+                    dt_evento: subHours(watch("datetime"), 3)
                 }
             })
             console.log('response', response)
@@ -77,7 +76,6 @@ export function AddPersonalEvent() {
     }
 
     const watchNotificationsType = watch("notificationType");
-
     return (
         <>
             <Pressable onPress={() => setIsCollapsed(!isCollapsed)}>
@@ -154,8 +152,8 @@ export function AddPersonalEvent() {
                                     required
                                     editable={false}
                                     onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
                                     onChange={value => onChange(value)}
+                                    onChangeText={value => onChange(value)}
                                     value={value ? format(new Date(value), "dd/MM/yyyy - HH:mm", { locale: ptBR }) : ""}
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
@@ -224,14 +222,12 @@ export function AddPersonalEvent() {
                         control={control}
                         name="priority"
                         render={({ field: { onChange, value, onBlur, }, fieldState: { error } }) => (
-
                             <View>
-
                                 <Dropdown
                                     data={[
-                                        { label: "Baixa", value: Priority.BAIXA },
-                                        { label: "Média", value: Priority.MEDIA },
-                                        { label: "Alta", value: Priority.ALTA },
+                                        { label: "Baixa", value: "BAIXA" },
+                                        { label: "Média", value: "MÉDIA" },
+                                        { label: "Alta", value: "ALTA" },
                                     ]}
                                     style={{
                                         height: 43,

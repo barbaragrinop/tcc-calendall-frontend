@@ -3,11 +3,11 @@ import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Input, LogoText } from "@/components";
-import { useHttpCommon } from "@/hooks";
 import { Link, router } from "expo-router";
 import { useSession } from "@/app/contexts";
 import { TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function LoginScreen() {
 
@@ -19,6 +19,14 @@ export function LoginScreen() {
     useEffect(() => {
         if (session) router.replace("/(auth)/(tabs)");
     }, [session])
+
+
+    useEffect(() => {
+        const removeSession = async () => {
+            await AsyncStorage.removeItem("session");
+        };
+        removeSession();
+    }, [])
 
     return (
         <S.Container>
