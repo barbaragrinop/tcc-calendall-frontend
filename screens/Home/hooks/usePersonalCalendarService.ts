@@ -6,7 +6,7 @@ export function usePersonalCalendarService<T>() {
 
     const { session } = useSession()
     const { fetcher } = useHttpCommon()
-    const { data, isLoading, mutate } = useSWR<T>(
+    const { data, isLoading, mutate, error } = useSWR<T>(
         session?.id ? `/eventoPessoal/${session?.id}/buscarEventosPessoaisPorUsuario` : null, fetcher, {
         onError: (error) => {
             console.log('error', error)
@@ -16,6 +16,7 @@ export function usePersonalCalendarService<T>() {
     return {
         data,
         isLoading,
-        mutate
+        mutate, 
+        error
     }
 }

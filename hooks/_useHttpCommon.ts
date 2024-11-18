@@ -8,29 +8,34 @@ const client = axios.create({
     baseURL: process.env.EXPO_PUBLIC_BASE_URL
 })
 
-export function useHttpCommon(token?: string) {
+export function useHttpCommon() {
+    const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!token) return
+        const getTokenFromStorage = async () => {
+            const storedToken = await AsyncStorage.getItem("session");
+            setToken(storedToken); 
+        };
 
-        client.interceptors.request.use(async (config) => {
-
-
-            if (token && config.headers) {
-                config.headers.Authorization = `Bearer ${token}`
-            } else {
-                delete config.headers.Authorization
-            }
-
-            return config
-
-        })
-    }, [client, token])
+        getTokenFromStorage();
+    }, []); 
+    
+    useEffect(() => {
+        if (token) {
+            client.interceptors.request.use((config) => {
+                if (config.headers) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
+                return config;
+            });
+        }
+    }, [token]);  
 
     async function api<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-        return client(config)
+        const response = await client(config);
+        return response; 
     }
-
+    
     async function fetcher<T>(url: string, params?: AxiosRequestConfig['params']): Promise<T> {
         const { data } = await client.get<T>(url, { params })
         return data
@@ -39,7 +44,8 @@ export function useHttpCommon(token?: string) {
     return {
         client,
         api,
-        fetcher
+        fetcher, 
+        setToken
     }
 
 }

@@ -7,7 +7,7 @@ import {
     faRefresh,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { format, isAfter, parseISO } from "date-fns";
+import { format, isAfter, parseISO, subHours } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
@@ -69,7 +69,7 @@ export function useCalendar(data?: EventResponse[]) {
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
 
     useEffect(() => {
-        const todayDate = new Date().toISOString().split("T")[0];
+        const todayDate = new Date().toISOString()
         setToday(todayDate);
         setSelectedDate({
             dateString: todayDate,
@@ -90,10 +90,13 @@ export function useCalendar(data?: EventResponse[]) {
     const markedDates = useMemo(() => {
         if (!data) return;
 
-        const reducedDates = data.reduce((acc, item) => {
+        const reducedDates = data?.reduce((acc, item) => {
             const { dt_evento } = item.evento;
+            console.log('dt_evento', dt_evento)
 
-            acc[dt_evento] = {
+            const formattedEventDate = format(parseISO(dt_evento), "yyyy-MM-dd");
+
+            acc[formattedEventDate] = {
                 marked: true,
             };
             return acc;
@@ -112,6 +115,8 @@ export function useCalendar(data?: EventResponse[]) {
     }, [data, selectedDate]);
 
     const formatEvent = (item: EventResponse): Event => {
+        if (!item) return {} as Event;
+        
         const { evento, tipoNotificacao, tipoPrioridade } = item;
         const parsedDate = parseISO(evento.dt_evento);
 
@@ -125,20 +130,30 @@ export function useCalendar(data?: EventResponse[]) {
         };
     };
 
-    const today = new Date().toISOString().split("T")[0];
-
     const todayEvents = useMemo<Event[]>(() => {
         if (!data) return [];
 
-        return data.filter((item) => item.evento.dt_evento === today)
-            .map(formatEvent);
+        const aux = data?.filter((item) => {
+            const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+            const todayFormatted = format(todayDate, "yyyy-MM-dd")
+
+            return eventDate === todayFormatted
+        }).map(formatEvent)
+
+        return aux
     }, [data, todayDate])
 
     const nextEvents = useMemo<Event[]>(() => {
         if (!data) return [];
 
-        return data.filter((item) => isAfter(parseISO(item.evento.dt_evento), parseISO(today)))
-            .map(formatEvent);
+        const aux = data?.filter((item) => {
+            const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+            const todayFormatted = format(todayDate, "yyyy-MM-dd")
+
+            return isAfter(parseISO(eventDate), parseISO(todayFormatted))
+        }).map(formatEvent)
+
+        return aux
     }, [data, todayDate])
 
     function customHeader(date: XDate | undefined) {
@@ -173,8 +188,15 @@ export function useCalendar(data?: EventResponse[]) {
 
         function handleOnLongPress(date: DateData) {
             setSelectedDateLongPress(date.dateString)
-            const events = data?.filter((item) => item.evento.dt_evento === date.dateString)
-                .map(formatEvent);
+
+            const events = data?.filter((item) => {
+                console.log('item', item)
+                if (!item.evento) return false
+                const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+                const selectedDateFormatted = format(parseISO(date.dateString), "yyyy-MM-dd")
+
+                return eventDate === selectedDateFormatted
+            }).map(formatEvent)
             setEventsFromSelectedDate(events || [])
         }
 
