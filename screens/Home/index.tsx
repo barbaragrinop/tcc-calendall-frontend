@@ -1,5 +1,6 @@
 import * as S from "./style";
-import { ActivityIndicator, FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
+
+import { ActivityIndicator, View, StyleSheet } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Tabs, Event, Header } from "@/components";
@@ -8,7 +9,6 @@ import { useCalendar } from "@/hooks";
 import { EventResponse } from "@/types";
 import { AddPersonalEvent } from "./AddPersonalEvent";
 import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
-
 
 export function HomeScreen() {
     const { data, isLoading } = usePersonalCalendarService<EventResponse[]>();
@@ -43,21 +43,16 @@ export function HomeScreen() {
                                                     padding: 10
                                                 }}
                                             >
-                                                <FlatList
-                                                    data={todayEvents}
-                                                    keyExtractor={(_, index) => index.toString()}
-                                                    renderItem={({ item: event, index }) => {
-                                                        return (
-                                                            <Event
-                                                                key={index}
-                                                                notificationType={event.notificationType}
-                                                                priority={event.priority}
-                                                                time={event.time}
-                                                                title={event.title}
-                                                                description={event.description}
-                                                            />
-                                                        )
-                                                    }} />
+                                                {todayEvents.map((event, index) => (
+                                                    <Event
+                                                        key={index}
+                                                        notificationType={event.notificationType}
+                                                        priority={event.priority}
+                                                        time={event.time}
+                                                        title={event.title}
+                                                        description={event.description}
+                                                    />
+                                                ))}
                                             </View>
                                         ),
                                     },
@@ -72,29 +67,21 @@ export function HomeScreen() {
                                                     padding: 10
                                                 }}
                                             >
-                                                <FlatList
-                                                    data={nextEvents}
-                                                    keyExtractor={(_, index) => index.toString()}
-                                                    renderItem={({ item: event, index }) => {
-
-                                                        return (
-                                                            <Event
-                                                                key={index}
-                                                                notificationType={
-                                                                    event.notificationType
-                                                                }
-                                                                date={event.date}
-                                                                priority={event.priority}
-                                                                time={event.time}
-                                                                title={event.title}
-                                                                description={
-                                                                    event.description
-                                                                }
-                                                            />
-
-                                                        )
-                                                    }}
-                                                />
+                                                {nextEvents.map((event, index) => (
+                                                    <Event
+                                                        key={index}
+                                                        notificationType={
+                                                            event.notificationType
+                                                        }
+                                                        date={event.date}
+                                                        priority={event.priority}
+                                                        time={event.time}
+                                                        title={event.title}
+                                                        description={
+                                                            event.description
+                                                        }
+                                                    />
+                                                ))}
                                             </View>
                                         ),
                                     },

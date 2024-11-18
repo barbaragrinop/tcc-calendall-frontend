@@ -1,32 +1,31 @@
 import { useSession } from "@/app/contexts"
+import { User } from "@/types"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import * as SecureStore from 'expo-secure-store'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const client = axios.create({
     baseURL: process.env.EXPO_PUBLIC_BASE_URL
 })
 
-export function useHttpCommon() {
-    const { session } = useSession()
+export function useHttpCommon(token?: string) {
 
     useEffect(() => {
-        if (!session) return
+        if (!token) return
 
         client.interceptors.request.use(async (config) => {
 
-            if (session && session.token && config.headers) {
-                config.headers.Authorization = `Bearer ${session.token}`
+
+            if (token && config.headers) {
+                config.headers.Authorization = `Bearer ${token}`
             } else {
                 delete config.headers.Authorization
             }
 
             return config
-            
+
         })
-    }, [session])
-
-
+    }, [client, token])
 
     async function api<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return client(config)

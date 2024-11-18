@@ -17,9 +17,9 @@ export function LoginScreen() {
     const [password, setPassword] = useState<string>("");
 
     useEffect(() => {
-        if(session) router.replace("/(auth)/(tabs)");
+        if (session) router.replace("/(auth)/(tabs)");
     }, [session])
-    
+
     return (
         <S.Container>
             <S.Background>

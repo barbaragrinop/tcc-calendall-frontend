@@ -100,21 +100,17 @@ export function ClassroomScreen() {
                             placeholder="pesquise pelo nome da sala"
                         />
                         <S.ClassroomList>
-                            <FlatList
-                                data={mockClassRooms}
-                                renderItem={({ item, index }) => (
-                                    <Link href={`/classroom/details/${item.idClassroom}`}>
-                                        <Classroom
-                                            isAdmin={item.isAdmin}
-                                            title={item.title}
-                                            eventsQuantity={item.eventsQuantity}
-                                            membersQuantity={item.membersQuantity}
-                                            idClassroom={(index + 1).toString()}
-                                        />
-                                    </Link>
-                                )}
-                                keyExtractor={item => item.idClassroom}
-                            />
+                            {mockClassRooms.map((item, index) => (
+                                <Link href={`/classroom/details/${item.idClassroom}`} key={index}>
+                                    <Classroom
+                                        isAdmin={item.isAdmin}
+                                        title={item.title}
+                                        eventsQuantity={item.eventsQuantity}
+                                        membersQuantity={item.membersQuantity}
+                                        idClassroom={(index + 1).toString()}
+                                    />
+                                </Link>
+                            ))}
                         </S.ClassroomList>
                     </S.Content>
                 </S.Container>

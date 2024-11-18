@@ -65,6 +65,7 @@ export function AddPersonalEvent() {
                     dt_evento: format(new Date(watch("datetime")), "yyyy-MM-dd")
                 }
             })
+            console.log('response', response)
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()
             setIsCollapsed(true)

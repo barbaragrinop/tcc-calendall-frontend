@@ -1,10 +1,11 @@
 
-import { createContext, PropsWithChildren, useContext, useEffect } from "react";
-import { useHttpCommon, useSecureStoreManagement } from "@/hooks";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { useHttpCommon } from "@/hooks";
 import { Alert } from "react-native";
 import { jwtDecode } from "jwt-decode";
 import { User } from "@/types";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type AuthResponse = {
     nome: string;
@@ -32,17 +33,16 @@ export function useSession() {
 }
 
 export default function SessionProvider(props: PropsWithChildren) {
-
-    const { api, client } = useHttpCommon();
-    const { useStorageState } = useSecureStoreManagement();
-    const [[isLoading, session], setSession] = useStorageState<User | null>("session");
+    const [session, setSession] = useState<User | null>(null);
+    const { api } = useHttpCommon(session?.token);
+    const [isLoading, setIsLoading] = useState(true);
 
     async function signIn(email: string, password: string) {
-        if (session) router.navigate("/(auth)/(tabs)"); // Se já estiver logado, redireciona para a tela principal
 
         if (!email || !password) return
 
         try {
+            setIsLoading(true);
             const { data: { token } } = await api<{ token: string }>({
                 url: "/autenticacao/login",
                 method: "POST",
@@ -62,21 +62,25 @@ export default function SessionProvider(props: PropsWithChildren) {
             }
 
             setSession(userData);
+            await AsyncStorage.setItem("session", JSON.stringify(userData));
 
+            router.dismissAll()
             router.navigate("/(auth)/(tabs)");
 
-            Alert.alert(JSON.stringify(decodedToken));
+            setIsLoading(false);
         }
         catch (ex: any) {
+            setIsLoading(false);
             Alert.alert("Algo deu errado! Tente novamente mais tarde.");
         }
     }
 
     async function signOut() {
-
         try {
-            setSession(null); 
-            router.replace("/"); 
+            setSession(null);
+            await AsyncStorage.removeItem("session");
+            // @ts-ignore
+            router.replace("login");
         } catch (err) {
             console.error("Erro no logout:", err);
         }

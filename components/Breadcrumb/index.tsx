@@ -26,12 +26,12 @@ export function Breadcrumb({ dividedPath }: Props) {
             {dividedPath?.map((path, index) => {
                 if (index + 1 === dividedPath.length) {
                     return (
-                        <S.LastChild>{path}</S.LastChild>
+                        <S.LastChild key={index}>{path}</S.LastChild>
                     )
                 }
 
                 return (
-                    <S.NotLastChild> {path} {' >'} </S.NotLastChild>
+                    <S.NotLastChild key={index}> {path} {' >'} </S.NotLastChild>
                 )
             })}
         </S.Wrap>

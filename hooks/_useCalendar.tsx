@@ -136,9 +136,9 @@ export function useCalendar(data?: EventResponse[]) {
 
     const nextEvents = useMemo<Event[]>(() => {
         if (!data) return [];
-        
+
         return data.filter((item) => isAfter(parseISO(item.evento.dt_evento), parseISO(today)))
-        .map(formatEvent);
+            .map(formatEvent);
     }, [data, todayDate])
 
     function customHeader(date: XDate | undefined) {
@@ -216,8 +216,8 @@ export function useCalendar(data?: EventResponse[]) {
                 <Modal
                     closeModal={onCloseModal}
                     title={`Eventos - ${selectedDateLongPress
-                            ? format(parseISO(selectedDateLongPress), "dd/MM/yyyy", { locale: ptBR })
-                            : ""
+                        ? format(parseISO(selectedDateLongPress), "dd/MM/yyyy", { locale: ptBR })
+                        : ""
                         }`}
                     visible={isModalVisible}
                 >
@@ -229,21 +229,18 @@ export function useCalendar(data?: EventResponse[]) {
                             padding: 10
                         }}
                     >
-                        <FlatList
-                            data={eventsFromSelectedDate}
-                            keyExtractor={(_, index) => index.toString()}
-                            renderItem={({ item: event, index }) => {
-                                return (
-                                    <EventComponent
-                                        key={index}
-                                        notificationType={event.notificationType}
-                                        priority={event.priority}
-                                        time={event.time}
-                                        title={event.title}
-                                        description={event.description}
-                                    />
-                                )
-                            }} />
+                        {eventsFromSelectedDate?.map((event, index) => {
+                            return (
+                                <EventComponent
+                                    key={index}
+                                    notificationType={event.notificationType}
+                                    priority={event.priority}
+                                    time={event.time}
+                                    title={event.title}
+                                    description={event.description}
+                                />
+                            )
+                        })}
                     </View>
                 </Modal>
             </>

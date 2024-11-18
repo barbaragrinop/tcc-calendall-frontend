@@ -2,9 +2,10 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import { useFonts } from "expo-font";
-import { router, Slot } from "expo-router";
+import { router, Slot, Stack } from "expo-router";
 import { useEffect } from "react";
 import SessionProvider, { useSession } from "./contexts";
+import { LoginScreen } from "@/screens/Login";
 
 export { Stack } from "expo-router";
 
@@ -40,7 +41,7 @@ export default function RootLayout() {
         if (session) {
             router.navigate("/(auth)/(tabs)");
         }
-    }, [])
+    }, [session, router])
 
     if (!loaded) {
         return null;

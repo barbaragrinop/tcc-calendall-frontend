@@ -9,13 +9,10 @@ export default function AppLayout() {
         return <Text>Loading...</Text>;
     }
 
-    if (!session) {
-        return <Redirect href="/" />;
-    }
-
     return (
         <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          
         </Stack>
     )
 }

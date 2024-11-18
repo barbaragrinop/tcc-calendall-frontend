@@ -68,7 +68,7 @@ function HeaderProfileInfo() {
                         },
                         {
                             title: "Sair",
-                            action: signOut
+                            action: () => signOut()
                         }
                     ]} />
                 )}
