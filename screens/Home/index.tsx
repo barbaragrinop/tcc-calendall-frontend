@@ -15,9 +15,6 @@ export function HomeScreen() {
     const { data, isLoading, error} = usePersonalCalendarService<EventResponse[]>();
     const { session } = useSession()
     const { todayEvents, nextEvents, Calendar } = useCalendar(data);
-    console.log('data', data)
-    console.log('nextEvents', nextEvents)
-    console.log('todayEvents', todayEvents)
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 

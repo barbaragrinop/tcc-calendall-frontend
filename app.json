@@ -9,10 +9,15 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundlerIdentifier": "dev.expo.calendallnotifications",
+      "bundleIdentifier": "dev.expo.calendallnotifications",
       "config": {
         "usesNonExemptEncryption": false
       }
+    },
+    "splash": {
+      "image": "./assets/splashscreen_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "android": {
       "package": "dev.expo.calendallnotifications"
@@ -25,7 +30,13 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

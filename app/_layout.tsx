@@ -5,9 +5,11 @@ import { useFonts } from "expo-font";
 import { router, Slot, Stack } from "expo-router";
 import { useEffect } from "react";
 import SessionProvider, { useSession } from "./contexts";
-import { LoginScreen } from "@/screens/Login";
-
 export { Stack } from "expo-router";
+import { OneSignal } from 'react-native-onesignal'
+
+OneSignal.initialize(process.env.EXPO_PUBLIC_ONE_SIGNAL_ID!)
+OneSignal.Notifications.requestPermission(true)
 
 SplashScreen.preventAutoHideAsync();
 

@@ -43,8 +43,8 @@ expo-env.d.ts
 
 notification-b3f83-firebase-adminsdk-brjz0-e682b8b287.json
 
-#idea folder
-.idea/
+# #idea folder
+# .idea/
 
-#andoid folder
-android
+# #andoid folder
+# android
