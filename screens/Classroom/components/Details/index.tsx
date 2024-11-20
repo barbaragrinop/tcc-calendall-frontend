@@ -12,6 +12,7 @@ import { UserAvatar } from '@/components/UserAvatar';
 import { ClassroomMember } from '@/types';
 import { useState } from 'react';
 import { AddClassroomEvent } from '../AddClassroomEvent';
+import { ptBR } from 'date-fns/locale';
 
 
 export function ClassroomDetailsScreen() {
@@ -34,6 +35,9 @@ export function ClassroomDetailsScreen() {
         setModalData(member)
         setToggleModalUserData(true)
     }
+
+    const today = format(new Date(), "dd/MMM", { locale: ptBR });
+
 
     return (
         <S.Wrap>
@@ -69,7 +73,7 @@ export function ClassroomDetailsScreen() {
                                     <Tabs
                                         items={[
                                             {
-                                                title: `Hoje - ${format(new Date(), "dd/MM")}`,
+                                                title: `Hoje - ${today}`,
                                                 component: (
                                                     <View
                                                         style={{
