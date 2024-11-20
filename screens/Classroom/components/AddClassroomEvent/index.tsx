@@ -16,7 +16,6 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import { ErrorMessage } from '@/components/FormErrorMessage';
 import { useFetchClassroomEventsbyClassroomId } from '../../hooks/useFetchClassroomEventsbyClassroomId';
-// import { usePersonalCalendarService } from '../hooks/usePersonalCalendarService';
 
 type FormValues = {
     titulo: string,
@@ -45,12 +44,15 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
             dt_evento: ""
         }
     })
+    
 
     async function handleSubmitEvent() {
+        if(!idClassroom) return
+
         try {
-            const response = await api({
+            await api({
                 method: 'POST',
-                url: '/eventoPessoal/criarEventoPessoal',
+                url: `/eventoSala/${idClassroom}/criarEvento`,
                 data: {
                     titulo: watch("titulo"),
                     descricao: watch("descricao"),
