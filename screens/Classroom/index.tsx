@@ -4,117 +4,99 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { faChevronRight, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Classroom } from "@/components";
-import { FlatList, GestureResponderEvent, TouchableOpacity } from "react-native";
+import { ActivityIndicator, FlatList, GestureResponderEvent, Keyboard, KeyboardAvoidingView, NativeSyntheticEvent, Platform, TextInputChangeEventData, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Classroom as TClassroom, Priority } from "@/types";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Link, usePathname } from "expo-router";
+import { useEffect, useState } from "react";
+import { AddClassroom } from "./components/AddClassroom";
+import { useFetchClassrooms } from "./hooks/useFetchClassrooms";
 
-const mockClassRooms: TClassroom[] = [
-    {
-        title: "Sala de Redes asd asd asd asd asd as",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "1",
-    },
-    {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: false,
-        idClassroom: "2",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "3",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "4",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "5",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "6",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "7",
-    }, {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "8",
-    },
-    {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "9",
-    },
-    {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "10",
-    },
-    {
-        title: "Sala de Redes",
-        eventsQuantity: 3,
-        membersQuantity: 10,
-        isAdmin: true,
-        idClassroom: "11",
-    },
-]
+
 
 export function ClassroomScreen() {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { data, isLoading } = useFetchClassrooms()
+    const [filteredClassroomList, setFilteredClassroomList] = useState<TClassroom[]>([])
+    const [search, setSearch] = useState<string>("")
+
+    useEffect(() => {
+        if (data) setFilteredClassroomList(data)
+    }, [data])
+
+    function handleOpenModal() {
+        setIsModalOpen(true);
+    }
+
+    function handleCloseModal() {
+        setIsModalOpen(false);
+    }
+
+    function handleOnChange(ev: NativeSyntheticEvent<TextInputChangeEventData>) {
+        setSearch(ev.nativeEvent.text)
+        const { text } = ev.nativeEvent
+        if (!data) return
+
+        const filtered = data?.filter((item) => item.sala.nome.toLowerCase().includes(text.toLowerCase()))
+        setFilteredClassroomList(filtered)
+    }
 
     return (
         <S.Wrap>
             <Header.ProfileInfo />
             <SafeAreaProvider>
-                <S.Container>
-                    <S.TitleCreate>
-                        <S.TitleScreen>SALAS</S.TitleScreen>
-                        <Button.White title="criar sala" />
-                    </S.TitleCreate>
-                    <S.Content>
-                        <Input.Text
-                            icon={<FontAwesomeIcon icon={faMagnifyingGlass} color="white" size={20} />}
-                            placeholder="pesquise pelo nome da sala"
-                        />
-                        <S.ClassroomList>
-                            {mockClassRooms.map((item, index) => (
-                                <Link href={`/classroom/details/${item.idClassroom}`} key={index}>
-                                    <Classroom
-                                        isAdmin={item.isAdmin}
-                                        title={item.title}
-                                        eventsQuantity={item.eventsQuantity}
-                                        membersQuantity={item.membersQuantity}
-                                        idClassroom={(index + 1).toString()}
-                                    />
-                                </Link>
-                            ))}
-                        </S.ClassroomList>
-                    </S.Content>
-                </S.Container>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <S.Container>
+                        <KeyboardAvoidingView
+                            behavior={Platform.OS === "ios" ? "padding" : "height"}
+                            style={{ flex: 1 }}
+                        >
+
+                            <S.TitleCreate>
+                                <S.TitleScreen>SALAS</S.TitleScreen>
+                                <Button.White
+                                    title="criar sala"
+                                    onPress={handleOpenModal}
+                                />
+                            </S.TitleCreate>
+                            <AddClassroom
+                                isCollapseOpen={isModalOpen}
+                                handleCloseModal={handleCloseModal}
+                            />
+                            <S.Content>
+                                <Input.Text
+                                    icon={<FontAwesomeIcon icon={faMagnifyingGlass} color="white" size={20} />}
+                                    placeholder="pesquise pelo nome da sala"
+                                    onChange={handleOnChange}
+                                    value={search}
+                                />
+                                <S.ClassroomList>
+                                    {isLoading && <ActivityIndicator />}
+                                    {data ? filteredClassroomList.map((item, index) => (
+                                        <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome]}`} key={index} onPress={() => {
+                                            setSearch("")
+                                            setFilteredClassroomList(data)
+                                        }}>
+                                            <S.ItensSeparator>
+                                                <Classroom
+                                                    funcaoUsuario={item.funcaoUsuario}
+                                                    id_salaUsuario={item.id_salaUsuario}
+                                                    sala={item.sala}
+                                                    usuario={item.usuario}
+                                                />
+                                            </S.ItensSeparator>
+                                        </Link>
+                                    )) : (
+                                        <S.TitleScreen>Ainda não há salas cadastradas!</S.TitleScreen>
+                                    )}
+                                </S.ClassroomList>
+                            </S.Content>
+                        </KeyboardAvoidingView>
+                    </S.Container>
+                </TouchableWithoutFeedback>
             </SafeAreaProvider>
         </S.Wrap>
+
     );
 }

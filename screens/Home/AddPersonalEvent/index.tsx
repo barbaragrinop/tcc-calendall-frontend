@@ -63,15 +63,13 @@ export function AddPersonalEvent() {
                     descricao: watch("description"),
                     dt_evento: subHours(watch("datetime"), 3)
                 }
-            })
-            console.log('response', response)
+            }) 
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()
             setIsCollapsed(true)
             mutate()
         } catch (error: any) {
-            Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!')
-            console.log('error', error.response)
+            Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!') 
         }
     }
 

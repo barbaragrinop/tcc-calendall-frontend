@@ -1,6 +1,7 @@
 import { Modal, Event as EventComponent } from "@/components";
 import { COLORS } from "@/constants";
 import { EventResponse, Priority, Event } from "@/types";
+import { ClassroomEvent } from "@/types/ClassroomEvent";
 import {
     faChevronLeft,
     faChevronRight,
@@ -64,10 +65,10 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export function useCalendar(outsideData?: EventResponse[]) {
+export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
     const [todayDate, setToday] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
-    const [data, setData] = useState<EventResponse[]>([])
+    const [data, setData] = useState<ClassroomEvent[]>([])
 
     useEffect(() => {
         const todayDate = new Date().toISOString()
@@ -97,7 +98,7 @@ export function useCalendar(outsideData?: EventResponse[]) {
         if (!data) return;
 
         const reducedDates = data?.reduce((acc, item) => {
-            const { dt_evento } = item.evento;
+            const { dt_evento } = item;
 
             const formattedEventDate = format(parseISO(dt_evento), "yyyy-MM-dd");
 
@@ -120,15 +121,14 @@ export function useCalendar(outsideData?: EventResponse[]) {
         return reducedDates;
     }, [data, selectedDate]);
 
-    const formatEvent = (item: EventResponse): Event => {
-        if (!item) return {} as Event;
+    const formatEvent = (evento: ClassroomEvent): Event => {
+        if (!evento) return {} as Event;
 
-        const { evento, tipoNotificacao, tipoPrioridade } = item;
         const parsedDate = parseISO(evento.dt_evento);
 
         return {
-            notificationType: tipoNotificacao,
-            priority: tipoPrioridade,
+            notificationType: "",
+            priority: "BAIXA",
             time: format(parsedDate, "HH'h'mm", { locale: ptBR }),
             date: format(parsedDate, "dd/MMM", { locale: ptBR }),
             title: evento.titulo,
@@ -140,7 +140,7 @@ export function useCalendar(outsideData?: EventResponse[]) {
         if (!data) return [];
 
         const aux = data?.filter((item) => {
-            const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+            const eventDate = format(parseISO(item.dt_evento), "yyyy-MM-dd")
             const todayFormatted = format(todayDate, "yyyy-MM-dd")
 
             return eventDate === todayFormatted
@@ -153,7 +153,7 @@ export function useCalendar(outsideData?: EventResponse[]) {
         if (!data) return [];
 
         const aux = data?.filter((item) => {
-            const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+            const eventDate = format(parseISO(item.dt_evento), "yyyy-MM-dd")
             const todayFormatted = format(todayDate, "yyyy-MM-dd")
 
             return isAfter(parseISO(eventDate), parseISO(todayFormatted))
@@ -196,9 +196,9 @@ export function useCalendar(outsideData?: EventResponse[]) {
             setSelectedDateLongPress(date.dateString)
 
             const events = data?.filter((item) => {
-                if (!item.evento) return false
+                if (!item.dt_evento) return false
 
-                const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
+                const eventDate = format(parseISO(item.dt_evento), "yyyy-MM-dd")
                 const selectedDateFormatted = format(parseISO(date.dateString), "yyyy-MM-dd")
 
                 return eventDate === selectedDateFormatted
@@ -259,7 +259,7 @@ export function useCalendar(outsideData?: EventResponse[]) {
                     >
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
-                                <EventComponent
+                                <EventComponent.Personal
                                     key={index}
                                     notificationType={event.notificationType}
                                     priority={event.priority}

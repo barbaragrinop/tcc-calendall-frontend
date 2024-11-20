@@ -24,7 +24,7 @@ export const TitleCreate = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 30px 20px;
 `;
 
 export const Content = styled.View`
@@ -52,9 +52,13 @@ export const TitleCreateClassroom = styled.Text`
     font-family: 'IBMPlexSansCondensedBold';
 `;
 
-export const ClassroomList = styled.View`
+export const ClassroomList = styled.ScrollView`
     flex: 1; 
-    margin-top: 50px;
+    margin-top: 30px;
     max-width: 100%;
 `;
+
+export const ItensSeparator = styled.View`
+
+`
 

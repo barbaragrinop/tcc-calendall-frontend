@@ -46,8 +46,7 @@ export function RegisterUserScreen() {
             dataNascimento: watch("birthDate"),
             senha: watch("password"),
             confirmacaoSenha: watch("confirmPassword")
-        }
-        console.log('data', data)
+        } 
         try {
             await api({
                 url: "/autenticacao/cadastro",
@@ -59,8 +58,7 @@ export function RegisterUserScreen() {
         } catch (ex) {
             console.error('ex', ex)
 
-            if (ex instanceof Error) {
-                console.log('ex', ex)
+            if (ex instanceof Error) { 
                 console.error('Mensagem do erro:', ex.message);
                 console.error('Stack do erro:', ex.stack);
             } else {

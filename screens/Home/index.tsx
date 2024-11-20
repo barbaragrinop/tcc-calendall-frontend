@@ -5,19 +5,15 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Tabs, Event, Header } from "@/components";
 import { COLORS } from "@/constants";
-import { useCalendar } from "@/hooks";
+import { usePersonalCalendar } from "@/hooks";
 import { EventResponse } from "@/types";
 import { AddPersonalEvent } from "./AddPersonalEvent";
 import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 import { useSession } from "@/app/contexts";
 
 export function HomeScreen() {
-    const { data, isLoading, error} = usePersonalCalendarService<EventResponse[]>();
-    const { session } = useSession()
-    const { todayEvents, nextEvents, Calendar } = useCalendar(data);
-    console.log('data', data)
-    console.log('nextEvents', nextEvents)
-    console.log('todayEvents', todayEvents)
+    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>();
+    const { todayEvents, nextEvents, Calendar } = usePersonalCalendar(data);
 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
@@ -49,7 +45,7 @@ export function HomeScreen() {
                                                     }}
                                                 >
                                                     {todayEvents?.map((event, index) => (
-                                                        <Event
+                                                        <Event.Personal
                                                             key={index}
                                                             notificationType={event.notificationType}
                                                             priority={event.priority}
@@ -73,7 +69,7 @@ export function HomeScreen() {
                                                     }}
                                                 >
                                                     {nextEvents?.map((event, index) => (
-                                                        <Event
+                                                        <Event.Personal
                                                             key={index}
                                                             notificationType={
                                                                 event.notificationType

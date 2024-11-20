@@ -1,4 +1,5 @@
 export { useColorScheme } from 'react-native'
-export { useCalendar } from './_useCalendar'
+export { usePersonalCalendar } from './_usePersonalCalendar'
 export { useHttpCommon } from './_useHttpCommon'
 export { useYup } from './_useYup'
+export { useClassroomCalendar } from './_useClassroomCalendar'

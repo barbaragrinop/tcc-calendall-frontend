@@ -8,27 +8,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { COLORS } from "@/constants";
 
 
-export function ClassroomItem(props: TClassroom) {
-    const { title, isAdmin, membersQuantity, idClassroom, eventsQuantity } =
-        props;
+export function ClassroomItem({ funcaoUsuario, id_salaUsuario, sala }: TClassroom) {
+
+    const isAdmin: boolean = funcaoUsuario === "REPRESENTANTE"
 
     return (
         <S.Container>
             <S.EventClose>
                 <S.Role $isAdmin={isAdmin}>
-                    <S.ClasroomID>{"#"}{idClassroom}</S.ClasroomID>
+                    <S.ClasroomID>{"#"}{id_salaUsuario}</S.ClasroomID>
                     {isAdmin && <S.Admin>Admin</S.Admin>}
                 </S.Role>
                 <S.ClassroomDetails>
-                    <S.Title numberOfLines={1}>{title}</S.Title>
+                    <S.Title numberOfLines={1}>{sala.nome}</S.Title>
                     <S.Info>
                         <S.QuantityMembersSpace>
                             <FontAwesomeIcon icon={faUser} />
-                            <S.QuantityMembers>{membersQuantity} membros</S.QuantityMembers>
+                            <S.QuantityMembers>{2} membros</S.QuantityMembers>
                         </S.QuantityMembersSpace>
                         <S.QuantityEventsSpace>
                             <FontAwesomeIcon icon={faCalendar} />
-                            <S.QuantityEvents>{eventsQuantity} eventos</S.QuantityEvents>
+                            <S.QuantityEvents>{5} eventos</S.QuantityEvents>
                         </S.QuantityEventsSpace>
                     </S.Info>
                 </S.ClassroomDetails>

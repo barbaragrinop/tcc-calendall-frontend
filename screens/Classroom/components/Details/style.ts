@@ -79,13 +79,8 @@ export const MembersList = styled.View`
     flex-direction: row;
     gap: 4px;
     flex-wrap: wrap;
-`
-
-export const ImageWrap = styled.View`  
     position: relative;
 `
-
-export const Image = styled.Image``
 
 export const Shape = styled.SafeAreaView`
     height: 100%;
@@ -96,3 +91,30 @@ export const Shape = styled.SafeAreaView`
     overflow: hidden;
     flex: 1;
 `;
+
+
+export const ModalBody = styled.View`
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #eeeeee;  
+    padding-right: 10%;
+    word-break: break-all;
+
+`
+export const UserDataSpace = styled.View`
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    word-break: break-all;
+    
+`
+
+export const UserInfo = styled.View`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    word-break: break-all;
+    flex-wrap: wrap;  
+`;
+

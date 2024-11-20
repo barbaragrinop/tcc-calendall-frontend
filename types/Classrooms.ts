@@ -1,7 +1,13 @@
+import { UserPT } from "./User"
+
 export type Classroom = {
-    title: string;
-    isAdmin: boolean,
-    eventsQuantity: number,
-    membersQuantity: number,
-    idClassroom: string
+    id_salaUsuario: string,
+    usuario: UserPT, 
+    funcaoUsuario: "REPRESENTANTE" | "VICE_REPRESENTANTE" | "ALUNO",
+    sala: {
+        id_sala: number,
+        nome: string,
+        descricao: string,
+        dt_criacao: string
+    }, 
 }
