@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Text, View } from "react-native";
 import { EllipsisIcon } from "../EllipsisIcon";
+import { format } from "date-fns";
 
 type Props = {
     priority: "ALTA" | "MEDIA" | "BAIXA";
@@ -140,60 +141,20 @@ function ClassroomEvent(props: Props) {
 
     const [open, setIsOpen] = useState<boolean>(false);
 
-    function getColorBasedOnPriority() {
-        if (priority === "ALTA") {
-            return COLORS.RED_PRIORITY_HIGH;
-        }
-        if (priority === "MEDIA") {
-            return COLORS.YELLOW_PRIORITY_MEDIUM;
-        }
-        return COLORS.GREY_PRIORITY_LOW;
-    }
-
-    function getLabelPriority() {
-        if (priority === "ALTA") {
-            return "Alta";
-        }
-        if (priority === "MEDIA") {
-            return "Media";
-        }
-
-        return "Baixa";
-    }
-
     return (
         <S.Container>
             <S.EventClose $isOpen={open}>
-                <S.Date $priorityColor={getColorBasedOnPriority()}>
+                <S.Date $priorityColor={COLORS.GREY_PRIORITY_LOW}>
                     {date && <S.EventDate>{date}</S.EventDate>}
                     <S.EventTime>{time}</S.EventTime>
                 </S.Date>
                 <S.EventCloseDetails>
                     <S.EventTitle numberOfLines={1}>{title}</S.EventTitle>
-                    {open ? (
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    color: COLORS.GREY_DARK_TEXT,
-                                    marginRight: 5,
-                                }}
-                            >
-                                criado em:
-                            </Text>
-                            <Text>Sala 02</Text>
-                        </View>
-                    ) : (
-                        <S.EventDescription numberOfLines={1}>
-                            {description}
-                        </S.EventDescription>
-                    )}
+
+                    <S.EventDescription numberOfLines={1}>
+                        {description}
+                    </S.EventDescription>
+
                 </S.EventCloseDetails>
                 <S.IconSpace onPress={() => setIsOpen(!open)}>
                     {open ? (
@@ -222,7 +183,7 @@ function ClassroomEvent(props: Props) {
                         style={{
                             flexDirection: "row",
                             alignItems: "center",
-                            justifyContent: "space-around",
+                            justifyContent: "flex-start",
                         }}
                     >
                         <View
@@ -231,17 +192,8 @@ function ClassroomEvent(props: Props) {
                                 alignItems: "center",
                             }}
                         >
-                            <S.EventTopic>prioridade:</S.EventTopic>
-                            <Text>{getLabelPriority()}</Text>
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                            }}
-                        >
-                            <S.EventTopic> notificação: </S.EventTopic>
-                            <Text>{notificationType}</Text>
+                            <S.EventTopic>criado em:</S.EventTopic>
+                            <Text>{format(new Date(), "dd MMM yyyy - HH'h'mm")}</Text>
                         </View>
                     </View>
                 </View>

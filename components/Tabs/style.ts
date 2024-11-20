@@ -27,9 +27,7 @@ export const Title = styled.Text<{ $isSelected?: boolean; }>`
 `;
 
 export const SpaceContent = styled.View`
-    margin-top: 40px;
+    padding-top: 40px;
     width: 100%;
-
-
-
+    background-color: ${COLORS.BLUE_SECONDARY};
 `

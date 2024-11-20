@@ -259,7 +259,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
                     >
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
-                                <EventComponent
+                                <EventComponent.Personal
                                     key={index}
                                     notificationType={event.notificationType}
                                     priority={event.priority}

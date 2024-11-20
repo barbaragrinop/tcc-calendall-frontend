@@ -73,7 +73,7 @@ export function ClassroomScreen() {
                                 />
                                 <S.ClassroomList>
                                     {isLoading && <ActivityIndicator />}
-                                    {data ? filteredClassroomList.map((item, index) => (
+                                    {data && data.length > 0 ? filteredClassroomList.map((item, index) => (
                                         <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome]}`} key={index} onPress={() => {
                                             setSearch("")
                                             setFilteredClassroomList(data)

@@ -44,7 +44,6 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
             dt_evento: ""
         }
     })
-    
 
     async function handleSubmitEvent() {
         if(!idClassroom) return

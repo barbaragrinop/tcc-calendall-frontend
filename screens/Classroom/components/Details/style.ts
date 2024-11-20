@@ -1,4 +1,5 @@
 // styles.ts
+import { Button, Tabs } from "@/components";
 import { COLORS } from "@/constants";
 import styled from "styled-components/native";
 
@@ -29,7 +30,6 @@ export const TitleCreate = styled.View`
 
 export const Content = styled.ScrollView`
     margin-top: 30px;
-    padding: 0 10px;
     flex: 1; 
 `;
 
@@ -82,13 +82,12 @@ export const MembersList = styled.View`
     position: relative;
 `
 
-export const Shape = styled.SafeAreaView`
+export const Shape = styled.View`
     height: 100%;
-    background-color: ${COLORS.BLUE_SECONDARY};
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    margin-top: 30px;
-    overflow: hidden;
+    /* padding: 10px; */
+    /* border-top-left-radius: 30px;
+    border-top-right-radius: 30px; */
+    margin-top: 50px;
     flex: 1;
 `;
 
@@ -106,7 +105,6 @@ export const UserDataSpace = styled.View`
     flex-direction: row;
     gap: 15px;
     word-break: break-all;
-    
 `
 
 export const UserInfo = styled.View`
@@ -118,3 +116,40 @@ export const UserInfo = styled.View`
     flex-wrap: wrap;  
 `;
 
+export const PressableSpace = styled.Pressable`
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: ${COLORS.WHITE};
+    border: 1px solid ${COLORS.WHITE};
+
+`
+
+export const ButtonSpace = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 20px;
+    width: 100%;
+`
+
+export const ButtonWhite = styled(Button.White)`
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); 
+`
+
+export const EventsTitle = styled.View`
+    display: flex;
+    justify-content: center;
+    padding: 10px 10px 10px 20px;
+    background-color: #6497B2;
+    
+`
+
+export const EventsTitleText = styled(MembersTitle)`
+    font-size: 20px;
+    color: ${COLORS.WHITE};
+    font-family: 'IBMPlexSansCondensedMedium';
+`

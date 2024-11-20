@@ -27,8 +27,6 @@ export function Tabs({ items }: Props) {
         return items[selectedItemIndex].component
     }, [selectedItemIndex, items])
 
-    
-
     return (
         <>
             <S.AllTitles>

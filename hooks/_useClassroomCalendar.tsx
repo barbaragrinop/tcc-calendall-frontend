@@ -259,7 +259,7 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
                     >
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
-                                <EventComponent.Personal
+                                <EventComponent.Classroom
                                     key={index}
                                     notificationType={event.notificationType}
                                     priority={event.priority}
@@ -320,6 +320,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 50,
-
     }
 });
