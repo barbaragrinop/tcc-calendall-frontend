@@ -20,6 +20,7 @@ export const Button = styled.TouchableOpacity<{ $type: "dark" | "light" }>`
         1px solid;
     align-items: center;
     width: 100%;
+    
 `;
 
 export const Text = styled.Text<{ $type: "dark" | "light" }>`

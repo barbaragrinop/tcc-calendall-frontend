@@ -29,7 +29,7 @@ export function ButtonWhite({ title, ...props }: PropsButtonWhite) {
 export function LightBlueButton({ title, ...props }: PropsButtonWhite) {
     return (
         <S.LightBlueButton {...props}>
-            <S.TitleLightBlue>{title}</S.TitleLightBlue>
+            <S.TitleWHITE>{title}</S.TitleWHITE>
         </S.LightBlueButton>
     )
 }

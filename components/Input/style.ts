@@ -34,7 +34,6 @@ export const LabelSpace = styled.View`
     flex-direction: row;
 `
 
-
 export const ContainerInput = styled.View`
     position: relative;
 `;
