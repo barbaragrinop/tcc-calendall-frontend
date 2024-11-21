@@ -48,11 +48,12 @@ export function HomeScreen() {
                                                         <Event.Personal
                                                             key={index}
                                                             date={event.date}
-                                                            time={event.date}
+                                                            time={event.time}
                                                             title={event.title}
                                                             description={event.description}
                                                             notificationType={event.notificationType}
                                                             priority={event.priority}
+                                                            // origin={"Sala 02"}
                                                         />
                                                     ))}
                                                 </View>
@@ -82,6 +83,7 @@ export function HomeScreen() {
                                                             description={
                                                                 event.description
                                                             }
+                                                            // origin={"Sala 02"}
                                                         />
                                                     ))}
                                                 </View>

@@ -48,7 +48,7 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
     })
 
     async function handleSubmitEvent() {
-        if(!idClassroom) return
+        if (!idClassroom) return
 
         try {
             await api({
@@ -57,7 +57,10 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
                 data: {
                     titulo: watch("titulo"),
                     descricao: watch("descricao"),
-                    dt_evento: watch("dt_evento"),
+                    dt_evento: subHours(
+                        parseISO(watch("dt_evento")),
+                        3
+                    ),
                 }
             })
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')

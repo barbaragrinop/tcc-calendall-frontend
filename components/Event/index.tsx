@@ -19,6 +19,7 @@ type PersonalProps = {
     title: string;
     description: string;
     notificationType: string;
+    // origin: string
 };
 
 function PersonalEvent(props: PersonalProps) {
@@ -74,7 +75,8 @@ function PersonalEvent(props: PersonalProps) {
                             >
                                 criado em:
                             </Text>
-                            <Text>Sala 02</Text>
+                            {/* <Text>{origin || ""}</Text> */}
+                            <Text>{"Sala 02"}</Text>
                         </View>
                     ) : (
                         <S.EventDescription numberOfLines={1}>
@@ -139,12 +141,13 @@ function PersonalEvent(props: PersonalProps) {
 
 type ClassroomProps = Omit<PersonalProps, "priority" | "notificationType"> & {
     datetime?: string
+    id?: number
 };
 
 function ClassroomEvent(props: ClassroomProps) {
-    const { description, time, title, date, datetime } =
-        props;
-
+    const { description, time, title, date, datetime, id } =
+    props;
+     
     const [open, setIsOpen] = useState<boolean>(false);
 
 
@@ -212,11 +215,12 @@ function ClassroomEvent(props: ClassroomProps) {
                         }}
 
                     >
-                        {date && datetime && (
+                        {date && datetime && props.id &&(
                             <AddEventToPersonalCalendar
                                 datetime={datetime}
                                 description={description}
                                 title={title}
+                                eventId={props.id}
                             />
                         )}
                     </View>

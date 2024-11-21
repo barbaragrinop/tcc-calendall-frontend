@@ -5,6 +5,7 @@ export type EventResponse = {
         ic_completa: boolean;
         id_evento: number;
         titulo: string;
+        // nm_origem?: string;
     };
     id: number;
     tipoNotificacao: string;

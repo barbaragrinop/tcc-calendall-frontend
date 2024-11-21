@@ -88,12 +88,6 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
         setData(outsideData)
     }, [outsideData])
 
-    const priorityColors: Record<string, string> = {
-        BAIXA: COLORS.GREY_PRIORITY_LOW,
-        MEDIA: COLORS.YELLOW_PRIORITY_MEDIUM,
-        ALTA: COLORS.RED_PRIORITY_HIGH,
-    };
-
     const markedDates = useMemo(() => {
         if (!data) return;
 
@@ -124,7 +118,7 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
     const formatEvent = (evento: ClassroomEvent): Event => {
         if (!evento) return {} as Event;
 
-        const parsedDate = parseISO(evento.dt_evento);
+        const parsedDate = parseISO(evento.dt_evento); 
 
         return {
             notificationType: "",
@@ -133,6 +127,9 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
             date: format(parsedDate, "dd/MMM", { locale: ptBR }),
             title: evento.titulo,
             description: evento.descricao,
+            datetime: String(parsedDate),
+            id_evento: evento.id_evento
+
         };
     };
 
@@ -260,11 +257,10 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
                                 <EventComponent.Classroom
-                                    key={index} 
+                                    key={index}
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
-                                    
                                 />
                             )
                         })}

@@ -31,9 +31,10 @@ export function ClassroomDetailsScreen() {
     const { data: membersList, isLoading: isLoadingMembers, mutate: eventsMutate } =
         useFetchClassroomMembersByClassroomId(Number(idClassroom));
     const { data: eventsList, isLoading: isLoadingEvents, mutate: membersMutate } =
-        useFetchClassroomEventsbyClassroomId(Number(idClassroom));
+    useFetchClassroomEventsbyClassroomId(Number(idClassroom));
     const { Calendar, todayEvents, nextEvents } = useClassroomCalendar(eventsList);
 
+    
     const [toggleModalUserData, setToggleModalUserData] = useState<boolean>(false)
     const [modalData, setModalData] = useState<ClassroomMember | null>(null)
     const [toggleModalAddUser, setToggleModalAddUser] = useState<boolean>(false)
@@ -140,6 +141,8 @@ export function ClassroomDetailsScreen() {
                                                                 time={event.time}
                                                                 title={event.title}
                                                                 description={event.description}
+                                                                datetime={event.datetime}
+                                                                id={event.id_evento}
                                                             />
                                                         ))}
                                                     </View>
@@ -165,6 +168,8 @@ export function ClassroomDetailsScreen() {
                                                                 description={
                                                                     event.description
                                                                 }
+                                                                datetime={event.datetime}
+                                                                id={event.id_evento}
                                                             />
                                                         ))}
                                                     </View>

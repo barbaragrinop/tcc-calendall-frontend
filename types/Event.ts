@@ -7,4 +7,7 @@ export type Event = {
     title: string;
     description: string;
     notificationType: string;
+    datetime?: string
+    id_evento: number
+    // nm_origem?: string
 };

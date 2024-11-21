@@ -64,8 +64,7 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export function usePersonalCalendar(outsideData?: EventResponse[]) {
-    console.log('outsideData', outsideData)
+export function usePersonalCalendar(outsideData?: EventResponse[]) { 
     const [todayDate, setToday] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
     const [data, setData] = useState<EventResponse[]>([])
@@ -127,12 +126,13 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
             date: format(parsedDate, "dd/MMM", { locale: ptBR }),
             title: evento.titulo,
             description: evento.descricao,
+            id_evento: evento.id_evento,
+            // nm_origem: "Pessoal",
         };
     };
 
     const todayEvents = useMemo<Event[]>(() => {
         if (!data) return [];
-        console.log('data', data)
 
         const aux = data?.filter((item) => {
             const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
@@ -145,8 +145,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
     }, [data, todayDate])
 
     const nextEvents = useMemo<Event[]>(() => {
-        if (!data) return [];
-        console.log('data', data)
+        if (!data) return []; 
 
         const aux = data?.filter((item) => {
             const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
@@ -256,6 +255,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
                                 <EventComponent.Personal
+                                    // origin={"Sala 02"}
                                     key={index}
                                     notificationType={event.notificationType}
                                     priority={event.priority}

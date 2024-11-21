@@ -202,7 +202,7 @@ function InputDatePicker(props: InputDatePickerProps) {
                     />
                 </View>
             </Pressable>
-            {showDatePicker && getCalendarBasedOnPlatform()}
+            {showDatePicker && !props.isDisabled && getCalendarBasedOnPlatform()}
         </View>
     );
 }

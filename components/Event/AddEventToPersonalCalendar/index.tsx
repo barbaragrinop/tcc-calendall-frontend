@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 
 
@@ -23,6 +23,7 @@ type FormValues = {
     datetime: string;
     notificationType: string;
     priority: string;
+    eventId: number
 }
 
 
@@ -30,9 +31,10 @@ export function AddEventToPersonalCalendar({
     title,
     description,
     datetime,
+    eventId
 }: Omit<FormValues, "notificationType" | "priority">) {
-    console.log('datetime', datetime)
     const [toggleModal, setToggleModal] = useState<boolean>(false);
+    const [isLoadingPost, setIsLoadingPost] = useState<boolean>(false);
 
     const { api } = useHttpCommon()
     const { mutate } = usePersonalCalendarService()
@@ -68,7 +70,26 @@ export function AddEventToPersonalCalendar({
     }
 
     async function handleAddToPersonalCalendar() {
-        console.log('handleAddToPersonalCalendar', 'clicou')
+        try {
+            setIsLoadingPost(true)
+            await api({
+                method: "POST",
+                url: `/eventoPessoal/${eventId}/criarEventoPessoal`,
+                data: {
+                    tipoPrioridade: watch("priority"),
+                    tipoNotificacao: watch("notificationType")
+                }
+            })
+            
+            setIsLoadingPost(false)
+            mutate()
+            Alert.alert("Evento adicionado ao calendário pessoal com sucesso!")
+            handleClose()
+            reset()
+        } catch (error: any) {
+            setIsLoadingPost(false)
+            Alert.alert("Erro ao adicionar evento ao calendário pessoal")
+        }
     }
 
     const watchNotificationsType = watch("notificationType");
@@ -101,6 +122,8 @@ export function AddEventToPersonalCalendar({
                                         value={value}
                                         type="gray"
                                         onBlur={onBlur}
+                                        isDisabled
+                                        editable={false}
                                     />
                                     <ErrorMessage error={error?.message} />
                                 </View>
@@ -119,6 +142,8 @@ export function AddEventToPersonalCalendar({
                                         onChangeText={onChange}
                                         value={value}
                                         type="gray"
+                                        isDisabled
+                                        editable={false}
                                     />
                                     <ErrorMessage error={error?.message} />
                                 </View>
@@ -140,8 +165,9 @@ export function AddEventToPersonalCalendar({
                                         onBlur={onBlur}
                                         onChange={value => onChange(value)}
                                         onChangeText={value => onChange(value)}
-                                        value={value ? format(new Date(value), "dd/MM/yyyy", { locale: ptBR }) : ""}
+                                        value={value ? format(new Date(value), "dd/MM/yyyy HH:mm", { locale: ptBR }) : ""}
                                         getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
+                                        isDisabled
                                     />
                                     <ErrorMessage error={error?.message} />
                                 </View>
