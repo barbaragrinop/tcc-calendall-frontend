@@ -15,7 +15,7 @@ import { AddEventToPersonalCalendar } from "./AddEventToPersonalCalendar";
 type PersonalProps = {
     priority: "ALTA" | "MEDIA" | "BAIXA";
     time: string;
-    date: string;
+    date?: string;
     title: string;
     description: string;
     notificationType: string;
@@ -137,8 +137,12 @@ function PersonalEvent(props: PersonalProps) {
     );
 }
 
-function ClassroomEvent(props: Omit<PersonalProps, "priority" | "notificationType">) {
-    const { description, time, title, date } =
+type ClassroomProps = Omit<PersonalProps, "priority" | "notificationType"> & {
+    datetime?: string
+};
+
+function ClassroomEvent(props: ClassroomProps) {
+    const { description, time, title, date, datetime } =
         props;
 
     const [open, setIsOpen] = useState<boolean>(false);
@@ -208,12 +212,13 @@ function ClassroomEvent(props: Omit<PersonalProps, "priority" | "notificationTyp
                         }}
 
                     >
-                        <AddEventToPersonalCalendar
-                            datetime={date}
-                            description={description}
-                            title={title}
-
-                        />
+                        {date && datetime && (
+                            <AddEventToPersonalCalendar
+                                datetime={datetime}
+                                description={description}
+                                title={title}
+                            />
+                        )}
                     </View>
                 </View>
             )}

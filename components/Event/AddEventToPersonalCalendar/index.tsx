@@ -132,7 +132,7 @@ export function AddEventToPersonalCalendar({
                                     <Input.DatePicker
                                         label="Data do evento"
                                         placeholder="Escolha uma data e horário"
-                                        mode="date"
+                                        mode="datetime"
                                         textColor="dark"
                                         type="gray"
                                         required

@@ -264,7 +264,7 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
-                                    date={event.date}
+                                    
                                 />
                             )
                         })}

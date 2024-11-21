@@ -1,8 +1,8 @@
 import * as S from "./style";
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
+import DateTimePicker, { DateTimePickerEvent, DateTimePickerAndroid } from '@react-native-community/datetimepicker'
 
 import { Pressable, TextInputProps, View, Platform } from "react-native";
-import { ReactElement, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import { RequiredSymbol } from "../RequiredSymbol";
 import { COLORS } from "@/constants";
 import { format } from "date-fns";
@@ -99,55 +99,88 @@ type InputDatePickerProps = Props & {
 }
 
 function InputDatePicker(props: InputDatePickerProps) {
-    const { mode, textColor } = props
-    const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
-    const [date, setDate] = useState<Date | undefined>(props.value ? new Date(props.value) : undefined)
-    const [chosenDate, setChosenDate] = useState<string>("")
+    const { mode, textColor } = props;
+    const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+    const [date, setDate] = useState<Date | undefined>(props.value ? new Date(props.value) : undefined);
+    const [chosenDate, setChosenDate] = useState<string>("");
 
-    function onChange({ type }: DateTimePickerEvent, selectedDate: Date | undefined) {
-        if (type === "set") {
-            const currentDate = selectedDate
-
-            if (!currentDate) return
-
-            if (mode === "date") {
-                const normalizedDate = new Date(selectedDate);
-                normalizedDate.setHours(0, 0, 0, 0);
-                setDate(normalizedDate);
-                props.getCurrentDate(normalizedDate);
-            } else {
-                setDate(currentDate)
-                props.getCurrentDate(currentDate)
-            }
-
-
-            if (Platform.OS === "android") {
-                toggleDatePicker()
-                setChosenDate(currentDate.toDateString())
-            }
-
-            return
+    function onChange(event: DateTimePickerEvent, selectedDate: Date | undefined) {
+        if (Platform.OS === 'android') {
+            // Fecha o picker manualmente no Android
+            setShowDatePicker(false);
         }
 
-        toggleDatePicker()
+        if (selectedDate) {
+            const normalizedDate = mode === "date" ? new Date(selectedDate.setHours(0, 0, 0, 0)) : selectedDate;
+            setDate(normalizedDate);
+            props.getCurrentDate(normalizedDate);
+
+            setChosenDate(format(normalizedDate, "dd MMMM yyyy HH:mm", { locale: ptBR }));
+        }
     }
 
     function toggleDatePicker() {
-        setShowDatePicker(!showDatePicker)
+        if (Platform.OS === 'android' && mode === "datetime") {
+            // Gerencia o modo "datetime" para Android
+            handleAndroidDateTimePicker();
+        } else {
+            setShowDatePicker(!showDatePicker);
+        }
+    }
+
+    function handleAndroidDateTimePicker() {
+        // Primeiro abre o picker de data
+        DateTimePickerAndroid.open({
+            mode: "date",
+            value: date || new Date(),
+            onChange: (event, selectedDate) => {
+                if (selectedDate) {
+                    // Depois de selecionar a data, abre o picker de hora
+                    DateTimePickerAndroid.open({
+                        mode: "time",
+                        value: selectedDate,
+                        onChange: (_, selectedDateTime) => {
+                            if (selectedDateTime) {
+                                setDate(selectedDateTime);
+                                props.getCurrentDate(selectedDateTime);
+
+                                setChosenDate(
+                                    format(selectedDateTime, "dd MMMM yyyy HH:mm", { locale: ptBR })
+                                );
+                            }
+                        },
+                    });
+                }
+            },
+        });
+    }
+
+    function getCalendarBasedOnPlatform() {
+        if (Platform.OS === 'android') {
+            // Em Android, o picker é gerenciado por handleAndroidDateTimePicker()
+            return null;
+        }
+
+        // Em iOS, renderiza o picker normalmente
+        return (
+            <DateTimePicker
+                mode={mode}
+                display="spinner"
+                is24Hour={true}
+                textColor={textColor === "dark" ? COLORS.GREY_DARK_TEXT : COLORS.WHITE}
+                locale="pt-BR"
+                value={date || new Date()}
+                onChange={onChange}
+            />
+        );
     }
 
     return (
         <View>
-            <Pressable
-                onPress={toggleDatePicker}
-            >
+            <Pressable onPress={toggleDatePicker}>
                 <View style={{ position: 'relative' }}>
-                    
                     <InputText
-                        value={chosenDate ?
-                            format(new Date(chosenDate),
-                                "dd MMMM yyyy HH:mm", { locale: ptBR }) : ""
-                        }
+                        value={chosenDate}
                         onChangeText={setChosenDate}
                         type={props.type}
                         placeholder={props.placeholder}
@@ -164,29 +197,15 @@ function InputDatePicker(props: InputDatePickerProps) {
                             position: 'absolute',
                             right: 10,
                             top: '50%',
-                            bottom: '50%',
-                            transform: [{ translateY: 1 }],
+                            // transform: [{ translateY: -5 }],
                         }}
                     />
                 </View>
             </Pressable>
-            {
-                showDatePicker && (
-                    <DateTimePicker
-                        mode={mode}
-                        display="spinner"
-                        is24Hour={true}
-                        textColor={textColor === "dark" ? COLORS.GREY_DARK_TEXT : COLORS.WHITE}
-                        locale="pt-BR"
-                        value={date ? new Date(date) : new Date()}
-                        onChange={onChange}
-                    />
-                )
-            }
+            {showDatePicker && getCalendarBasedOnPlatform()}
         </View>
-    )
+    );
 }
-
 export const Input = {
     Text: InputText,
     Password: InputPassword,

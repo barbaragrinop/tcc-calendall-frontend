@@ -4,9 +4,8 @@ import Collapsible from 'react-native-collapsible';
 import { useHttpCommon, useYup } from "@/hooks";
 import { Alert, Pressable, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
-import { Priority } from "@/types";
 import { Button, CustomNotification, Input, RequiredSymbol } from "@/components";
-import { format, parseISO, subHours } from "date-fns";
+import { format, subHours } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -144,7 +143,7 @@ export function AddPersonalEvent() {
                                 <Input.DatePicker
                                     label="Data do evento"
                                     placeholder="Escolha uma data e horário"
-                                    mode="date"
+                                    mode="datetime"
                                     textColor="dark"
                                     type="gray"
                                     required
@@ -152,7 +151,7 @@ export function AddPersonalEvent() {
                                     onBlur={onBlur}
                                     onChange={value => onChange(value)}
                                     onChangeText={value => onChange(value)}
-                                    value={value ? format(new Date(value), "dd/MM/yyyy", { locale: ptBR }) : ""}
+                                    value={value ? format(new Date(value), "dd/MM/yyyy - HH'h'mm", { locale: ptBR }) : ""}
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
                                 <ErrorMessage error={error?.message} />

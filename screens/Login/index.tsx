@@ -60,6 +60,7 @@ export function LoginScreen() {
                             placeholder="**********"
                             onChangeText={(e) => setPassword(e)}
                         />
+
                         <TouchableOpacity onPress={() => signIn(email, password)}>
                             <S.Button>
                                 <S.ButtonText>entrar</S.ButtonText>
