@@ -65,6 +65,7 @@ LocaleConfig.defaultLocale = "fr";
 type CalendarProps = RNCalendarProps & ContextProp;
 
 export function usePersonalCalendar(outsideData?: EventResponse[]) {
+    console.log('outsideData', outsideData)
     const [todayDate, setToday] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
     const [data, setData] = useState<EventResponse[]>([])
@@ -83,15 +84,8 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
 
     useEffect(() => {
         if (!outsideData) return;
-
         setData(outsideData)
     }, [outsideData])
-
-    const priorityColors: Record<string, string> = {
-        BAIXA: COLORS.GREY_PRIORITY_LOW,
-        MEDIA: COLORS.YELLOW_PRIORITY_MEDIUM,
-        ALTA: COLORS.RED_PRIORITY_HIGH,
-    };
 
     const markedDates = useMemo(() => {
         if (!data) return;
@@ -138,6 +132,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
 
     const todayEvents = useMemo<Event[]>(() => {
         if (!data) return [];
+        console.log('data', data)
 
         const aux = data?.filter((item) => {
             const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
@@ -151,6 +146,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
 
     const nextEvents = useMemo<Event[]>(() => {
         if (!data) return [];
+        console.log('data', data)
 
         const aux = data?.filter((item) => {
             const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
@@ -266,6 +262,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
+                                    date={event.date}
                                 />
                             )
                         })}

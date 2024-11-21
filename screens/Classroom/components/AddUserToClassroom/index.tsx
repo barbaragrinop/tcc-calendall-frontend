@@ -43,7 +43,6 @@ export function AddUserToClassroom({
                 url: '/usuario/usuariosListagem'
             })
             
-
             const filteredData = data.filter(user => user.id_usuario !== idUsuario)           
 
             setAllUsers(filteredData)
@@ -75,7 +74,6 @@ export function AddUserToClassroom({
             setIsLoadingPost(false)
             handleCloseModal()
         } catch (error: any) {
-            console.log('error', error)
             setIsLoadingPost(false)
             Alert.alert('Erro!', 'Ocorreu um erro ao adicionar integrante!')
         }

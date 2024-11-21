@@ -135,9 +135,8 @@ export function ClassroomDetailsScreen() {
                                                     >
                                                         {todayEvents.map((event, index) => (
                                                             <Event.Classroom
-                                                                key={index}
-                                                                notificationType={event.notificationType}
-                                                                priority={event.priority}
+                                                                key={index} 
+                                                                date={event.date}
                                                                 time={event.time}
                                                                 title={event.title}
                                                                 description={event.description}
@@ -160,11 +159,7 @@ export function ClassroomDetailsScreen() {
                                                         {nextEvents.map((event, index) => (
                                                             <Event.Classroom
                                                                 key={index}
-                                                                notificationType={
-                                                                    event.notificationType
-                                                                }
-                                                                date={event.date}
-                                                                priority={event.priority}
+                                                                date={event.date} 
                                                                 time={event.time}
                                                                 title={event.title}
                                                                 description={

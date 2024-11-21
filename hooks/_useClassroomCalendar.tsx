@@ -260,12 +260,11 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
                                 <EventComponent.Classroom
-                                    key={index}
-                                    notificationType={event.notificationType}
-                                    priority={event.priority}
+                                    key={index} 
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
+                                    date={event.date}
                                 />
                             )
                         })}

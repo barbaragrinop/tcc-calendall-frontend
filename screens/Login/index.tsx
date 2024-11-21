@@ -2,7 +2,7 @@ import * as S from "./styles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Input, LogoText } from "@/components";
+import { Button, Input, LogoText } from "@/components";
 import { Link, router } from "expo-router";
 import { useSession } from "@/app/contexts";
 import { ScrollView, TouchableOpacity } from "react-native";

@@ -14,8 +14,7 @@ export function ButtonColored({ color, title, ...props }: Props) {
         </S.Button>
     );
 }
-
-//add touchable opacity props 
+ 
 type PropsButtonWhite = TouchableOpacityProps & {
     title: string
 }
@@ -27,7 +26,17 @@ export function ButtonWhite({ title, ...props }: PropsButtonWhite) {
     )
 }
 
+export function LightBlueButton({ title, ...props }: PropsButtonWhite) {
+    return (
+        <S.LightBlueButton {...props}>
+            <S.TitleLightBlue>{title}</S.TitleLightBlue>
+        </S.LightBlueButton>
+    )
+}
+
 export const Button = {
     White: ButtonWhite,
     Common: ButtonColored,
+    LightBlue: LightBlueButton
 }
+

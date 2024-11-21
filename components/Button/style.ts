@@ -43,3 +43,19 @@ export const TitleWHITE = styled.Text`
     font-weight: bold;
     font-family: 'IBMPlexSansCondensedBold';
 `;
+
+export const LightBlueButton = styled.TouchableOpacity`
+    background-color: ${COLORS.BLUE_PRIMARY};
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    align-self: flex-start;
+    padding: 4px 15px;
+`;
+
+export const TitleLightBlue = styled.Text`
+    font-size: 18px;
+    color: ${COLORS.WHITE};
+    font-family: 'IBMPlexSansCondensedBold';
+`;

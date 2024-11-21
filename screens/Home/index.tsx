@@ -12,9 +12,9 @@ import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 import { useSession } from "@/app/contexts";
 
 export function HomeScreen() {
-    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>();
+    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>(); 
     const { todayEvents, nextEvents, Calendar } = usePersonalCalendar(data);
-
+ 
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
     return (
@@ -47,11 +47,12 @@ export function HomeScreen() {
                                                     {todayEvents?.map((event, index) => (
                                                         <Event.Personal
                                                             key={index}
-                                                            notificationType={event.notificationType}
-                                                            priority={event.priority}
-                                                            time={event.time}
+                                                            date={event.date}
+                                                            time={event.date}
                                                             title={event.title}
                                                             description={event.description}
+                                                            notificationType={event.notificationType}
+                                                            priority={event.priority}
                                                         />
                                                     ))}
                                                 </View>

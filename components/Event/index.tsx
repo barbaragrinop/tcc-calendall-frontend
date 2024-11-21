@@ -6,20 +6,22 @@ import { Priority } from "@/types";
 import { COLORS } from "@/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { EllipsisIcon } from "../EllipsisIcon";
 import { format } from "date-fns";
+import { Button } from "../Button";
+import { AddEventToPersonalCalendar } from "./AddEventToPersonalCalendar";
 
-type Props = {
+type PersonalProps = {
     priority: "ALTA" | "MEDIA" | "BAIXA";
     time: string;
-    date?: string;
+    date: string;
     title: string;
     description: string;
     notificationType: string;
 };
 
-export function PersonalEvent(props: Props) {
+function PersonalEvent(props: PersonalProps) {
     const { description, priority, time, title, notificationType, date } =
         props;
 
@@ -135,11 +137,12 @@ export function PersonalEvent(props: Props) {
     );
 }
 
-function ClassroomEvent(props: Props) {
-    const { description, priority, time, title, notificationType, date } =
+function ClassroomEvent(props: Omit<PersonalProps, "priority" | "notificationType">) {
+    const { description, time, title, date } =
         props;
 
     const [open, setIsOpen] = useState<boolean>(false);
+
 
     return (
         <S.Container>
@@ -195,6 +198,22 @@ function ClassroomEvent(props: Props) {
                             <S.EventTopic>criado em:</S.EventTopic>
                             <Text>{format(new Date(), "dd MMM yyyy - HH'h'mm")}</Text>
                         </View>
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "flex-end",
+                            paddingTop: 40
+                        }}
+
+                    >
+                        <AddEventToPersonalCalendar
+                            datetime={date}
+                            description={description}
+                            title={title}
+
+                        />
                     </View>
                 </View>
             )}

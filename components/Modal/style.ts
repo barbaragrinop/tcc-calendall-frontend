@@ -1,8 +1,7 @@
 import styled from 'styled-components/native'; // Importando styled-components
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
-
-// Container do Modal
+ 
 export const Container = styled.SafeAreaView`
   background-color: #00000099;
   flex: 1;
@@ -10,12 +9,10 @@ export const Container = styled.SafeAreaView`
   justify-content: center;
   border-radius: 20px;
 `;
-
-// Popup do Modal
+ 
 export const Popup = styled.View`
   width: 90%;
-  max-height: 90%;  /* max-height: 90%; // Limita a altura para evitar que o modal ultrapasse a tela. */
-  border-radius: 20px;
+  max-height: 90%;   
   background-color: ${COLORS.WHITE};
   align-items: center;
   position: relative;
