@@ -2,6 +2,7 @@ import * as S from "./style";
 import { useSession } from "@/app/contexts";
 import { Button, Input } from "@/components";
 import { ErrorMessage } from "@/components/FormErrorMessage";
+import { useYup } from "@/hooks";
 import { Controller, useForm } from "react-hook-form";
 import { View, Text } from "react-native";
 
@@ -12,8 +13,21 @@ type FormValues = {
 }
 
 export function ChangePassword() {
-    const { control, handleSubmit, formState: { errors } } = useForm<FormValues>();
     const { session } = useSession();
+    
+    const { resolver } = useYup<FormValues>((yup) => {
+        return yup.object().shape({
+            currentPassword: yup.string().required("Senha atual é obrigatória"),
+            newPassword: yup.string().required("A senha é obrigatória"),
+            confirmPassword: yup.string().required("A confirmação de senha é obrigatória")
+                .oneOf([yup.ref("password"), ""], "As senhas não coincidem")
+        })
+    })
+
+    const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({
+        resolver: resolver,
+        mode: "all"
+    });
 
     // const onSubmit = async (data: FormValues) => {
     //     try {
