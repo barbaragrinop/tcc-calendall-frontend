@@ -16,6 +16,7 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import { ErrorMessage } from '@/components/FormErrorMessage';
 import { useFetchClassroomEventsbyClassroomId } from '../../hooks/useFetchClassroomEventsbyClassroomId';
+import { useFetchClassrooms } from '../../hooks/useFetchClassrooms';
 
 type FormValues = {
     titulo: string,
@@ -27,6 +28,7 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
     const [isCollapsed, setIsCollapsed] = useState(true)
     const { api } = useHttpCommon()
     const { mutate } = useFetchClassroomEventsbyClassroomId(idClassroom)
+    const { mutate: mutateAllClassrooms } = useFetchClassrooms()
 
     const { resolver } = useYup<FormValues>((yup) => {
         return yup.object().shape({
@@ -62,6 +64,7 @@ export function AddClassroomEvent({ idClassroom }: { idClassroom: number }) {
             reset()
             setIsCollapsed(true)
             mutate()
+            mutateAllClassrooms()
         } catch (error: any) {
             Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!')
         }

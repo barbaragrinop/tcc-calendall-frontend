@@ -8,9 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { COLORS } from "@/constants";
 
 
-export function ClassroomItem({ funcaoUsuario, id_salaUsuario, sala }: TClassroom) {
+export function ClassroomItem(props: TClassroom) {
 
-    const isAdmin: boolean = funcaoUsuario === "REPRESENTANTE"
+    const {
+        id_salaUsuario,
+        isAdmin,
+        sala
+    } = props
 
     return (
         <S.Container>
@@ -24,11 +28,11 @@ export function ClassroomItem({ funcaoUsuario, id_salaUsuario, sala }: TClassroo
                     <S.Info>
                         <S.QuantityMembersSpace>
                             <FontAwesomeIcon icon={faUser} />
-                            <S.QuantityMembers>{2} membros</S.QuantityMembers>
+                            <S.QuantityMembers>{sala.qt_membros} membros</S.QuantityMembers>
                         </S.QuantityMembersSpace>
                         <S.QuantityEventsSpace>
                             <FontAwesomeIcon icon={faCalendar} />
-                            <S.QuantityEvents>{5} eventos</S.QuantityEvents>
+                            <S.QuantityEvents>{sala.qt_eventos} eventos</S.QuantityEvents>
                         </S.QuantityEventsSpace>
                     </S.Info>
                 </S.ClassroomDetails>

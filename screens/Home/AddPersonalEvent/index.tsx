@@ -63,13 +63,13 @@ export function AddPersonalEvent() {
                     descricao: watch("description"),
                     dt_evento: subHours(watch("datetime"), 3)
                 }
-            }) 
+            })
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()
             setIsCollapsed(true)
             mutate()
         } catch (error: any) {
-            Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!') 
+            Alert.alert('Erro!', 'Ocorreu um erro ao criar o evento!')
         }
     }
 
@@ -142,9 +142,9 @@ export function AddPersonalEvent() {
                         render={({ field: { onChange, value, onBlur }, fieldState: { error } }) => (
                             <View>
                                 <Input.DatePicker
-                                    label="Data/Hora do evento"
+                                    label="Data do evento"
                                     placeholder="Escolha uma data e horário"
-                                    mode="datetime"
+                                    mode="date"
                                     textColor="dark"
                                     type="gray"
                                     required
@@ -152,7 +152,7 @@ export function AddPersonalEvent() {
                                     onBlur={onBlur}
                                     onChange={value => onChange(value)}
                                     onChangeText={value => onChange(value)}
-                                    value={value ? format(new Date(value), "dd/MM/yyyy - HH:mm", { locale: ptBR }) : ""}
+                                    value={value ? format(new Date(value), "dd/MM/yyyy", { locale: ptBR }) : ""}
                                     getCurrentDate={(date) => onChange(date ? date.toISOString() : "")}
                                 />
                                 <ErrorMessage error={error?.message} />

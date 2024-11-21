@@ -43,7 +43,7 @@ export function RegisterUserScreen() {
         const data = {
             nome: watch("name"),
             email: watch("email"),
-            dataNascimento: watch("birthDate"),
+            dataNascimento: format(watch("birthDate"), "yyyy-MM-dd"),
             senha: watch("password"),
             confirmacaoSenha: watch("confirmPassword")
         } 

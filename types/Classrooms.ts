@@ -8,6 +8,9 @@ export type Classroom = {
         id_sala: number,
         nome: string,
         descricao: string,
-        dt_criacao: string
+        dt_criacao: string, 
+        qt_eventos: number,
+        qt_membros: number,
     }, 
+    isAdmin: true
 }

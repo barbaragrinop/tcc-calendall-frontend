@@ -23,7 +23,7 @@ export function ClassroomDetailsScreen() {
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
     const params = useLocalSearchParams<{ idClassroom: string }>();
-    const [idClassroom, name] = params.idClassroom?.split(",") ?? [];
+    const [idClassroom, name, isAdmin] = params.idClassroom?.split(",") ?? [];
 
     const { api } = useHttpCommon()
     const { data: membersList, isLoading: isLoadingMembers, mutate: eventsMutate } =
@@ -37,7 +37,6 @@ export function ClassroomDetailsScreen() {
     const [toggleModalAddUser, setToggleModalAddUser] = useState<boolean>(false)
 
     const [isLoadingAddNewAdmin, setIsLoadingAddNewAdmin] = useState<boolean>(false)
-
 
     function handleCloseModal() {
         setToggleModalUserData(false)

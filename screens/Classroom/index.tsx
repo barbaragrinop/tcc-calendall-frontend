@@ -17,13 +17,17 @@ import { useFetchClassrooms } from "./hooks/useFetchClassrooms";
 export function ClassroomScreen() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { data, isLoading } = useFetchClassrooms()
+    const { data, isLoading, mutate } = useFetchClassrooms()
     const [filteredClassroomList, setFilteredClassroomList] = useState<TClassroom[]>([])
     const [search, setSearch] = useState<string>("")
 
     useEffect(() => {
         if (data) setFilteredClassroomList(data)
     }, [data])
+
+    useEffect(() => {
+        mutate()
+    }, [])
 
     function handleOpenModal() {
         setIsModalOpen(true);
@@ -73,21 +77,26 @@ export function ClassroomScreen() {
                                 />
                                 <S.ClassroomList>
                                     {isLoading && <ActivityIndicator />}
-                                    {data && data.length > 0 ? filteredClassroomList.map((item, index) => (
-                                        <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome]}`} key={index} onPress={() => {
-                                            setSearch("")
-                                            setFilteredClassroomList(data)
-                                        }}>
-                                            <S.ItensSeparator>
-                                                <Classroom
-                                                    funcaoUsuario={item.funcaoUsuario}
-                                                    id_salaUsuario={item.id_salaUsuario}
-                                                    sala={item.sala}
-                                                    usuario={item.usuario}
-                                                />
-                                            </S.ItensSeparator>
-                                        </Link>
-                                    )) : (
+                                    {data && data.length > 0 ? filteredClassroomList.map((item, index) => {
+                                        console.log('filteredClassroomList', filteredClassroomList)
+
+                                        return (
+                                            <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome, item.isAdmin]}`} key={index} onPress={() => {
+                                                setSearch("")
+                                                setFilteredClassroomList(data)
+                                            }}>
+                                                <S.ItensSeparator>
+                                                    <Classroom
+                                                        funcaoUsuario={item.funcaoUsuario}
+                                                        id_salaUsuario={item.id_salaUsuario}
+                                                        sala={item.sala}
+                                                        usuario={item.usuario}
+                                                        isAdmin={item.isAdmin}
+                                                    />
+                                                </S.ItensSeparator>
+                                            </Link>
+                                        )
+                                    }) : (
                                         <S.TitleScreen>Ainda não há salas cadastradas!</S.TitleScreen>
                                     )}
                                 </S.ClassroomList>

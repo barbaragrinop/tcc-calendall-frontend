@@ -28,7 +28,7 @@ export function AddUserToClassroom({
     idClassroom
 }: Props) {
     const { api } = useHttpCommon()
-    const { mutate: usersMutate } = useFetchClassroomMembersByClassroomId(idClassroom)
+    const { mutate: usersMutate, data: currentUsers } = useFetchClassroomMembersByClassroomId(idClassroom)
     const { mutate: eventsMutate } = useFetchClassroomEventsbyClassroomId(idClassroom)
     const [allUsers, setAllUsers] = useState<UserPT[]>([])
     const [isLoadingUsers, setIsLoadingUsers] = useState<boolean>(false)
@@ -42,8 +42,9 @@ export function AddUserToClassroom({
             const { data } = await api<UserPT[]>({
                 url: '/usuario/usuariosListagem'
             })
+            
 
-            const filteredData = data.filter(user => user.id_usuario !== idUsuario)
+            const filteredData = data.filter(user => user.id_usuario !== idUsuario)           
 
             setAllUsers(filteredData)
             setIsLoadingUsers(false)
@@ -56,6 +57,7 @@ export function AddUserToClassroom({
 
     useEffect(() => {
         fetchAllUsers()
+        usersMutate()
     }, [])
 
 
@@ -73,6 +75,7 @@ export function AddUserToClassroom({
             setIsLoadingPost(false)
             handleCloseModal()
         } catch (error: any) {
+            console.log('error', error)
             setIsLoadingPost(false)
             Alert.alert('Erro!', 'Ocorreu um erro ao adicionar integrante!')
         }
