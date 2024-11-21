@@ -128,8 +128,8 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
             title: evento.titulo,
             description: evento.descricao,
             datetime: String(parsedDate),
-            id_evento: evento.id_evento
-
+            id_evento: evento.id_evento, 
+            dt_criacao: evento.dt_criacao
         };
     };
 
@@ -261,6 +261,7 @@ export function useClassroomCalendar(outsideData?: ClassroomEvent[]) {
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
+                                    createdAt={event.dt_criacao || ""}
                                 />
                             )
                         })}

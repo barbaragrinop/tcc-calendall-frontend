@@ -7,4 +7,5 @@ export type ClassroomEvent = {
     dt_evento: string
     ic_completa: boolean,
     sala: Classroom['sala']
+    dt_criacao?: string
 }

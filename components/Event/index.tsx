@@ -142,10 +142,11 @@ function PersonalEvent(props: PersonalProps) {
 type ClassroomProps = Omit<PersonalProps, "priority" | "notificationType"> & {
     datetime?: string
     id?: number
+    createdAt: string
 };
 
 function ClassroomEvent(props: ClassroomProps) {
-    const { description, time, title, date, datetime, id } =
+    const { description, time, title, date, datetime, createdAt } =
     props;
      
     const [open, setIsOpen] = useState<boolean>(false);
@@ -203,7 +204,7 @@ function ClassroomEvent(props: ClassroomProps) {
                             }}
                         >
                             <S.EventTopic>criado em:</S.EventTopic>
-                            <Text>{format(new Date(), "dd MMM yyyy - HH'h'mm")}</Text>
+                            <Text>{format(new Date(createdAt), "dd MMM yyyy - HH'h'mm")}</Text>
                         </View>
                     </View>
                     <View

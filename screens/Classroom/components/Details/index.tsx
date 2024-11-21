@@ -143,6 +143,7 @@ export function ClassroomDetailsScreen() {
                                                                 description={event.description}
                                                                 datetime={event.datetime}
                                                                 id={event.id_evento}
+                                                                createdAt={event.dt_criacao || ""}
                                                             />
                                                         ))}
                                                     </View>
@@ -170,6 +171,7 @@ export function ClassroomDetailsScreen() {
                                                                 }
                                                                 datetime={event.datetime}
                                                                 id={event.id_evento}
+                                                                createdAt={event.dt_criacao || ""}
                                                             />
                                                         ))}
                                                     </View>

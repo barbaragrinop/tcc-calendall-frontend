@@ -64,6 +64,7 @@ export default function SessionProvider(props: PropsWithChildren) {
                 token,
                 id: decodedToken.id,
             }
+            console.log('userData', userData)
             setSession(userData);  
 
             router.dismissAll()

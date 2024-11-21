@@ -5,11 +5,12 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '@/constants/_colors';
 import { LogoText } from '../Logo/Text';
 import { useState } from 'react';
-import { TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, Pressable } from 'react-native';
+import { TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard, Pressable, View } from 'react-native';
 import { router } from 'expo-router';
 import { useSession } from '@/app/contexts';
 import { Dropdown } from '../Dropdown';
 import { DropdownOptions } from '@/types';
+import { UserAvatar } from '../UserAvatar';
 
 type Props = {
     backIcon?: boolean
@@ -36,8 +37,7 @@ function HeaderBackButton({ title, backIcon = true }: Props) {
 
 function HeaderProfileInfo() {
     const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false)
-
-    const { signOut } = useSession();
+    const { signOut, session } = useSession();
 
     const toggleOptions = () => setIsOptionsOpen((prev) => !prev);
     const closeOptions = () => setIsOptionsOpen(false);
@@ -54,10 +54,13 @@ function HeaderProfileInfo() {
                     <LogoText color="#fff" size={33} />
                 </S.CalendallText>
                 <Pressable onPress={toggleOptions}>
-                    <S.Image
-                        source={require("../../assets/images/profile-nophoto.png")}
-                        style={{ width: 30, height: 30 }}
-                    />
+                    <View style={{ marginRight: 30 }}>
+                        <UserAvatar
+                            isAdmin={false}
+                            userName={session?.nome || "NA"}
+                            size='sm'
+                        />
+                    </View>
                 </Pressable>
 
                 {isOptionsOpen && (
@@ -74,7 +77,7 @@ function HeaderProfileInfo() {
                 )}
 
             </S.LogoSpace>
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback >
     )
 }
 
