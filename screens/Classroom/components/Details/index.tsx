@@ -23,7 +23,9 @@ export function ClassroomDetailsScreen() {
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
     const params = useLocalSearchParams<{ idClassroom: string }>();
-    const [idClassroom, name, isAdmin] = params.idClassroom?.split(",") ?? [];
+    const [idClassroom, name, isAdminString] = params.idClassroom?.split(",") ?? [];
+
+    const isAdmin: boolean = isAdminString === "true" ? true : false;
 
     const { api } = useHttpCommon()
     const { data: membersList, isLoading: isLoadingMembers, mutate: eventsMutate } =
@@ -83,7 +85,7 @@ export function ClassroomDetailsScreen() {
                         <Breadcrumb dividedPath={['salas', name]} />
                     </S.TitleCreate>
                     <S.Content>
-                        <AddClassroomEvent idClassroom={Number(idClassroom)} />
+                        {isAdmin && <AddClassroomEvent idClassroom={Number(idClassroom)} />}
                         {isLoadingEvents || isLoadingMembers ? (
                             <ActivityIndicator size="large" />
                         ) : (
@@ -104,11 +106,13 @@ export function ClassroomDetailsScreen() {
                                                 />
                                             </Pressable>
                                         ))}
-                                        <S.PressableSpace onPress={handleOpenModalAddUser}>
-                                            <FontAwesomeIcon icon={faUserPlus} size={20} color={COLORS.BLUE_SECONDARY} />
-                                        </S.PressableSpace>
+                                        {isAdmin && (
+                                            <S.PressableSpace onPress={handleOpenModalAddUser}>
+                                                <FontAwesomeIcon icon={faUserPlus} size={20} color={COLORS.BLUE_SECONDARY} />
+                                            </S.PressableSpace>
+                                        )}
                                     </S.MembersList>
-                                    {toggleModalAddUser && (
+                                    {toggleModalAddUser && isAdmin && (
                                         <AddUserToClassroom handleCloseModal={handleCloseModalAddUser} idClassroom={Number(idClassroom)} isModalOpen={toggleModalAddUser} />
                                     )}
                                 </S.Members>
@@ -196,11 +200,13 @@ export function ClassroomDetailsScreen() {
                                                 </S.UserInfo>
                                             </S.UserDataSpace>
                                             <S.ButtonSpace>
+
                                                 {isLoadingAddNewAdmin ? (
                                                     <ActivityIndicator size="large" color={COLORS.BLUE_DARK1} />
-                                                ) : (
+                                                ) : isAdmin && (
                                                     <S.ButtonWhite title='tornar admin' onPress={handleAddNewAdmin} />
                                                 )}
+
                                             </S.ButtonSpace>
                                         </S.ModalBody>
                                     </Modal>

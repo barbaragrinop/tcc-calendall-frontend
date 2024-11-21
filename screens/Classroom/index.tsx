@@ -77,26 +77,22 @@ export function ClassroomScreen() {
                                 />
                                 <S.ClassroomList>
                                     {isLoading && <ActivityIndicator />}
-                                    {data && data.length > 0 ? filteredClassroomList.map((item, index) => {
-                                        console.log('filteredClassroomList', filteredClassroomList)
-
-                                        return (
-                                            <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome, item.isAdmin]}`} key={index} onPress={() => {
-                                                setSearch("")
-                                                setFilteredClassroomList(data)
-                                            }}>
-                                                <S.ItensSeparator>
-                                                    <Classroom
-                                                        funcaoUsuario={item.funcaoUsuario}
-                                                        id_salaUsuario={item.id_salaUsuario}
-                                                        sala={item.sala}
-                                                        usuario={item.usuario}
-                                                        isAdmin={item.isAdmin}
-                                                    />
-                                                </S.ItensSeparator>
-                                            </Link>
-                                        )
-                                    }) : (
+                                    {data && data.length > 0 ? filteredClassroomList.map((item, index) => (
+                                        <Link href={`/classroom/details/${[item.sala.id_sala, item.sala.nome, item.isAdmin]}`} key={index} onPress={() => {
+                                            setSearch("")
+                                            setFilteredClassroomList(data)
+                                        }}>
+                                            <S.ItensSeparator>
+                                                <Classroom
+                                                    funcaoUsuario={item.funcaoUsuario}
+                                                    id_salaUsuario={item.id_salaUsuario}
+                                                    sala={item.sala}
+                                                    usuario={item.usuario}
+                                                    isAdmin={item.isAdmin}
+                                                />
+                                            </S.ItensSeparator>
+                                        </Link>
+                                    )) : (
                                         <S.TitleScreen>Ainda não há salas cadastradas!</S.TitleScreen>
                                     )}
                                 </S.ClassroomList>
