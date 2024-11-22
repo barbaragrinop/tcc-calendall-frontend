@@ -1,21 +1,20 @@
 import { View, Text } from "react-native";
 import { Input } from "../Input";
-import * as  S from './style'
-import { useState } from "react";
+import * as  S from './style' 
 
 type Props = {
-    hours: string;
-    minutes: string;
-    seconds: string;
+    hours?: string;
+    minutes?: string;
+    seconds?: string;
     setHours: (value: string) => void;
     setMinutes: (value: string) => void;
     setSeconds: (value: string) => void;
 }
 
 export function CustomNotification({
-    hours = "1",
-    minutes = "1",
-    seconds = "1",
+    hours ,
+    minutes ,
+    seconds ,
     setHours,
     setMinutes,
     setSeconds

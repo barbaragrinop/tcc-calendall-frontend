@@ -1,10 +1,15 @@
 import * as S from "./style";
 import { useSession } from "@/app/contexts";
-import { Button, Input } from "@/components";
+import { Button, Header, Input } from "@/components";
 import { ErrorMessage } from "@/components/FormErrorMessage";
+import { COLORS } from "@/constants";
 import { useYup } from "@/hooks";
+import { faBell, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { Link, useNavigation } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { View, Text } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 type FormValues = {
     currentPassword: string
@@ -12,9 +17,9 @@ type FormValues = {
     confirmPassword: string
 }
 
-export function ChangePassword() {
+export function ChangePasswordScreen() {
     const { session } = useSession();
-    
+
     const { resolver } = useYup<FormValues>((yup) => {
         return yup.object().shape({
             currentPassword: yup.string().required("Senha atual é obrigatória"),
@@ -48,82 +53,36 @@ export function ChangePassword() {
     //         });
     //     }
     // }
-
+    const navigate = useNavigation()
     return (
+        <S.Wrap>
+            <Header.ProfileInfo />
+            <SafeAreaProvider>
+                <S.Container>
 
-        <View>
-            <Text>Alterar senha</Text>
-            <S.CollapseBody>
-                <Controller
-                    control={control}
-                    render={({ field: { onChange, value, onBlur }, fieldState: { error } }) => (
-                        <>
-                            <Input.Text
-                                label="Senha atual"
-                                placeholder="Digite sua senha atual"
-                                secureTextEntry
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                value={value}
-                                type="gray"
-                            />
-                            <ErrorMessage error={error?.message} />
+                    <S.TitleCreate>
+                        <S.TitleScreen>CONFIGURAÇÕES</S.TitleScreen>
+                    </S.TitleCreate>
 
-                        </>
-                    )}
-                    name="currentPassword"
-                    rules={{ required: "Senha atual é obrigatória" }}
-                />
+                    <S.ListOptions>
+                        <Link href="/(auth)/(tabs)/settings/change-password" onPress={() =>  navigate.navigate("(tabs)/")}>
+                            <S.Item style={{
+                                backgroundColor: COLORS.BLUE_3,
+                            }}>
+                                <FontAwesomeIcon icon={faKey} size={20} color="#fff" />
+                                <S.ItemText>Alterar Senha</S.ItemText>
+                            </S.Item>
+                        </Link>
+                        <S.Item style={{
+                            backgroundColor: COLORS.BLUE_3,
+                        }}>
+                            <FontAwesomeIcon icon={faBell} size={20} color="#fff" />
+                            <S.ItemText>Gerenciar Notificações</S.ItemText>
+                        </S.Item>
+                    </S.ListOptions>
 
-                <Controller
-                    control={control}
-                    render={({ field: { onChange, value, onBlur }, fieldState: { error } }) => (
-
-                        <Input.Text
-                            label="Nova senha"
-                            placeholder="Digite sua nova senha"
-                            onBlur={onBlur}
-                            secureTextEntry
-                            onChangeText={onChange}
-                            value={value}
-                            type="gray"
-                        />
-                    )}
-                    name="newPassword"
-                    rules={{ required: "Nova senha é obrigatória" }}
-                />
-
-                <Controller
-                    control={control}
-                    render={({ field: { onChange, value, onBlur }, fieldState: { error } }) => (
-
-                        <Input.Text
-                            label="Confirmar nova senha"
-                            placeholder="Confirme sua nova senha"
-                            secureTextEntry
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            type="gray"
-                        />
-                    )}
-                    name="confirmPassword"
-                    rules={{ required: "Confirmação de senha é obrigatória" }}
-                />
-
-                <S.ButtonSpace>
-                    <Button.White
-                        title="Salvar"
-                    // onPress={handleSubmit(onSubmit)}
-                    />
-                    <Button.Common
-                        title="Cancelar"
-                        color="dark"
-                    // onPress={handleSubmit(onSubmit)}
-                    />
-                </S.ButtonSpace>
-            </S.CollapseBody>
-        </View>
+                </S.Container>
+            </SafeAreaProvider>
+        </S.Wrap>
     );
-
 }

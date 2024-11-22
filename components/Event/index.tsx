@@ -19,11 +19,11 @@ type PersonalProps = {
     title: string;
     description: string;
     notificationType: string;
-    // origin: string
+    origin: string
 };
 
 function PersonalEvent(props: PersonalProps) {
-    const { description, priority, time, title, notificationType, date } =
+    const { description, priority, time, title, notificationType, date, origin } =
         props;
 
     const [open, setIsOpen] = useState<boolean>(false);
@@ -75,8 +75,7 @@ function PersonalEvent(props: PersonalProps) {
                             >
                                 criado em:
                             </Text>
-                            {/* <Text>{origin || ""}</Text> */}
-                            <Text>{"Sala 02"}</Text>
+                            <Text>{origin}</Text>
                         </View>
                     ) : (
                         <S.EventDescription numberOfLines={1}>

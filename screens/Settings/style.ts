@@ -58,7 +58,26 @@ export const ClassroomList = styled.ScrollView`
     max-width: 100%;
 `;
 
-export const ItensSeparator = styled.View`
-
+export const ListOptions = styled.View`
+  display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 20px 30px 20px;
 `
+
+export const Item = styled.View`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+`
+
+export const ItemText = styled.Text`
+    color: ${COLORS.WHITE};
+    font-size: 20px;
+    font-family: 'IBMPlexSansCondensedRegular';
+`
+
+
 

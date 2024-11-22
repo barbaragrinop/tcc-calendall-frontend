@@ -7,6 +7,7 @@ import { useFonts } from "expo-font";
 import { router, Slot } from "expo-router";
 import { useEffect } from "react";
 import { NotificationProvider } from "./contexts/NotificationContext";
+import { StatusBar } from "react-native";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({

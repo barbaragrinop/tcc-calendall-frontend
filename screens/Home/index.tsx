@@ -1,6 +1,7 @@
 import * as S from "./style";
+import * as Notifications from "expo-notifications";
 
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import { ActivityIndicator, View, StyleSheet, Button, Text } from "react-native";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Tabs, Event, Header } from "@/components";
@@ -12,9 +13,9 @@ import { usePersonalCalendarService } from "./hooks/usePersonalCalendarService";
 import { useSession } from "@/app/contexts";
 
 export function HomeScreen() {
-    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>(); 
+    const { data, isLoading } = usePersonalCalendarService<EventResponse[]>();
     const { todayEvents, nextEvents, Calendar } = usePersonalCalendar(data);
- 
+
     const today = format(new Date(), "dd/MMM", { locale: ptBR });
 
     return (
@@ -53,7 +54,7 @@ export function HomeScreen() {
                                                             description={event.description}
                                                             notificationType={event.notificationType}
                                                             priority={event.priority}
-                                                            // origin={"Sala 02"}
+                                                            origin={event.nm_origem}
                                                         />
                                                     ))}
                                                 </View>
@@ -83,7 +84,7 @@ export function HomeScreen() {
                                                             description={
                                                                 event.description
                                                             }
-                                                            // origin={"Sala 02"}
+                                                            origin={event.nm_origem}
                                                         />
                                                     ))}
                                                 </View>

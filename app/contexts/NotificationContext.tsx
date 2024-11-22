@@ -24,6 +24,8 @@ export function useNotification() {
     return context;
 }
 
+
+
 type Props = {
     children: ReactNode;
 }
@@ -48,6 +50,8 @@ export function NotificationProvider({ children }: Props) {
     const responseListener = useRef<EventSubscription>();
 
     useEffect(() => {
+        
+        
         registerForPushNotificationsAsync().then(
             (token) => setExpoPushToken(token),
             (error) => setError(error)
@@ -112,7 +116,6 @@ export function NotificationProvider({ children }: Props) {
                 data: JSON.stringify(message),
             })
 
-            console.log('response', response)
             return response
         } catch (error: any) {
             throw new Error("Erro ao enviar notificação!");

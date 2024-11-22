@@ -10,5 +10,5 @@ export type Event = {
     datetime?: string
     id_evento: number
     dt_criacao?: string
-    // nm_origem?: string
+    nm_origem: string
 };

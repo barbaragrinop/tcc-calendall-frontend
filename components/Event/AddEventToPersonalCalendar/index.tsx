@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
+import * as Notifications from 'expo-notifications';
 
 
 type FormValues = {
@@ -35,6 +36,9 @@ export function AddEventToPersonalCalendar({
 }: Omit<FormValues, "notificationType" | "priority">) {
     const [toggleModal, setToggleModal] = useState<boolean>(false);
     const [isLoadingPost, setIsLoadingPost] = useState<boolean>(false);
+    const [seconds, setSeconds] = useState<string>()
+    const [minutes, setMinutes] = useState<string>()
+    const [hours, setHours] = useState<string>()
 
     const { api } = useHttpCommon()
     const { mutate } = usePersonalCalendarService()
@@ -69,10 +73,29 @@ export function AddEventToPersonalCalendar({
         setToggleModal(false);
     }
 
+    function getSecondsBasedOnNotificationType() {
+
+        if (watch("notificationType") === "custom") {
+            const parseHours = hours ? parseInt(hours) * 60 * 60 : 0
+            const parseMinutes = minutes ? parseInt(minutes) * 60 : 0
+            const parseSeconds = seconds ? parseInt(seconds) : 0
+
+            return parseHours + parseMinutes + parseSeconds
+        }
+
+        if (watch("notificationType") === "hora") return 3600
+
+        if (watch("notificationType") === "dia") return 86400
+
+        if (watch("notificationType") === "semana") return 604800
+
+        return 604800
+    }
+
     async function handleAddToPersonalCalendar() {
         try {
             setIsLoadingPost(true)
-            await api({
+            const response = await api({
                 method: "POST",
                 url: `/eventoPessoal/${eventId}/criarEventoPessoal`,
                 data: {
@@ -80,12 +103,33 @@ export function AddEventToPersonalCalendar({
                     tipoNotificacao: watch("notificationType")
                 }
             })
-            
+            console.log('response', response)
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "Não esqueça do(a) " + watch("title"),
+                    priority: Notifications.AndroidNotificationPriority.HIGH,
+                    body: watch("description") || "",
+                },
+                trigger: {
+                    type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+                    seconds: getSecondsBasedOnNotificationType(),
+                    repeats: true,
+                },
+                // @ts-ignore
+                identifier: `calendario-sala-${response.data.evento.id_evento}`
+            });
+
+
+
             setIsLoadingPost(false)
             mutate()
             Alert.alert("Evento adicionado ao calendário pessoal com sucesso!")
             handleClose()
             reset()
+
+
+            console.log("nossa marcia")
+
         } catch (error: any) {
             setIsLoadingPost(false)
             Alert.alert("Erro ao adicionar evento ao calendário pessoal")
@@ -216,12 +260,12 @@ export function AddEventToPersonalCalendar({
                         {watchNotificationsType === "custom" && (
                             <S.CustomNotificationSpace>
                                 <CustomNotification
-                                    hours="1"
-                                    minutes="1"
-                                    seconds="1"
-                                    setHours={(value) => console.log(value)}
-                                    setMinutes={(value) => console.log(value)}
-                                    setSeconds={(value) => console.log(value)}
+                                    hours={hours}
+                                    minutes={minutes}
+                                    seconds={seconds}
+                                    setHours={setHours}
+                                    setMinutes={setMinutes}
+                                    setSeconds={setSeconds}
                                 />
                             </S.CustomNotificationSpace>
                         )}

@@ -13,7 +13,6 @@ import { useNotification } from "@/app/contexts/NotificationContext";
 export function LoginScreen() {
 
     const { signIn, session } = useSession();
-    const { sendCustomPushNotification }= useNotification()
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -63,7 +62,7 @@ export function LoginScreen() {
                             onChangeText={(e) => setPassword(e)}
                         />
 
-                        <TouchableOpacity onPress={() => sendCustomPushNotification()}>
+                        <TouchableOpacity onPress={() => signIn(email, password)}>
                             <S.Button>
                                 <S.ButtonText>entrar</S.ButtonText>
                             </S.Button>

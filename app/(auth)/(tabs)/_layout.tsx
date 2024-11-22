@@ -14,14 +14,14 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-    
+
     return (
         <Tabs
             screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
             initialRouteName="index"
         >
             <Tabs.Screen
-                name="settings"
+                name="settings/index"
                 options={{
                     title: "Config.",
                     tabBarIcon: ({ color }) => (
@@ -55,6 +55,13 @@ export default function TabLayout() {
 
             <Tabs.Screen
                 name="classroom/details/[idClassroom]"
+                options={{
+                    href: null
+                }}
+            />
+
+            <Tabs.Screen
+                name="settings/change-password"
                 options={{
                     href: null
                 }}
