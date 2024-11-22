@@ -17,6 +17,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { ErrorMessage } from '@/components/FormErrorMessage';
 import { usePersonalCalendarService } from '../hooks/usePersonalCalendarService';
 import { EventResponse } from '@/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FormValues = {
     title: string;
@@ -76,18 +77,24 @@ export function AddPersonalEvent() {
     }
 
     async function handleSubmitEvent() {
+
         try {
             const response = await api<EventResponse>({
                 method: 'POST',
                 url: '/eventoPessoal/criarEventoPessoal',
                 data: {
                     tipoPrioridade: watch("priority"),
-                    tipoNotificacao: watch("notificationType"),
+                    tipoNotificacao:`${ watch("notificationType")} - ${getSecondsBasedOnNotificationType()}`,
                     titulo: watch("title"),
                     descricao: watch("description"),
                     dt_evento: subHours(watch("datetime"), 3)
                 }
             })
+            console.log('response', response)
+            
+            await AsyncStorage.setItem(
+                `calendario-pessoal-${response.data.evento.id_evento}`, JSON.stringify(response.data.evento)
+            )
 
             Notifications.scheduleNotificationAsync({
                 content: {
@@ -102,6 +109,7 @@ export function AddPersonalEvent() {
                 },
                 identifier: `calendario-pessoal-${response.data.evento.id_evento}`
             });
+
             
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()

@@ -3,16 +3,6 @@ import styled from "styled-components/native";
 
 export const CollapseBody = styled.View``
 
-export const ButtonSpace = styled.View`
-    /* padding: 40px 0 0; */
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: space-around;
-`
-
-// export const 
-
 export const Wrap = styled.View`
     background-color: ${COLORS.BLUE_PRIMARY}; 
     flex: 1;
@@ -32,8 +22,9 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const TitleCreate = styled.View`
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     justify-content: space-between;
     padding: 20px 20px 30px 20px;
 `;
@@ -91,3 +82,10 @@ export const ItemText = styled.Text`
     font-family: 'IBMPlexSansCondensedRegular';
 `
 
+export const ButtonSpace = styled.View`
+    /* padding: 40px 0 0; */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-around;
+`

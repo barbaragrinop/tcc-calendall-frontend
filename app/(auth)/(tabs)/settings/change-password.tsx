@@ -1,4 +1,4 @@
-import { ChangePasswordScreen } from "@/screens/Settings/components/ChangePassword";
+import { ChangePasswordScreen } from "@/screens/Settings/ChangePassword";
 
 export default function ChangePassword() {
     return <ChangePasswordScreen />

@@ -5,7 +5,6 @@ import { COLORS } from "@/constants"
 export const Container = styled.View`
     width: 100%;
     height: auto;
-    margin: 10px 0;
     background-color: ${COLORS.GREY_EVENTBACKGROUND};
     border-radius: 10px;
 `

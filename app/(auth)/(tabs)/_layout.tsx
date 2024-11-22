@@ -66,6 +66,13 @@ export default function TabLayout() {
                     href: null
                 }}
             />
+
+            <Tabs.Screen
+                name="settings/manage-notifications"
+                options={{
+                    href: null
+                }}
+            />
         </Tabs>
     );
 }
