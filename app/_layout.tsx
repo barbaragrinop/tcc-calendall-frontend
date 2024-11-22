@@ -1,13 +1,20 @@
 import * as SplashScreen from "expo-splash-screen";
+import * as Notifications from "expo-notifications";
 import "react-native-reanimated";
 
-import { useFonts } from "expo-font";
-import { router, Slot, Stack } from "expo-router";
-import { useEffect } from "react";
 import SessionProvider, { useSession } from "./contexts";
-import { LoginScreen } from "@/screens/Login";
+import { useFonts } from "expo-font";
+import { router, Slot } from "expo-router";
+import { useEffect } from "react";
+import { NotificationProvider } from "./contexts/NotificationContext";
 
-export { Stack } from "expo-router";
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true, // mostra alerta
+        shouldPlaySound: true, // toca som
+        shouldSetBadge: true, // seta badge: ícone com número
+    }),
+})
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,7 +60,9 @@ export default function RootLayout() {
 function RootLayoutNav() {
     return (
         <SessionProvider>
-            <Slot />
+            <NotificationProvider>
+                <Slot />
+            </NotificationProvider>
         </SessionProvider>
     );
 }
