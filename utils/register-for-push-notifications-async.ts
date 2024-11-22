@@ -9,8 +9,6 @@ export async function registerForPushNotificationsAsync() {
     // o nome do canal é default (customizável)
     // varios podem ser criados
     // a importancia tem que ser max para aparecer em todos os dispositivos
-
-    console.log('teste', )
     if (Platform.OS === "android") {
         await Notifications.setNotificationChannelAsync('default', {
             name: 'default',
@@ -47,7 +45,6 @@ export async function registerForPushNotificationsAsync() {
                 await Notifications.getExpoPushTokenAsync({ // pega o token
                     projectId
                 })).data
-            console.log('pushTokenString', pushTokenString)
 
             return pushTokenString
         } catch (error) {

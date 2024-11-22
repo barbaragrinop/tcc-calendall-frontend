@@ -8,10 +8,12 @@ import { useSession } from "@/app/contexts";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNotification } from "@/app/contexts/NotificationContext";
 
 export function LoginScreen() {
 
     const { signIn, session } = useSession();
+    const { sendCustomPushNotification }= useNotification()
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -61,7 +63,7 @@ export function LoginScreen() {
                             onChangeText={(e) => setPassword(e)}
                         />
 
-                        <TouchableOpacity onPress={() => signIn(email, password)}>
+                        <TouchableOpacity onPress={() => sendCustomPushNotification()}>
                             <S.Button>
                                 <S.ButtonText>entrar</S.ButtonText>
                             </S.Button>
