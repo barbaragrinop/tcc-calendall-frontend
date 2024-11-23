@@ -262,6 +262,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
+                                    eventId={event.id_evento}
                                     date={event.date}
                                 />
                             )

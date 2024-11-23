@@ -20,24 +20,23 @@ type PersonalProps = {
     description: string;
     notificationType: string;
     origin: string
+    eventId: number
 };
 
 function PersonalEvent(props: PersonalProps) {
-    const { description, priority, time, title, notificationType, date, origin } =
+    const { description, priority, time, eventId, title, notificationType, date, origin, ...rest } =
         props;
 
     const [open, setIsOpen] = useState<boolean>(false);
 
 
     function formatTime(seconds: number) {
-        const time = addSeconds(new Date(0), seconds); // Adiciona os segundos a uma data base (epoch)
-
-        // Formata para horas, minutos e segundos
+        const time = addSeconds(new Date(0), seconds); 
+        
         const hours = seconds >= 3600 ? `${format(time, 'H')}h` : '';
         const minutes = seconds >= 60 ? `${format(time, 'm')}m` : '';
         const secs = `${format(time, 's')}s`;
 
-        // Combina os resultados em uma string
         return `${hours}${minutes}${secs}`.trim();
     }
 
@@ -158,6 +157,9 @@ function PersonalEvent(props: PersonalProps) {
                             <S.EventTopic> notificação: </S.EventTopic>
                             <Text>{notification}</Text>
                         </View>
+                    </View>
+                    <View>
+                        
                     </View>
                 </View>
             )}

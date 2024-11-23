@@ -47,6 +47,7 @@ export function HomeScreen() {
                                                 >
                                                     {todayEvents?.map((event, index) => (
                                                         <Event.Personal
+                                                            eventId={event.id_evento}
                                                             key={index}
                                                             date={event.date}
                                                             time={event.time}
@@ -68,12 +69,13 @@ export function HomeScreen() {
                                                         display: "flex",
                                                         justifyContent: "center",
                                                         alignItems: "center",
-                                                        padding: 10
+                                                        padding: 10,
                                                     }}
                                                 >
                                                     {nextEvents?.map((event, index) => (
                                                         <Event.Personal
                                                             key={index}
+                                                            eventId={event.id_evento}
                                                             notificationType={
                                                                 event.notificationType
                                                             }

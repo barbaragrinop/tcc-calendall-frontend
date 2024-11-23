@@ -73,16 +73,6 @@ export function SettingsScreen() {
                                 <S.ItemText>Alterar Senha</S.ItemText>
                             </S.Item>
                         </Link>
-                        <Link
-                            href="/(auth)/(tabs)/settings/manage-notifications"
-                        >
-                            <S.Item style={{
-                                backgroundColor: COLORS.BLUE_3,
-                            }}>
-                                <FontAwesomeIcon icon={faBell} size={20} color="#fff" />
-                                <S.ItemText>Gerenciar Notificações</S.ItemText>
-                            </S.Item>
-                        </Link>
                     </S.ListOptions>
 
                 </S.Container>

@@ -102,7 +102,15 @@ export const ItemEvent = styled.View`
 
 
 export const ActiveNotification = styled.Text`
-    
-    text-align: end;
+    /* text-align: end; */
+    padding: 10px;
+`
+
+export const ConfirmSpace = styled.View`
+    display: "flex";
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 `
 

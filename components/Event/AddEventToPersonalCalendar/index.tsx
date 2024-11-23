@@ -103,13 +103,13 @@ export function AddEventToPersonalCalendar({
                     tipoNotificacao: watch("notificationType")
                 }
             })
-            console.log('response', response)
+            
             Notifications.scheduleNotificationAsync({
                 content: {
                     title: "Não esqueça do(a) " + watch("title"),
                     priority: Notifications.AndroidNotificationPriority.HIGH,
                     body: watch("description") || "",
-                },
+                }, 
                 trigger: {
                     type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
                     seconds: getSecondsBasedOnNotificationType(),
