@@ -1,11 +1,11 @@
 export type EventResponse = {
+    nm_origem: string;
     evento: {
         descricao: string;
         dt_evento: string;
         ic_completa: boolean;
         id_evento: number;
         titulo: string;
-        // nm_origem?: string;
     };
     id: number;
     tipoNotificacao: string;

@@ -9,13 +9,14 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundlerIdentifier": "dev.expo.calendallnotifications",
+      "bundleIdentifier": "dev.expo.calendallnotifications",
       "config": {
         "usesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "dev.expo.calendallnotifications"
+      "package": "dev.expo.calendallnotifications", 
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +39,11 @@
       "eas": {
         "projectId": "9a8c8d3c-c4b8-438f-b357-4c731fed33cb"
       }
+    },
+    "splash": {
+      "image": "./assets/images/logo-calendall.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#25292e"
     },
     "owner": "bhellen"
   }

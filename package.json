@@ -55,7 +55,8 @@
     "yup": "^1.4.0",
     "yup-locales": "^1.2.28",
     "expo-notifications": "~0.29.8",
-    "expo-device": "~7.0.1"
+    "expo-device": "~7.0.1",
+    "expo-dev-client": "~5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

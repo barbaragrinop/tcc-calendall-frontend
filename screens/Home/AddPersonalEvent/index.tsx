@@ -1,8 +1,9 @@
 import * as S from './style'
 import Collapsible from 'react-native-collapsible';
+import * as Notifications from 'expo-notifications';
 
 import { useHttpCommon, useYup } from "@/hooks";
-import { Alert, Pressable, View } from "react-native";
+import { Alert, Pressable, View, Text } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Button, CustomNotification, Input, RequiredSymbol } from "@/components";
 import { format, subHours } from "date-fns";
@@ -15,6 +16,8 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import { ErrorMessage } from '@/components/FormErrorMessage';
 import { usePersonalCalendarService } from '../hooks/usePersonalCalendarService';
+import { EventResponse } from '@/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FormValues = {
     title: string;
@@ -28,6 +31,10 @@ export function AddPersonalEvent() {
     const [isCollapsed, setIsCollapsed] = useState(true)
     const { api } = useHttpCommon()
     const { mutate } = usePersonalCalendarService()
+
+    const [seconds, setSeconds] = useState<string>()
+    const [minutes, setMinutes] = useState<string>()
+    const [hours, setHours] = useState<string>()
 
     const { resolver } = useYup<FormValues>((yup) => {
         return yup.object().shape({
@@ -50,19 +57,60 @@ export function AddPersonalEvent() {
         }
     })
 
+    function getSecondsBasedOnNotificationType() {
+
+        if (watch("notificationType") === "custom") {
+            const parseHours = hours ? parseInt(hours) * 60 * 60 : 0
+            const parseMinutes = minutes ? parseInt(minutes) * 60 : 0
+            const parseSeconds = seconds ? parseInt(seconds) : 0
+
+            return parseHours + parseMinutes + parseSeconds
+        }
+
+        if (watch("notificationType") === "hora") return 3600
+
+        if (watch("notificationType") === "dia") return 86400
+
+        if (watch("notificationType") === "semana") return 604800
+
+        return 604800
+    }
+
     async function handleSubmitEvent() {
+
         try {
-            const response = await api({
+            const response = await api<EventResponse>({
                 method: 'POST',
                 url: '/eventoPessoal/criarEventoPessoal',
                 data: {
                     tipoPrioridade: watch("priority"),
-                    tipoNotificacao: watch("notificationType"),
+                    tipoNotificacao:`${ watch("notificationType")} - ${getSecondsBasedOnNotificationType()}`,
                     titulo: watch("title"),
                     descricao: watch("description"),
                     dt_evento: subHours(watch("datetime"), 3)
                 }
             })
+            console.log('response', response)
+            
+            await AsyncStorage.setItem(
+                `calendario-pessoal-${response.data.evento.id_evento}`, JSON.stringify(response.data.evento)
+            )
+
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "Não esqueça do(a) " + watch("title"),
+                    priority: Notifications.AndroidNotificationPriority.HIGH, 
+                    body: watch("description") || "", 
+                },
+                trigger: {
+                    type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+                    seconds: getSecondsBasedOnNotificationType(),
+                    repeats: true,
+                },
+                identifier: `calendario-pessoal-${response.data.evento.id_evento}`
+            });
+
+            
             Alert.alert('Sucesso!', 'Evento criado com sucesso!')
             reset()
             setIsCollapsed(true)
@@ -96,7 +144,6 @@ export function AddPersonalEvent() {
                     </S.CollapseIconSpace>
                 </S.HeaderCollapse>
             </Pressable>
-
             <Collapsible collapsed={isCollapsed}>
                 <S.CollapseBody>
                     <Controller
@@ -167,7 +214,6 @@ export function AddPersonalEvent() {
                         name="notificationType"
                         render={({ field: { onChange, value, onBlur, }, fieldState: { error } }) => (
                             <View>
-
                                 <Dropdown
                                     data={[
                                         { label: "A cada hora", value: "hora" },
@@ -201,12 +247,12 @@ export function AddPersonalEvent() {
                     {watchNotificationsType === "custom" && (
                         <S.CustomNotificationSpace>
                             <CustomNotification
-                                hours="1"
-                                minutes="1"
-                                seconds="1"
-                                setHours={(value) => console.log(value)}
-                                setMinutes={(value) => console.log(value)}
-                                setSeconds={(value) => console.log(value)}
+                                hours={hours}
+                                minutes={minutes}
+                                seconds={seconds}
+                                setHours={setHours}
+                                setMinutes={setMinutes}
+                                setSeconds={setSeconds}
                             />
                         </S.CustomNotificationSpace>
                     )}
@@ -269,7 +315,6 @@ export function AddPersonalEvent() {
             </Collapsible>
         </>
     )
-
 
 
 }

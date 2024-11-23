@@ -65,10 +65,7 @@ function HeaderProfileInfo() {
 
                 {isOptionsOpen && (
                     <Dropdown items={[
-                        {
-                            title: "Perfil",
-                            action: () => console.log("perfil building")
-                        },
+                        
                         {
                             title: "Sair",
                             action: () => signOut()

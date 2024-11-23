@@ -3,16 +3,6 @@ import styled from "styled-components/native";
 
 export const CollapseBody = styled.View``
 
-export const ButtonSpace = styled.View`
-    /* padding: 40px 0 0; */
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: space-around;
-`
-
-// export const 
-
 export const Wrap = styled.View`
     background-color: ${COLORS.BLUE_PRIMARY}; 
     flex: 1;
@@ -33,8 +23,9 @@ export const Container = styled.SafeAreaView`
 
 export const TitleCreate = styled.View`
     flex-direction: column;
-    display: flex;
     align-items: flex-start;
+    gap: 10px;
+    justify-content: space-between;
     padding: 20px 20px 30px 20px;
 `;
 
@@ -49,7 +40,6 @@ export const TitleScreen = styled.Text`
     font-weight: bold;
     font-family: 'IBMPlexSansCondensedBold';
 `;
-
 
 export const ButtonCreateClassroom = styled.TouchableOpacity`
     background-color: ${COLORS.WHITE};
@@ -90,5 +80,37 @@ export const ItemText = styled.Text`
     color: ${COLORS.WHITE};
     font-size: 20px;
     font-family: 'IBMPlexSansCondensedRegular';
+`
+
+export const ButtonSpace = styled.View`
+    /* padding: 40px 0 0; */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-around;
+`
+
+export const ItemEvent = styled.View`
+    display: "flex";
+    flex-direction: "column";
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-color: #fff;
+    border-radius: 10px;
+`
+
+
+export const ActiveNotification = styled.Text`
+    /* text-align: end; */
+    padding: 10px;
+`
+
+export const ConfirmSpace = styled.View`
+    display: "flex";
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 `
 

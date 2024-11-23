@@ -156,11 +156,11 @@ function InputDatePicker(props: InputDatePickerProps) {
     }
 
     function getCalendarBasedOnPlatform() {
-        if (Platform.OS === 'android') {
-            // Em Android, o picker é gerenciado por handleAndroidDateTimePicker()
-            return null;
+        if (Platform.OS === 'android' && mode === "datetime") {
+            handleAndroidDateTimePicker()
         }
-
+ 
+        
         // Em iOS, renderiza o picker normalmente
         return (
             <DateTimePicker

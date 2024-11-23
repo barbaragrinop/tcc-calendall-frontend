@@ -8,6 +8,8 @@ import { useSession } from "@/app/contexts";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNotification } from "@/app/contexts/NotificationContext";
+import * as Notifications from 'expo-notifications'
 
 export function LoginScreen() {
 
@@ -18,6 +20,7 @@ export function LoginScreen() {
 
     useEffect(() => {
         if (session) router.replace("/(auth)/(tabs)");
+        console.log('session', session)
     }, [session])
 
 
@@ -26,6 +29,7 @@ export function LoginScreen() {
             await AsyncStorage.removeItem("session");
         };
         removeSession();
+        Notifications.cancelAllScheduledNotificationsAsync();
     }, [])
 
     return (

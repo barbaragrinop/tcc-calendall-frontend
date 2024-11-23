@@ -1,5 +1,3 @@
-import { useSession } from "@/app/contexts"
-import { User } from "@/types"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { useEffect, useState } from "react"

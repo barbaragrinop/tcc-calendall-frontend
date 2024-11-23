@@ -64,7 +64,7 @@ LocaleConfig.defaultLocale = "fr";
 
 type CalendarProps = RNCalendarProps & ContextProp;
 
-export function usePersonalCalendar(outsideData?: EventResponse[]) { 
+export function usePersonalCalendar(outsideData?: EventResponse[]) {
     const [todayDate, setToday] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<DateData | null>()
     const [data, setData] = useState<EventResponse[]>([])
@@ -116,7 +116,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
     const formatEvent = (item: EventResponse): Event => {
         if (!item) return {} as Event;
 
-        const { evento, tipoNotificacao, tipoPrioridade } = item;
+        const { evento, tipoNotificacao, tipoPrioridade, nm_origem } = item;
         const parsedDate = parseISO(evento.dt_evento);
 
         return {
@@ -127,7 +127,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
             title: evento.titulo,
             description: evento.descricao,
             id_evento: evento.id_evento,
-            // nm_origem: "Pessoal",
+            nm_origem: nm_origem,
         };
     };
 
@@ -145,7 +145,7 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
     }, [data, todayDate])
 
     const nextEvents = useMemo<Event[]>(() => {
-        if (!data) return []; 
+        if (!data) return [];
 
         const aux = data?.filter((item) => {
             const eventDate = format(parseISO(item.evento.dt_evento), "yyyy-MM-dd")
@@ -255,13 +255,14 @@ export function usePersonalCalendar(outsideData?: EventResponse[]) {
                         {eventsFromSelectedDate?.map((event, index) => {
                             return (
                                 <EventComponent.Personal
-                                    // origin={"Sala 02"}
+                                    origin={event.nm_origem}
                                     key={index}
                                     notificationType={event.notificationType}
                                     priority={event.priority}
                                     time={event.time}
                                     title={event.title}
                                     description={event.description}
+                                    eventId={event.id_evento}
                                     date={event.date}
                                 />
                             )

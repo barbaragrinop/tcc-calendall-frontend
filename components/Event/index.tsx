@@ -1,6 +1,6 @@
 import * as S from "./style";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Priority } from "@/types";
 import { COLORS } from "@/constants";
@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { EllipsisIcon } from "../EllipsisIcon";
-import { format } from "date-fns";
+import { addSeconds, format } from "date-fns";
 import { Button } from "../Button";
 import { AddEventToPersonalCalendar } from "./AddEventToPersonalCalendar";
 
@@ -19,14 +19,40 @@ type PersonalProps = {
     title: string;
     description: string;
     notificationType: string;
-    // origin: string
+    origin: string
+    eventId: number
 };
 
 function PersonalEvent(props: PersonalProps) {
-    const { description, priority, time, title, notificationType, date } =
+    const { description, priority, time, eventId, title, notificationType, date, origin, ...rest } =
         props;
 
     const [open, setIsOpen] = useState<boolean>(false);
+
+
+    function formatTime(seconds: number) {
+        const time = addSeconds(new Date(0), seconds); 
+        
+        const hours = seconds >= 3600 ? `${format(time, 'H')}h` : '';
+        const minutes = seconds >= 60 ? `${format(time, 'm')}m` : '';
+        const secs = `${format(time, 's')}s`;
+
+        return `${hours}${minutes}${secs}`.trim();
+    }
+
+
+    const notification = useMemo(() => {
+        const aux = notificationType.split("-");
+
+        if (aux.length === 1) {
+            return aux
+        }
+
+        const [_, seconds] = aux;
+
+        return `a cada ${formatTime(Number(seconds))}`;
+
+    }, [notificationType])
 
     function getColorBasedOnPriority() {
         if (priority === "ALTA") {
@@ -75,8 +101,7 @@ function PersonalEvent(props: PersonalProps) {
                             >
                                 criado em:
                             </Text>
-                            {/* <Text>{origin || ""}</Text> */}
-                            <Text>{"Sala 02"}</Text>
+                            <Text>{origin}</Text>
                         </View>
                     ) : (
                         <S.EventDescription numberOfLines={1}>
@@ -130,8 +155,11 @@ function PersonalEvent(props: PersonalProps) {
                             }}
                         >
                             <S.EventTopic> notificação: </S.EventTopic>
-                            <Text>{notificationType}</Text>
+                            <Text>{notification}</Text>
                         </View>
+                    </View>
+                    <View>
+                        
                     </View>
                 </View>
             )}
@@ -147,8 +175,8 @@ type ClassroomProps = Omit<PersonalProps, "priority" | "notificationType"> & {
 
 function ClassroomEvent(props: ClassroomProps) {
     const { description, time, title, date, datetime, createdAt } =
-    props;
-     
+        props;
+
     const [open, setIsOpen] = useState<boolean>(false);
 
 
@@ -216,7 +244,7 @@ function ClassroomEvent(props: ClassroomProps) {
                         }}
 
                     >
-                        {date && datetime && props.id &&(
+                        {date && datetime && props.id && (
                             <AddEventToPersonalCalendar
                                 datetime={datetime}
                                 description={description}

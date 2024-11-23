@@ -131,7 +131,6 @@ export function RegisterUserScreen() {
                                     textColor="white"
                                     label="data de nascimento"
                                     required
-                                    editable={false}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     onChange={value => onChange(value)}

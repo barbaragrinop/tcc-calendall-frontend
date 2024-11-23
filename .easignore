@@ -42,11 +42,12 @@ expo-env.d.ts
 # @end expo-cli
 
 calendall-notification-firebase-adminsdk-dfq0q-3ff486cea4.json
-google-services.json
+
+
 #idea folder
 .idea/
 
-#andoid folder
+#android folder
 android
 ios
 
